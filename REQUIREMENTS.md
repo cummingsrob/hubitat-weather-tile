@@ -1,6 +1,6 @@
 # Requirements (draft)
 
-Status: **draft, all open questions answered (2026-10-28)**. No code yet.
+Status: **approved; v0.1.0 implemented (2026-10-28)**. See README for what is and isn't built yet.
 
 ## 1. Goals / non-goals
 
