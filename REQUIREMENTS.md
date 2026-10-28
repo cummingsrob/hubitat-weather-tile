@@ -1,6 +1,6 @@
 # Requirements (draft)
 
-Status: **draft, decisions recorded (2026-10-28)**. No code yet.
+Status: **draft, all open questions answered (2026-10-28)**. No code yet.
 
 ## 1. Goals / non-goals
 
@@ -27,13 +27,16 @@ Status: **draft, decisions recorded (2026-10-28)**. No code yet.
 - NWS: resolve the gridpoint once and cache it; re-resolve if the location changes.
 
 ## 4. Settings
-- Units: temperature °F/°C (default from hub), precipitation in/mm.
-- Days shown (e.g. 3–7) and the start day (today/tomorrow).
+- Weather source: Open-Meteo (default) or NWS (free, no key), or a custom/keyed provider with **API base URL + API key** fields.
+- Units: default follows the hub; override for temperature °F/°C and precipitation in/mm.
+- Days shown: configurable (1–7); default **today + 6 days (7 total)**.
 - Refresh/cache interval (default 30 min; min 15 min).
-- Icon set: Outline (default), Filled (if supplied, see §9).
+- Icon pack: default **Rob's colored set** (derived from erikflowers); other packs per §12.
+- Theme: default **dark background with light icons/text**; light (and possibly auto) selectable.
 - Colors (text, highs/lows, rain, background, icon tint), font family/size, background transparent/solid, corner radius.
 - Show/hide rain % and rain amount; hide zero values.
 - Day labels: weekday short/long, "Today"/"Tomorrow", date format.
+- Last-updated: show/hide; default format `Updated MMM d, h:mm a` (e.g. "Updated Oct 28, 5:40 PM"), hub time zone, rendered tiny.
 - Endpoint: local vs cloud URL for the tile attribute.
 - Logging level.
 
@@ -63,7 +66,7 @@ Status: **draft, decisions recorded (2026-10-28)**. No code yet.
 - This project: Apache License 2.0.
 - Design and portions derived from **Rachio-Community**, Apache 2.0, © 2018 Anthony Santilli, © 2024 lnjustin. Keep the notices and NOTICE/attribution.
 - **Outline icons:** erikflowers/weather-icons, SIL OFL 1.1. Include the license text.
-- **Filled icons:** Rob's own designs (repo owner), separate from Rachio's icons; color-modified from erikflowers/weather-icons (font SIL OFL 1.1, code MIT, docs CC BY 3.0). Rob will supply the SVGs. Keep OFL attribution; don't use the reserved font name for modified versions.
+- **Filled icons:** Rob's own designs (repo owner), separate from Rachio's icons; color-modified from erikflowers/weather-icons (font SIL OFL 1.1, code MIT, docs CC BY 3.0). Shipped under **SIL OFL 1.1** with attribution (see §10.12). No reserved font name used.
 - **Excluded:** the Freepik/flaticon-derived rain drop, icicle and rain sensor icons, unless properly licensed.
 
 ## 10. Decisions (from Rob, 2026-10-28)
@@ -77,9 +80,12 @@ Status: **draft, decisions recorded (2026-10-28)**. No code yet.
 8. **Extra fields** (current conditions, wind, humidity, sunrise/sunset, alerts): optional toggles, **off by default**; v2 candidates.
 9. **Look:** selectable icon packs and dark/light mode (see §12). Default colors need not match the Home Restyle dashboard.
 10. **Distribution:** Hubitat Package Manager once stable (later milestone).
-11. **Last updated:** shown on the tile (format is a setting, hub time zone) and exposed as an attribute.
+11. **Last updated:** shown on the tile (format is a setting, hub time zone) and exposed as an attribute. Default format like **"Updated Oct 28, 5:40 PM"**, rendered **tiny** (small font, low emphasis).
+12. **Icon license:** Rob has no preference. Because his icons are modified from erikflowers/weather-icons (SIL OFL 1.1), they ship under **OFL 1.1 with attribution** (required for derivatives); no reserved font name used. Repo code stays **Apache-2.0**.
+13. **Attributes:** §11 list approved as a starting point; can be edited later.
+14. **Defaults:** theme = **dark background, light icons**; icon pack = **Rob's colored set**. SVG source: the inline SVG definitions in lnjustin/Rachio-Community code (to be extracted at build time; not extracted yet), or files Rob provides.
 
-## 11. Device attributes (PROPOSAL)
+## 11. Device attributes (approved starting point)
 Per day *n* = 0..6 (only up to the configured day count):
 - `day{n}Date` (yyyy-MM-dd), `day{n}Label` (e.g. "Today", "Wed")
 - `day{n}High`, `day{n}Low` (number, in selected units)
@@ -114,7 +120,4 @@ Candidates (licenses verified 2026-10-28):
 - **Future item (not started):** multicolor variant of erikflowers icons — white clouds, yellow sun, blue rain. Some glyphs are single combined shapes and need hand-splitting. OFL allows modification with attribution and no reserved-name reuse.
 
 ## 13. Remaining open questions
-1. License Rob grants for his filled SVGs in this repo (Apache 2.0, OFL, or other)?
-2. Confirm the proposed attribute list in §11.
-3. Default icon pack and default theme (dark or light)?
-4. Default last-updated format (e.g. `MMM d h:mm a`)?
+None at this time.
