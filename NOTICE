@@ -1,0 +1,15 @@
+hubitat-weather-tile
+Copyright 2026 Rob Cummings
+
+Licensed under the Apache License, Version 2.0 (see LICENSE), except the weather icon
+SVG path data, which is licensed under the SIL Open Font License 1.1 (see ICONS-LICENSE.txt).
+
+This product includes design and code adapted from Rachio-Community
+(https://github.com/lnjustin/Rachio-Community), Apache License 2.0:
+  Copyright 2018 Anthony Santilli
+  Copyright 2024 lnjustin
+Adapted: serving a forecast SVG from an OAuth app endpoint, the forecast strip layout,
+CSS-class icon coloring, and the Open-Meteo daily request.
+
+Weather icons derived from erikflowers/weather-icons (SIL OFL 1.1).
+Forecast data: Open-Meteo (https://open-meteo.com, CC BY 4.0) and the US National Weather Service.
