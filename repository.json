@@ -1,0 +1,14 @@
+{
+  "author": "Rob Cummings",
+  "gitHubUrl": "https://github.com/cummingsrob",
+  "payPalUrl": "",
+  "packages": [
+    {
+      "name": "Weather Tile",
+      "category": "Convenience",
+      "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/packageManifest.json",
+      "description": "Multi-day forecast strip tile for Hubitat dashboards (Open-Meteo, NWS, or keyed provider).",
+      "tags": ["Weather", "Dashboards"]
+    }
+  ]
+}
