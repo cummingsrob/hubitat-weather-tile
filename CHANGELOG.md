@@ -1,9 +1,13 @@
 # Changelog
 
 ## Next up
-- Monochrome pack from the erikflowers font files.
 - More optional pack libraries: Makin-Things (MIT), Tabler (MIT), Lucide (ISC), amCharts (CC BY 4.0).
-- Night icons for today's slot only (before sunrise / after sunset; NWS "Tonight"); future days stay daytime.
+- Night variants for Rob's filled and Rob's outline packs.
+
+## 0.2.11 - 2026-10-29
+- New icon pack **Monochrome (erikflowers)** (library `cummingsrob.WeatherTileIconsMono`), built from erikflowers/weather-icons font glyphs exported as SVG paths. Single color that follows the theme text color; day and night variants. `tools/gen_mono.py` regenerates it.
+- Night icons for today's slot only: before sunrise and after sunset, today shows a night variant. Sun times come from Open-Meteo (`sunrise`/`sunset`) or the hub location; NWS uses the overnight/tonight period's forecast for the night condition. The tile redraws at sunrise and sunset. Future days stay daytime. Packs without a night variant keep the day icon. The Animate icons setting still applies.
+- Meteocons packs gain night variants (clear-night, partly-cloudy-night and so on).
 
 ## 0.2.10 - 2026-10-29
 - Icon pack menu labels now credit Rob: "Rob's colored set (default)" is **Rob's filled (default)** and "Outline (erikflowers)" is **Rob's outline** (both modified from erikflowers/weather-icons). Library names, file names and pack keys (`filled`, `outline`) are unchanged, so existing tiles keep their setting. ICONS-LICENSE.txt, NOTICE and README updated.

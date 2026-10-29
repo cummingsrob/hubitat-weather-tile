@@ -124,7 +124,7 @@ None at this time.
 
 ## Next up (Rob's to-dos)
 - Done in 0.2.10: icon packs renamed to credit Rob: **Rob's filled (default)** and **Rob's outline**, each modified from erikflowers/weather-icons. Library names and pack keys unchanged.
-- **Monochrome pack** built from the erikflowers font files.
+- Done in 0.2.11: **Monochrome (erikflowers)** pack from the erikflowers font glyphs.
 - **More open-source packs as optional libraries:** Makin-Things weather-icons (MIT), Tabler Icons (MIT), Lucide (ISC), amCharts animated weather icons (CC BY 4.0, attribution required).
 - Done in 0.2.9: Meteocons static and animated packs, with an Animate icons setting.
-- **Night icons for today's slot only:** before sunrise or after sunset (from sunrise/sunset times; NWS "Tonight" period), show the night icon for today. Future days always use daytime icons.
+- Done in 0.2.11 (Meteocons and Monochrome; Rob's packs fall back to day icons): **Night icons for today's slot only:** before sunrise or after sunset (from sunrise/sunset times; NWS "Tonight" period), show the night icon for today. Future days always use daytime icons.

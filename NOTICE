@@ -13,6 +13,8 @@ CSS-class icon coloring, and the Open-Meteo daily request.
 
 Icon packs "Rob's filled" and "Rob's outline": by Rob Cummings, modified from
 erikflowers/weather-icons (SIL OFL 1.1).
+Icon pack "Monochrome (erikflowers)": erikflowers/weather-icons glyphs (SVG exports of the
+font), unmodified apart from scaling and a single fill class; SIL OFL 1.1.
 Forecast data: Open-Meteo (https://open-meteo.com, CC BY 4.0) and the US National Weather Service.
 
 Meteocons weather icons by Bas Milius (https://github.com/basmilius/weather-icons), MIT License

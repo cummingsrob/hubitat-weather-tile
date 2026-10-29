@@ -9,6 +9,8 @@ These derivatives do not use the upstream font name.
 Icon packs "Rob's filled" (library cummingsrob.WeatherTileIcons) and "Rob's outline"
 (library cummingsrob.WeatherTileIconsOutline): Copyright (c) 2026 Rob Cummings, modified from
 the original below. No Reserved Font Name is used.
+Icon pack "Monochrome (erikflowers)" (library cummingsrob.WeatherTileIconsMono): glyphs from
+the original below (svg/ exports of the font), scaled and given one fill class. SIL OFL 1.1.
 
 Copyright (c) 2013-2017, Erik Flowers, Lukas Bischoff (http://erikflowers.github.io/weather-icons).
 Copyright (c) 2024-2026, Rob Cummings (modifications).
