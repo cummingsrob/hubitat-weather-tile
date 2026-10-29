@@ -9,6 +9,8 @@ A multi-day weather forecast for Hubitat Elevation: a dashboard tile, plus a dev
 - **Configurable:** 1-7 days, units, dark or light theme, transparent background, fonts and colors, icon pack, and which values show.
 - **No dependencies:** built-in Hubitat APIs only.
 
+![Current conditions above the forecast](docs/preview-current.png)
+
 **Version:** 0.2.20 ([changelog](CHANGELOG.md)). Requirements and roadmap: [REQUIREMENTS.md](REQUIREMENTS.md).
 
 ## Quick install
