@@ -4,8 +4,14 @@
   "version": "0.2.15",
   "minimumHEVersion": "2.3.0",
   "dateReleased": "2026-10-29",
+  "category": "Convenience",
+  "tags": [
+    "Weather",
+    "Dashboards"
+  ],
   "documentationLink": "https://github.com/cummingsrob/hubitat-weather-watcher#readme",
   "licenseFile": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/LICENSE",
+  "gitHubUrl": "https://github.com/cummingsrob/hubitat-weather-watcher",
   "releaseNotes": "0.2.15: Weather Watcher. Multi-day forecast dashboard tile (attribute weatherWatcher) plus weather attributes for rules; NWS or Open-Meteo; five icon packs; night icons.",
   "bundles": [
     {
