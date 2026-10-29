@@ -5,7 +5,6 @@
   "minimumHEVersion": "2.3.0",
   "dateReleased": "2026-10-29",
   "documentationLink": "https://github.com/cummingsrob/hubitat-weather-watcher#readme",
-  "communityLink": "",
   "licenseFile": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/LICENSE",
   "releaseNotes": "0.2.15: Weather Watcher. Multi-day forecast dashboard tile (attribute weatherWatcher) plus weather attributes for rules; NWS or Open-Meteo; five icon packs; night icons.",
   "bundles": [
@@ -14,8 +13,7 @@
       "name": "WeatherWatcher",
       "namespace": "cummingsrob",
       "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/bundle-library.zip?v=0.2.15",
-      "required": true,
-      "version": "0.2.15"
+      "required": true
     }
   ],
   "apps": [
