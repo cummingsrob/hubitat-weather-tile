@@ -19,7 +19,8 @@
       "name": "WeatherWatcher",
       "namespace": "cummingsrob",
       "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/bundle-library.zip?v=0.2.15",
-      "required": true
+      "required": true,
+      "description": "Icon pack libraries (five packs) used by the Weather Watcher app."
     }
   ],
   "apps": [
@@ -30,7 +31,8 @@
       "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/apps/WeatherWatcherManager.groovy?v=0.2.15",
       "required": true,
       "primary": true,
-      "oauth": false
+      "oauth": false,
+      "description": "Parent app: add and manage Weather Watcher forecasts."
     },
     {
       "id": "b4e9f0a7-3c21-4d58-8e1f-7a90c6d2b302",
@@ -39,7 +41,8 @@
       "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/apps/WeatherWatcherInstance.groovy?v=0.2.15",
       "required": true,
       "primary": false,
-      "oauth": true
+      "oauth": true,
+      "description": "Child app: fetches the forecast and serves the dashboard SVG (OAuth endpoint)."
     }
   ],
   "drivers": [
@@ -48,7 +51,8 @@
       "name": "Weather Watcher Device",
       "namespace": "cummingsrob",
       "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/drivers/WeatherWatcherDevice.groovy?v=0.2.15",
-      "required": true
+      "required": true,
+      "description": "Child device: weatherWatcher tile attribute plus weather attributes for rules."
     }
   ]
 }
