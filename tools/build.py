@@ -41,3 +41,16 @@ def expand(src):
 os.makedirs(os.path.join(ROOT, "build"), exist_ok=True)
 open(os.path.join(ROOT, "build/WeatherTileInstance.expanded.groovy"), "w").write(expand(rd("apps/WeatherTileInstance.groovy")))
 print("built bundle.zip, bundle-library.zip, build/WeatherTileInstance.expanded.groovy")
+
+# Cache-busting: point every manifest location at ?v=<version> so hubs skip GitHub raw's stale cache
+import json
+mp = os.path.join(ROOT, "packageManifest.json")
+m = json.load(open(mp, encoding="utf-8"))
+v = m["version"]
+for sect in ("bundles", "apps", "drivers"):
+    for e in m.get(sect, []):
+        e["location"] = e["location"].split("?", 1)[0] + "?v=" + v
+        if sect == "bundles":
+            e["version"] = v
+open(mp, "w", encoding="utf-8").write(json.dumps(m, indent=2, ensure_ascii=True) + "\n")
+print("manifest locations set to ?v=" + v)

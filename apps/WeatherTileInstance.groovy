@@ -132,7 +132,8 @@ def mainPage() {
             input "showPrecipAmount", "bool", title: "Show rain amount", defaultValue: true
             input "hideZero", "bool", title: "Hide zero rain values", defaultValue: true
             input "showUpdated", "bool", title: "Show last-updated line (tiny)", defaultValue: true
-            input "updatedFormat", "text", title: "Last-updated format (Java date pattern)", defaultValue: "'Updated' MMM d, h:mm a"
+            input "updatedShowPlace", "bool", title: "Start the last-updated line with the location (label, or place name looked up from latitude/longitude)", defaultValue: true
+            input "updatedFormat", "text", title: "Last-updated time format (Java date pattern)", defaultValue: "MMM d, h:mm a"
         }
         section("Color overrides (optional, e.g. #ffcc00)", hideable: true, hidden: true) {
             ["bg": "Background", "text": "Day text", "cloud": "Clouds", "light": "Sun", "precip": "Rain", "frozen": "Snow / ice",
@@ -183,6 +184,7 @@ def initialize() {
     ensureDevice()
     String key = locationKey()
     if (state.nwsKey != key) { state.nwsForecastUrl = null }
+    if (state.placeKey != key) { state.placeName = null; state.placeKey = null; state.placeTried = 0L }
     state.failCount = 0
     state.nextAllowed = 0
     Integer m = (settings.refreshMinutes ?: "30") as Integer
@@ -255,6 +257,7 @@ def scheduledRefresh() {
 def refreshForecast() {
     String src = settings.source ?: "open-meteo"
     logDebug "Fetching forecast from ${src}"
+    if (!settings.locationLabel && state.placeKey != locationKey() && now() - ((state.placeTried ?: 0L) as Long) > 86400000L) lookupPlace()
     if (src == "nws") fetchNws()
     else if (src == "custom") fetchCustom()
     else fetchOpenMeteo()
@@ -349,6 +352,10 @@ def handleNwsPoints(resp, data) {
         String url = respJson(resp)?.properties?.forecast
         if (!url) { onFailure("NWS: no forecast URL for this location (US only)"); return }
         state.nwsForecastUrl = url
+        try {
+            def rl = respJson(resp)?.properties?.relativeLocation?.properties
+            if (rl?.city) { state.placeName = rl.city.toString(); state.placeKey = locationKey() }
+        } catch (ignored) { }
         state.nwsKey = locationKey()
         fetchNwsForecast()
     } catch (e) { onFailure("NWS points parse error: ${e}") }
@@ -527,11 +534,65 @@ private String dayLabel(String date, int idx) {
 
 private String esc(s) { (s ?: "").toString().replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;") }
 
+@Field static final String WT_OLD_UPDATED_FORMAT = "'Updated' MMM d, h:mm a"
+@Field static final String WT_UPDATED_FORMAT = "MMM d, h:mm a"
+
 private String fmtUpdated(Long ms) {
     if (!ms) return ""
-    String f = settings.updatedFormat ?: "'Updated' MMM d, h:mm a"
-    try { return new Date(ms).format(f, location.timeZone) }
-    catch (e) { return new Date(ms).format("'Updated' MMM d, h:mm a", location.timeZone) }
+    String f = settings.updatedFormat ?: WT_UPDATED_FORMAT
+    if (f == WT_OLD_UPDATED_FORMAT) f = WT_UPDATED_FORMAT      // old default -> new default
+    String t
+    try { t = new Date(ms).format(f, location.timeZone) }
+    catch (e) { t = new Date(ms).format(WT_UPDATED_FORMAT, location.timeZone) }
+    if (settings.updatedShowPlace == false) return t
+    String p = placeLabel()
+    if (p && p.length() > 28) p = p.take(27) + "\u2026"
+    return p ? "${p}, ${t}" : t
+}
+
+/** Location shown on the tile: the label setting, else a place name looked up from lat/lon, else the hub name. */
+private String placeLabel() {
+    if (settings.locationLabel) return settings.locationLabel.toString()
+    if (state.placeName && state.placeKey == locationKey()) return state.placeName.toString()
+    return location?.name ?: ""
+}
+
+/** Reverse-geocode lat/lon to a place name once per location (cached in state):
+ *  NWS points relativeLocation (US, most local), else BigDataCloud's free client endpoint. */
+private void lookupPlace() {
+    if (settings.locationLabel) return
+    state.placeTried = now()
+    try {
+        String p = "/points/${(lat() as BigDecimal).setScale(4, BigDecimal.ROUND_HALF_UP)},${(lon() as BigDecimal).setScale(4, BigDecimal.ROUND_HALF_UP)}"
+        asynchttpGet("handlePlaceNws", [uri: "https://api.weather.gov", path: p, contentType: "application/json", headers: nwsHeaders(), timeout: 20])
+    } catch (e) { lookupPlaceWorld() }
+}
+
+def handlePlaceNws(resp, data) {
+    try {
+        if (resp != null && !resp.hasError() && (resp.status as Integer) < 300) {
+            def rl = respJson(resp)?.properties?.relativeLocation?.properties
+            if (rl?.city) { state.placeName = rl.city.toString(); state.placeKey = locationKey(); renderAndPublish(); return }
+        }
+    } catch (ignored) { }
+    lookupPlaceWorld()
+}
+
+private void lookupPlaceWorld() {
+    try {
+        asynchttpGet("handlePlace", [uri: "https://api.bigdatacloud.net", path: "/data/reverse-geocode-client",
+            query: [latitude: lat(), longitude: lon(), localityLanguage: "en"], contentType: "application/json",
+            headers: ["Accept": "application/json"], timeout: 20])
+    } catch (e) { log.debug "Weather Tile: place lookup not started: ${e}" }
+}
+
+def handlePlace(resp, data) {
+    try {
+        if (resp == null || resp.hasError() || (resp.status as Integer) >= 300) return
+        def j = respJson(resp)
+        String p = (j?.city ?: j?.locality ?: j?.principalSubdivision ?: "").toString().trim()
+        if (p) { state.placeName = p; state.placeKey = locationKey(); renderAndPublish() }
+    } catch (e) { log.debug "Weather Tile: place lookup failed: ${e}" }
 }
 
 private String buildSvg(List allDays) {
@@ -632,7 +693,7 @@ private void publishAttributes(List allDays) {
     a.units = state.forecastUnits ?: unitSys()
     a.latitude = lat()
     a.longitude = lon()
-    a.locationLabel = settings.locationLabel ?: (settings.useCustomLocation ? locationKey() : location.name)
+    a.locationLabel = placeLabel()
     days.eachWithIndex { d, i ->
         List cond = CONDITIONS[d.cond] ?: CONDITIONS.unknown
         a["day${i}Date"] = d.date

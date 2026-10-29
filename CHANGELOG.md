@@ -1,5 +1,17 @@
 # Changelog
 
+## Next up
+- Rename icon packs to credit Rob for both the filled and outline sets (modified from erikflowers/weather-icons).
+- Monochrome pack from the erikflowers font files.
+- Optional pack libraries: Meteocons (MIT), Makin-Things (MIT), Tabler (MIT), Lucide (ISC), amCharts (CC BY 4.0).
+- Animated icon variants with an on/off setting.
+- Night icons for today's slot only (before sunrise / after sunset; NWS "Tonight"); future days stay daytime.
+
+## 0.2.6 - 2026-10-29
+- Last-updated line is now location then time, e.g. "Grosse Pointe Woods, Oct 29, 12:07 AM" (no "Updated" word). Location = the tile's location label, else a place name reverse-geocoded once from latitude/longitude (NWS points `relativeLocation` in the US, BigDataCloud's free client endpoint elsewhere) and cached in state, else the hub name; long names are shortened. New setting to turn the location prefix off; the time-format default is `MMM d, h:mm a`, and tiles still on the old default switch to the new one automatically. The `locationLabel` attribute uses the same name.
+- `packageManifest.json` locations carry `?v=<version>` so hubs fetch the new files instead of GitHub raw's cached copies; `tools/build.py` writes these from the manifest version.
+- README: new header, quick install and recent changes; crisp 2x preview image.
+
 ## 0.2.5 - 2026-10-28
 - Fix HPM upgrade failure "Expression [ClassExpression] is not allowed: java.io.Reader": `respJson()` no longer references java.io or java.util.zip classes. It handles Map/List and String bodies directly, anything with `getText()` by duck typing, and bytes via `new String(data, "UTF-8")`; gzip handling dropped (the hub decompresses).
 

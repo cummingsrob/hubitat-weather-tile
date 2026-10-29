@@ -36,7 +36,7 @@ Status: **approved; v0.1.0 implemented (2026-10-28)**. See README for what is an
 - Colors (text, highs/lows, rain, background, icon tint), font family/size, background transparent/solid, corner radius.
 - Show/hide rain % and rain amount; hide zero values.
 - Day labels: weekday short/long, "Today"/"Tomorrow", date format.
-- Last-updated: show/hide; default format `Updated MMM d, h:mm a` (e.g. "Updated Oct 28, 5:40 PM"), hub time zone, rendered tiny.
+- Last-updated: show/hide; location then time, e.g. "Grosse Pointe Woods, Oct 29, 12:07 AM" (hub time zone), rendered tiny. Location = the tile's location label, else a place name looked up once from latitude/longitude (NWS points `relativeLocation` in the US, BigDataCloud elsewhere) and cached, else the hub name. Time format setting default `MMM d, h:mm a`; location prefix can be turned off.
 - Endpoint: local vs cloud URL for the tile attribute.
 - Logging level.
 
@@ -80,7 +80,7 @@ Status: **approved; v0.1.0 implemented (2026-10-28)**. See README for what is an
 8. **Extra fields** (current conditions, wind, humidity, sunrise/sunset, alerts): optional toggles, **off by default**; v2 candidates.
 9. **Look:** selectable icon packs and dark/light mode (see §12). Default colors need not match the Home Restyle dashboard.
 10. **Distribution:** Hubitat Package Manager once stable (later milestone).
-11. **Last updated:** shown on the tile (format is a setting, hub time zone) and exposed as an attribute. Default format like **"Updated Oct 28, 5:40 PM"**, rendered **tiny** (small font, low emphasis).
+11. **Last updated:** shown on the tile (format is a setting, hub time zone) and exposed as an attribute. Default since 0.2.6: **"Grosse Pointe Woods, Oct 29, 12:07 AM"** (location, then time; no "Updated" word), rendered **tiny** (small font, low emphasis).
 12. **Icon license:** Rob has no preference. Because his icons are modified from erikflowers/weather-icons (SIL OFL 1.1), they ship under **OFL 1.1 with attribution** (required for derivatives); no reserved font name used. Repo code stays **Apache-2.0**.
 13. **Attributes:** §11 list approved as a starting point; can be edited later.
 14. **Defaults:** theme = **dark background, light icons**; icon pack = **Rob's colored set**. SVG source: the inline SVG definitions in lnjustin/Rachio-Community code (to be extracted at build time; not extracted yet), or files Rob provides.
@@ -121,3 +121,10 @@ Candidates (licenses verified 2026-10-28):
 
 ## 13. Remaining open questions
 None at this time.
+
+## Next up (Rob's to-dos)
+- **Rename icon packs** to credit Rob for both sets: Rob's filled set and Rob's outline set, each modified from erikflowers/weather-icons.
+- **Monochrome pack** built from the erikflowers font files.
+- **More open-source packs as optional libraries:** Meteocons (MIT), Makin-Things weather-icons (MIT), Tabler Icons (MIT), Lucide (ISC), amCharts animated weather icons (CC BY 4.0, attribution required).
+- **Animated variants** with an on/off setting.
+- **Night icons for today's slot only:** before sunrise or after sunset (from sunrise/sunset times; NWS "Tonight" period), show the night icon for today. Future days always use daytime icons.
