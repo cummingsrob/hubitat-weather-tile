@@ -63,11 +63,11 @@ Map %s() {
     ]]]
 }
 
-%s''' % (desc, name, name, prov, prov.replace("wtIconPacks", "").lower() and {"wtIconPacksMeteocons": "meteocons", "wtIconPacksMeteoconsAnimated": "meteoconsAnimated"}[prov],
+%s''' % (desc, name, name, prov, prov.replace("wwIconPacks", "").lower() and {"wwIconPacksMeteocons": "meteocons", "wwIconPacksMeteoconsAnimated": "meteoconsAnimated"}[prov],
          label, "true" if "Animated" in prov else "false", entries, "\n".join(body))
     open(os.path.join(ROOT, "libraries/cummingsrob.%s.groovy" % name), "w", encoding="utf-8").write(txt)
 
 anim, static = sys.argv[1], sys.argv[2]
-lib("WeatherWatcherIconsMeteocons", "wtIconPacksMeteocons", "wtMs", "Meteocons (static)", "Meteocons static icon pack for Weather Watcher", static, "mcs")
-lib("WeatherWatcherIconsMeteoconsAnimated", "wtIconPacksMeteoconsAnimated", "wtMa", "Meteocons (animated)", "Meteocons animated icon pack for Weather Watcher", anim, "mca")
+lib("WeatherWatcherIconsMeteocons", "wwIconPacksMeteocons", "wwMs", "Meteocons (static)", "Meteocons static icon pack for Weather Watcher", static, "mcs")
+lib("WeatherWatcherIconsMeteoconsAnimated", "wwIconPacksMeteoconsAnimated", "wwMa", "Meteocons (animated)", "Meteocons animated icon pack for Weather Watcher", anim, "mca")
 print("generated Meteocons libraries")

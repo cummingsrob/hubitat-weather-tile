@@ -94,7 +94,7 @@ Per day *n* = 0..6 (only up to the configured day count):
 - `day{n}PrecipChance` (%), `day{n}PrecipAmount` (in or mm)
 
 Instance-level:
-- `weatherTile` (HTML, < 1,024 chars)
+- `weatherWatcher` (HTML, < 1,024 chars)
 - `lastUpdated` (ISO 8601), `lastUpdatedDisplay` (formatted, hub TZ)
 - `source` (e.g. `open-meteo`, `nws`, `custom`), `status` (`ok` / `stale` / `error`), `statusMessage`
 - `units` (`imperial` / `metric`), `latitude`, `longitude`, `locationLabel`
@@ -123,6 +123,7 @@ Candidates (licenses verified 2026-10-28):
 None at this time.
 
 ## Next up (Rob's to-dos)
+- Done in 0.2.14: attribute `weatherTile` renamed to `weatherWatcher`; internal `wt*`/`WT_*` names renamed to `ww*`/`WW_*`; device network id `WTILE-` kept so existing devices stay attached.
 - Done in 0.2.13: repo `hubitat-weather-watcher`, files `WeatherWatcher*.groovy`, icon libraries `cummingsrob.WeatherWatcherIcons*`, bundle `WeatherWatcher`; ids, namespace and attribute names kept.
 - Done in 0.2.12: renamed to **Weather Watcher** (Weather Watcher Manager, Weather Watcher, Weather Watcher Device). Ids, file names, library names and attributes kept for clean upgrades.
 - Done in 0.2.10: icon packs renamed to credit Rob: **Rob's filled (default)** and **Rob's outline**, each modified from erikflowers/weather-icons. Library names and pack keys unchanged.

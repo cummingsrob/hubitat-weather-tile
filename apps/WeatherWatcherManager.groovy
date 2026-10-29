@@ -1,5 +1,5 @@
 /**
- *  Weather Watcher Manager (parent app; was "Weather Tile Manager" before 0.2.12)
+ *  Weather Watcher Manager (parent app)
  *
  *  Copyright 2026 Rob Cummings
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file

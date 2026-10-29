@@ -9,16 +9,17 @@ A multi-day weather forecast for Hubitat Elevation: a dashboard tile, plus a dev
 - **Configurable:** 1-7 days, units, dark or light theme, transparent background, fonts and colors, icon pack, and which values show.
 - **No dependencies:** built-in Hubitat APIs only.
 
-**Version:** 0.2.13 ([changelog](CHANGELOG.md)). Requirements and roadmap: [REQUIREMENTS.md](REQUIREMENTS.md).
+**Version:** 0.2.14 ([changelog](CHANGELOG.md)). Requirements and roadmap: [REQUIREMENTS.md](REQUIREMENTS.md).
 
 ## Quick install
 1. **Hubitat Package Manager:** **Install** → **From a URL** → `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/packageManifest.json`. HPM installs everything and turns on OAuth.
 2. **Apps** → **+ Add User App** → **Weather Watcher Manager** → **Done**, then **Add a Weather Watcher**.
-3. On a dashboard, add a tile with that device, template **Attribute**, attribute **weatherTile**.
+3. On a dashboard, add a tile with that device, template **Attribute**, attribute **weatherWatcher**.
 
 Other ways to install (bundle zip, or file by file) are below.
 
 ## Recent changes
+- **0.2.14:** attribute `weatherTile` renamed to **`weatherWatcher`**: after updating, re-point dashboard Attribute tiles (and rules) to `weatherWatcher`. Internal `wt*` names are now `ww*`.
 - **0.2.13:** repo, files, bundle and icon libraries renamed to Weather Watcher; new manifest URL. After updating, delete the old WeatherTileIcons libraries (see Formerly "Weather Tile").
 - **0.2.12:** renamed to **Weather Watcher**. Apps: Weather Watcher Manager (parent) and Weather Watcher (child); driver: Weather Watcher Device. File names, library names, attributes and HPM ids are unchanged, so an HPM update keeps your existing apps, devices and settings.
 - **0.2.11:** new **Monochrome (erikflowers)** icon pack that follows the theme text color, and night icons for today's slot (before sunrise and after sunset).
@@ -56,7 +57,8 @@ HPM → **Install** → **From a URL** → `https://raw.githubusercontent.com/cu
 This project was called **Weather Tile**. In 0.2.12-0.2.13 everything was renamed to **Weather Watcher**:
 - The GitHub repo is now `cummingsrob/hubitat-weather-watcher`. The old `hubitat-weather-tile` URLs redirect, but use the new manifest URL: `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/packageManifest.json`.
 - Apps, driver, files, the bundle and the icon libraries are renamed (`cummingsrob.WeatherWatcherIcons*`, formerly `cummingsrob.WeatherTileIcons*`).
-- Unchanged: the namespace `cummingsrob`, the HPM package/app/driver/bundle ids, and every device attribute name. The tile attribute is still **`weatherTile`**, so dashboards and rules keep working.
+- Unchanged: the namespace `cummingsrob` and the HPM package/app/driver/bundle ids.
+- **0.2.14: the dashboard attribute `weatherTile` is now `weatherWatcher`.** After the HPM Update, edit each dashboard tile that used template **Attribute** / attribute **weatherTile** and change the attribute to **weatherWatcher** (same device). Update any rules that read `weatherTile` too. The old `weatherTile` value stays on the device's Current States frozen until the device is recreated; it is no longer updated.
 
 ### Upgrading from 0.2.11 or earlier (HPM)
 1. HPM → **Update** → Weather Watcher. HPM updates both apps and the driver in place (matched by id), so your existing app instance, its device, settings, OAuth and the dashboard link stay. It installs the five new `cummingsrob.WeatherWatcherIcons*` libraries (bundle **WeatherWatcher**), which the app now `#include`s.
@@ -81,10 +83,10 @@ Bundle or manual installs: update each existing app/driver code entry in place (
 ## Then (all options)
 5. **Apps** → **+ Add User App** → **Weather Watcher Manager** → **Done**.
 6. Open **Weather Watcher Manager** → **Add a Weather Watcher** → choose settings → **Done**. A device with that name is created.
-7. On a dashboard, add a tile: device = that device, template = **Attribute**, attribute = **weatherTile**.
+7. On a dashboard, add a tile: device = that device, template = **Attribute**, attribute = **weatherWatcher**.
 
 ## Adding an icon pack (developers)
-Create a new library (for example `cummingsrob.WeatherWatcherIconsMeteocons`) with a provider method returning `[packId: [label: "...", icons: [sunny: '<g>...</g>', ...]]]`, drawn in a 64x64 box using the CSS classes `cloud`, `light`, `precip`, `frozenPrecip`. Add `#include` for it in `WeatherWatcherInstance.groovy`, add the method name to `WT_ICON_PACK_PROVIDERS`, add the library to `LIBS` in `tools/build.py`, and run `python3 tools/build.py` to rebuild the bundles. Missing icon keys fall back (see `CONDITIONS`).
+Create a new library (for example `cummingsrob.WeatherWatcherIconsMeteocons`) with a provider method returning `[packId: [label: "...", icons: [sunny: '<g>...</g>', ...]]]`, drawn in a 64x64 box using the CSS classes `cloud`, `light`, `precip`, `frozenPrecip`. Add `#include` for it in `WeatherWatcherInstance.groovy`, add the method name to `WW_ICON_PACK_PROVIDERS`, add the library to `LIBS` in `tools/build.py`, and run `python3 tools/build.py` to rebuild the bundles. Missing icon keys fall back (see `CONDITIONS`).
 
 ## Settings (per tile)
 - **Source:** Open-Meteo (default, global, no key), NWS/weather.gov (US only, no key), or a keyed provider (API base URL + key; OpenWeatherMap One Call 3.0 `daily` format).
@@ -102,7 +104,7 @@ Create a new library (for example `cummingsrob.WeatherWatcherIconsMeteocons`) wi
 - Buttons: **Refresh forecast now**, **Regenerate access token** (updates the tile attribute).
 
 ## Device attributes
-`weatherTile`, `lastUpdated` (ISO 8601), `lastUpdatedDisplay`, `source`, `status` (ok/stale/error), `statusMessage`, `units`, `latitude`, `longitude`, `locationLabel`, `todayHigh`, `todayLow`, `todayPrecipChance`, `tomorrowPrecipChance`, and per day n=0..6: `day{n}Date`, `day{n}Label`, `day{n}High`, `day{n}Low`, `day{n}Condition`, `day{n}ConditionText`, `day{n}Icon`, `day{n}PrecipChance`, `day{n}PrecipAmount`. Events are sent only on change. The device's **Refresh** command fetches immediately.
+`weatherWatcher`, `lastUpdated` (ISO 8601), `lastUpdatedDisplay`, `source`, `status` (ok/stale/error), `statusMessage`, `units`, `latitude`, `longitude`, `locationLabel`, `todayHigh`, `todayLow`, `todayPrecipChance`, `tomorrowPrecipChance`, and per day n=0..6: `day{n}Date`, `day{n}Label`, `day{n}High`, `day{n}Low`, `day{n}Condition`, `day{n}ConditionText`, `day{n}Icon`, `day{n}PrecipChance`, `day{n}PrecipAmount`. Events are sent only on change. The device's **Refresh** command fetches immediately.
 
 Debug: `<tile URL base>/forecast.json?access_token=...` returns the cached forecast.
 

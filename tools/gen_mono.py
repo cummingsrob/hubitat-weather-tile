@@ -25,8 +25,8 @@ def icon(p):
 def chunks(s, n=400):
     return " +\n        ".join("'" + s[i:i + n].replace("\\", "\\\\").replace("'", "\\'") + "'" for i in range(0, len(s), n))
 src = sys.argv[1]
-body = "\n".join("String wtMo_%s() {\n    return %s\n}\n" % (k, chunks(icon(os.path.join(src, f + ".svg")))) for k, f in MAP.items())
-entries = ",\n".join("        '%s': wtMo_%s()" % (k, k) for k in MAP)
+body = "\n".join("String wwMo_%s() {\n    return %s\n}\n" % (k, chunks(icon(os.path.join(src, f + ".svg")))) for k, f in MAP.items())
+entries = ",\n".join("        '%s': wwMo_%s()" % (k, k) for k in MAP)
 open(os.path.join(ROOT, "libraries/cummingsrob.WeatherWatcherIconsMono.groovy"), "w", encoding="utf-8").write('''library (
     author: "Rob Cummings",
     category: "Convenience",
@@ -43,7 +43,7 @@ open(os.path.join(ROOT, "libraries/cummingsrob.WeatherWatcherIconsMono.groovy"),
  */
 
 /** Icon pack provider (see README). Single color: class "mono" follows the theme text color. */
-Map wtIconPacksMono() {
+Map wwIconPacksMono() {
     return [mono: [label: "Monochrome (erikflowers)", icons: [
 %s
     ]]]

@@ -14,50 +14,50 @@ library (
  */
 
 /** Icon pack provider (see README). */
-Map wtIconPacksMeteoconsAnimated() {
+Map wwIconPacksMeteoconsAnimated() {
     return [meteoconsAnimated: [label: "Meteocons (animated)", animated: true, icons: [
-        'sunny': wtMa_sunny(),
-        'clear': wtMa_clear(),
-        'mostlysunny': wtMa_mostlysunny(),
-        'partlycloudy': wtMa_partlycloudy(),
-        'partlysunny': wtMa_partlysunny(),
-        'mostlycloudy': wtMa_mostlycloudy(),
-        'cloudy': wtMa_cloudy(),
-        'fog': wtMa_fog(),
-        'hazy': wtMa_hazy(),
-        'drizzle': wtMa_drizzle(),
-        'chancerain': wtMa_chancerain(),
-        'showers': wtMa_showers(),
-        'rain': wtMa_rain(),
-        'chancetstorms': wtMa_chancetstorms(),
-        'tstorms': wtMa_tstorms(),
-        'chanceflurries': wtMa_chanceflurries(),
-        'flurries': wtMa_flurries(),
-        'chancesnow': wtMa_chancesnow(),
-        'snow': wtMa_snow(),
-        'chancesleet': wtMa_chancesleet(),
-        'sleet': wtMa_sleet(),
-        'hail': wtMa_hail(),
-        'wind': wtMa_wind(),
-        'nt_sunny': wtMa_nt_sunny(),
-        'nt_clear': wtMa_nt_clear(),
-        'nt_mostlysunny': wtMa_nt_mostlysunny(),
-        'nt_partlycloudy': wtMa_nt_partlycloudy(),
-        'nt_partlysunny': wtMa_nt_partlysunny(),
-        'nt_mostlycloudy': wtMa_nt_mostlycloudy(),
-        'nt_fog': wtMa_nt_fog(),
-        'nt_hazy': wtMa_nt_hazy(),
-        'nt_chancerain': wtMa_nt_chancerain(),
-        'nt_showers': wtMa_nt_showers(),
-        'nt_chancetstorms': wtMa_nt_chancetstorms(),
-        'nt_tstorms': wtMa_nt_tstorms(),
-        'nt_chanceflurries': wtMa_nt_chanceflurries(),
-        'nt_chancesnow': wtMa_nt_chancesnow(),
-        'nt_chancesleet': wtMa_nt_chancesleet()
+        'sunny': wwMa_sunny(),
+        'clear': wwMa_clear(),
+        'mostlysunny': wwMa_mostlysunny(),
+        'partlycloudy': wwMa_partlycloudy(),
+        'partlysunny': wwMa_partlysunny(),
+        'mostlycloudy': wwMa_mostlycloudy(),
+        'cloudy': wwMa_cloudy(),
+        'fog': wwMa_fog(),
+        'hazy': wwMa_hazy(),
+        'drizzle': wwMa_drizzle(),
+        'chancerain': wwMa_chancerain(),
+        'showers': wwMa_showers(),
+        'rain': wwMa_rain(),
+        'chancetstorms': wwMa_chancetstorms(),
+        'tstorms': wwMa_tstorms(),
+        'chanceflurries': wwMa_chanceflurries(),
+        'flurries': wwMa_flurries(),
+        'chancesnow': wwMa_chancesnow(),
+        'snow': wwMa_snow(),
+        'chancesleet': wwMa_chancesleet(),
+        'sleet': wwMa_sleet(),
+        'hail': wwMa_hail(),
+        'wind': wwMa_wind(),
+        'nt_sunny': wwMa_nt_sunny(),
+        'nt_clear': wwMa_nt_clear(),
+        'nt_mostlysunny': wwMa_nt_mostlysunny(),
+        'nt_partlycloudy': wwMa_nt_partlycloudy(),
+        'nt_partlysunny': wwMa_nt_partlysunny(),
+        'nt_mostlycloudy': wwMa_nt_mostlycloudy(),
+        'nt_fog': wwMa_nt_fog(),
+        'nt_hazy': wwMa_nt_hazy(),
+        'nt_chancerain': wwMa_nt_chancerain(),
+        'nt_showers': wwMa_nt_showers(),
+        'nt_chancetstorms': wwMa_nt_chancetstorms(),
+        'nt_tstorms': wwMa_nt_tstorms(),
+        'nt_chanceflurries': wwMa_nt_chanceflurries(),
+        'nt_chancesnow': wwMa_nt_chancesnow(),
+        'nt_chancesleet': wwMa_nt_chancesleet()
     ]]]
 }
 
-String wtMa_sunny() {
+String wwMa_sunny() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcasunny_clear-day"><g id="mcasunny_Sun"><circle id="mcasunny_Core" cx="64" cy="63.9999" r="19.5" fill="url(#mcasunny_paint0_linear_1802_5186)" stroke="#F8AF18"/><g id="mcasunny_Rays"><path d="M61 19C61 17.3431 62.3431 16 64 16C65.6568 16 67 17.3431 67 19V33C67 34.6569 65.6568 36 64 36C62.3431 36 61 34.6569 61 33V19Z"' +
         ' fill="#F8AF18"/><path d="M93.6985 30.0589C94.87 28.8873 96.7696 28.8873 97.9411 30.0589C99.1127 31.2304 99.1127 33.1299 97.9411 34.3015L88.0416 44.201C86.8701 45.3726 84.9706 45.3726 83.799 44.201C82.6274 43.0294 82.6274 41.1299 83.799 39.9584L93.6985 30.0589Z" fill="#F8AF18"/><path d="M109 61C110.657 61 112 62.3432 112 64C112 65.6569 110.657 67 109 67H95C93.3431 67 92 65.6569 92 64C92 62.3432 93' +
         '.3431 61 95 61H109Z" fill="#F8AF18"/><path d="M97.9411 93.6985C99.1127 94.8701 99.1127 96.7696 97.9411 97.9411C96.7696 99.1127 94.8701 99.1127 93.6985 97.9411L83.799 88.0416C82.6274 86.8701 82.6274 84.9706 83.799 83.799C84.9706 82.6274 86.8701 82.6274 88.0416 83.799L97.9411 93.6985Z" fill="#F8AF18"/><path d="M61 95C61 93.3431 62.3431 92 64 92C65.6568 92 67 93.3431 67 95V109C67 110.657 65.6568 112 ' +
@@ -66,7 +66,7 @@ String wtMa_sunny() {
         '0 64.0 64.0;360 64.0 64.0" dur="6s" begin="0s" repeatCount="indefinite"/></g></g></g><defs><linearGradient id="mcasunny_paint0_linear_1802_5186" x1="64" y1="43.9999" x2="64" y2="83.9999" gradientUnits="userSpaceOnUse"><stop stop-color="#FBBF24"/><stop offset="1" stop-color="#F8AF18"/></linearGradient></defs></svg>'
 }
 
-String wtMa_clear() {
+String wwMa_clear() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcaclear_clear-day"><g id="mcaclear_Sun"><circle id="mcaclear_Core" cx="64" cy="63.9999" r="19.5" fill="url(#mcaclear_paint0_linear_1802_5186)" stroke="#F8AF18"/><g id="mcaclear_Rays"><path d="M61 19C61 17.3431 62.3431 16 64 16C65.6568 16 67 17.3431 67 19V33C67 34.6569 65.6568 36 64 36C62.3431 36 61 34.6569 61 33V19Z"' +
         ' fill="#F8AF18"/><path d="M93.6985 30.0589C94.87 28.8873 96.7696 28.8873 97.9411 30.0589C99.1127 31.2304 99.1127 33.1299 97.9411 34.3015L88.0416 44.201C86.8701 45.3726 84.9706 45.3726 83.799 44.201C82.6274 43.0294 82.6274 41.1299 83.799 39.9584L93.6985 30.0589Z" fill="#F8AF18"/><path d="M109 61C110.657 61 112 62.3432 112 64C112 65.6569 110.657 67 109 67H95C93.3431 67 92 65.6569 92 64C92 62.3432 93' +
         '.3431 61 95 61H109Z" fill="#F8AF18"/><path d="M97.9411 93.6985C99.1127 94.8701 99.1127 96.7696 97.9411 97.9411C96.7696 99.1127 94.8701 99.1127 93.6985 97.9411L83.799 88.0416C82.6274 86.8701 82.6274 84.9706 83.799 83.799C84.9706 82.6274 86.8701 82.6274 88.0416 83.799L97.9411 93.6985Z" fill="#F8AF18"/><path d="M61 95C61 93.3431 62.3431 92 64 92C65.6568 92 67 93.3431 67 95V109C67 110.657 65.6568 112 ' +
@@ -75,7 +75,7 @@ String wtMa_clear() {
         '0 64.0 64.0;360 64.0 64.0" dur="6s" begin="0s" repeatCount="indefinite"/></g></g></g><defs><linearGradient id="mcaclear_paint0_linear_1802_5186" x1="64" y1="43.9999" x2="64" y2="83.9999" gradientUnits="userSpaceOnUse"><stop stop-color="#FBBF24"/><stop offset="1" stop-color="#F8AF18"/></linearGradient></defs></svg>'
 }
 
-String wtMa_mostlysunny() {
+String wwMa_mostlysunny() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcamostlysunny_mostly-clear-day" clip-path="url(#mcamostlysunny_clip0_1858_8340)"><g id="mcamostlysunny_Sky"><g id="mcamostlysunny_Sun"><circle id="mcamostlysunny_Core" cx="50" cy="62" r="12.5" fill="url(#mcamostlysunny_paint0_linear_1858_8340)" stroke="#F8AF18"/><g id="mcamostlysunny_Rays"><path d="M48 32C48 30.8954 ' +
         '48.8954 30 50 30C51.1046 30 52 30.8954 52 32V41.3333C52 42.4379 51.1046 43.3333 50 43.3333C48.8954 43.3333 48 42.4379 48 41.3333V32Z" fill="#F8AF18"/><path d="M69.799 39.3726C70.58 38.5915 71.8464 38.5915 72.6274 39.3726C73.4085 40.1536 73.4085 41.42 72.6274 42.201L66.0278 48.8007C65.2467 49.5817 63.9804 49.5817 63.1993 48.8007C62.4183 48.0196 62.4183 46.7533 63.1993 45.9722L69.799 39.3726Z" fill=' +
         '"#F8AF18"/><path d="M80 60C81.1046 60 82 60.8954 82 62C82 63.1046 81.1046 64 80 64H70.6667C69.5621 64 68.6667 63.1046 68.6667 62C68.6667 60.8954 69.5621 60 70.6667 60H80Z" fill="#F8AF18"/><path d="M72.6274 81.799C73.4085 82.58 73.4085 83.8464 72.6274 84.6274C71.8464 85.4085 70.58 85.4085 69.799 84.6274L63.1993 78.0278C62.4183 77.2467 62.4183 75.9804 63.1993 75.1993C63.9804 74.4183 65.2467 74.4183 ' +
@@ -88,7 +88,7 @@ String wtMa_mostlysunny() {
         'stop-color="#E6EFFC"/></linearGradient><clipPath id="mcamostlysunny_clip0_1858_8340"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_partlycloudy() {
+String wwMa_partlycloudy() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcapartlycloudy_partly-cloudy-day" clip-path="url(#mcapartlycloudy_clip0_1858_8241)"><g id="mcapartlycloudy_Sky"><g id="mcapartlycloudy_Sun"><circle id="mcapartlycloudy_Core" cx="39" cy="51" r="8.5" fill="url(#mcapartlycloudy_paint0_linear_1858_8241)" stroke="#F8AF18"/><g id="mcapartlycloudy_Rays"><path d="M37.6875 31' +
         '.3125C37.6875 30.5876 38.2751 30 39 30C39.7249 30 40.3125 30.5876 40.3125 31.3125V37.4375C40.3125 38.1624 39.7249 38.75 39 38.75C38.2751 38.75 37.6875 38.1624 37.6875 37.4375V31.3125Z" fill="#F8AF18"/><path d="M51.9931 36.1508C52.5056 35.6382 53.3367 35.6382 53.8492 36.1508C54.3618 36.6633 54.3618 37.4943 53.8492 38.0069L49.5182 42.3379C49.0056 42.8505 48.1746 42.8505 47.6621 42.3379C47.1495 41.82' +
         '54 47.1495 40.9944 47.6621 40.4818L51.9931 36.1508Z" fill="#F8AF18"/><path d="M58.6875 49.6875C59.4124 49.6875 60 50.2751 60 51C60 51.7249 59.4124 52.3125 58.6875 52.3125H52.5625C51.8376 52.3125 51.25 51.7249 51.25 51C51.25 50.2751 51.8376 49.6875 52.5625 49.6875H58.6875Z" fill="#F8AF18"/><path d="M53.8492 63.9931C54.3618 64.5057 54.3618 65.3367 53.8492 65.8492C53.3367 66.3618 52.5056 66.3618 51.9' +
@@ -101,7 +101,7 @@ String wtMa_partlycloudy() {
         'd="mcapartlycloudy_paint1_linear_1858_8241" x1="64.0008" y1="39" x2="64.0008" y2="89" gradientUnits="userSpaceOnUse"><stop stop-color="#F3F7FE"/><stop offset="1" stop-color="#E6EFFC"/></linearGradient><clipPath id="mcapartlycloudy_clip0_1858_8241"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_partlysunny() {
+String wwMa_partlysunny() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcapartlysunny_partly-cloudy-day" clip-path="url(#mcapartlysunny_clip0_1858_8241)"><g id="mcapartlysunny_Sky"><g id="mcapartlysunny_Sun"><circle id="mcapartlysunny_Core" cx="39" cy="51" r="8.5" fill="url(#mcapartlysunny_paint0_linear_1858_8241)" stroke="#F8AF18"/><g id="mcapartlysunny_Rays"><path d="M37.6875 31.3125C3' +
         '7.6875 30.5876 38.2751 30 39 30C39.7249 30 40.3125 30.5876 40.3125 31.3125V37.4375C40.3125 38.1624 39.7249 38.75 39 38.75C38.2751 38.75 37.6875 38.1624 37.6875 37.4375V31.3125Z" fill="#F8AF18"/><path d="M51.9931 36.1508C52.5056 35.6382 53.3367 35.6382 53.8492 36.1508C54.3618 36.6633 54.3618 37.4943 53.8492 38.0069L49.5182 42.3379C49.0056 42.8505 48.1746 42.8505 47.6621 42.3379C47.1495 41.8254 47.1' +
         '495 40.9944 47.6621 40.4818L51.9931 36.1508Z" fill="#F8AF18"/><path d="M58.6875 49.6875C59.4124 49.6875 60 50.2751 60 51C60 51.7249 59.4124 52.3125 58.6875 52.3125H52.5625C51.8376 52.3125 51.25 51.7249 51.25 51C51.25 50.2751 51.8376 49.6875 52.5625 49.6875H58.6875Z" fill="#F8AF18"/><path d="M53.8492 63.9931C54.3618 64.5057 54.3618 65.3367 53.8492 65.8492C53.3367 66.3618 52.5056 66.3618 51.9931 65.' +
@@ -114,7 +114,7 @@ String wtMa_partlysunny() {
         'sunny_paint1_linear_1858_8241" x1="64.0008" y1="39" x2="64.0008" y2="89" gradientUnits="userSpaceOnUse"><stop stop-color="#F3F7FE"/><stop offset="1" stop-color="#E6EFFC"/></linearGradient><clipPath id="mcapartlysunny_clip0_1858_8241"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_mostlycloudy() {
+String wwMa_mostlycloudy() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcamostlycloudy_overcast-day" clip-path="url(#mcamostlycloudy_clip0_1858_8265)"><g id="mcamostlycloudy_Sky"><g id="mcamostlycloudy_Sun"><circle id="mcamostlycloudy_Core" cx="39" cy="51" r="8.5" fill="url(#mcamostlycloudy_paint0_linear_1858_8265)" stroke="#F8AF18"/><g id="mcamostlycloudy_Rays"><path d="M37.6875 31.3125' +
         'C37.6875 30.5876 38.2751 30 39 30C39.7249 30 40.3125 30.5876 40.3125 31.3125V37.4375C40.3125 38.1624 39.7249 38.75 39 38.75C38.2751 38.75 37.6875 38.1624 37.6875 37.4375V31.3125Z" fill="#F8AF18"/><path d="M51.9931 36.1508C52.5056 35.6382 53.3367 35.6382 53.8492 36.1508C54.3618 36.6633 54.3618 37.4943 53.8492 38.0069L49.5182 42.3379C49.0056 42.8505 48.1746 42.8505 47.6621 42.3379C47.1495 41.8254 47' +
         '.1495 40.9944 47.6621 40.4818L51.9931 36.1508Z" fill="#F8AF18"/><path d="M58.6875 49.6875C59.4124 49.6875 60 50.2751 60 51C60 51.7249 59.4124 52.3125 58.6875 52.3125H52.5625C51.8376 52.3125 51.25 51.7249 51.25 51C51.25 50.2751 51.8376 49.6875 52.5625 49.6875H58.6875Z" fill="#F8AF18"/><path d="M53.8492 63.9931C54.3618 64.5057 54.3618 65.3367 53.8492 65.8492C53.3367 66.3618 52.5056 66.3618 51.9931 6' +
@@ -130,14 +130,14 @@ String wtMa_mostlycloudy() {
         '="#F3F7FE"/><stop offset="1" stop-color="#E6EFFC"/></linearGradient><clipPath id="mcamostlycloudy_clip0_1858_8265"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_cloudy() {
+String wwMa_cloudy() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcacloudy_cloudy" clip-path="url(#mcacloudy_clip0_1858_8144)"><g id="mcacloudy_Sky"><g id="mcacloudy_Clouds"><g id="mcacloudy_Cloud"><path id="mcacloudy_Cloud_2" d="M55.2623 48.4746C60.1227 40.6111 70.2975 37.38 78.8151 40.9434C87.3214 44.5023 92.138 54.0026 89.903 62.9648L89.7418 63.6143L90.4108 63.585C97.4203 63.279' +
         '1 103.5 68.9917 103.5 76.0283C103.5 82.8395 97.7717 88.4997 90.9772 88.5H37.9537C31.1275 88.5018 25.2029 83.1709 24.5592 76.3604C23.9158 69.5518 28.7369 63.2124 35.443 61.9453L35.9264 61.8535L35.8424 61.3691C35.0256 56.6239 37.1258 51.7168 41.1051 49.0127C45.0951 46.3014 50.4459 46.1537 54.5797 48.6396L55.0026 48.8945L55.2623 48.4746Z" fill="url(#mcacloudy_paint0_linear_1858_8144)" stroke="#E6EFFC' +
         '" stroke-miterlimit="10"/></g><animateTransform attributeName="transform" type="translate" values="0 0;0 -3;0 0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"/></g></g></g><defs><linearGradient id="mcacloudy_paint0_linear_1858_8144" x1="64.0008" y1="39" x2="64.0008" y2="89" gradientUnits="userSpaceOnUse"><stop stop-color="#F3F7FE"/><stop offse' +
         't="1" stop-color="#E6EFFC"/></linearGradient><clipPath id="mcacloudy_clip0_1858_8144"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_fog() {
+String wwMa_fog() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcafog_fog" clip-path="url(#mcafog_clip0_1858_9374)"><g id="mcafog_Sky"><g id="mcafog_Clouds"><g id="mcafog_Cloud"><path id="mcafog_Cloud_2" d="M55.2623 48.4746C60.1227 40.6111 70.2975 37.38 78.8151 40.9434C87.3214 44.5023 92.138 54.0026 89.903 62.9648L89.7418 63.6143L90.4108 63.585C97.4203 63.2791 103.5 68.9917 103.5' +
         ' 76.0283C103.5 82.8395 97.7717 88.4997 90.9772 88.5H37.9537C31.1275 88.5018 25.2029 83.1709 24.5592 76.3604C23.9158 69.5518 28.7369 63.2124 35.443 61.9453L35.9264 61.8535L35.8424 61.3691C35.0256 56.6239 37.1258 51.7168 41.1051 49.0127C45.0951 46.3014 50.4459 46.1537 54.5797 48.6396L55.0026 48.8945L55.2623 48.4746Z" fill="url(#mcafog_paint0_linear_1858_9374)" stroke="#E6EFFC" stroke-miterlimit="10"' +
         '/></g><animateTransform attributeName="transform" type="translate" values="0 0;0 -3;0 0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"/></g></g><g id="mcafog_Precipitation"><path id="mcafog_Line 2" d="M40 95H88" stroke="#E2E8F0" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round"><animateTransform attributeName="transform" type="tra' +
@@ -145,7 +145,7 @@ String wtMa_fog() {
         'ine" keySplines=".42 0 .58 1; .42 0 .58 1"/></path></g></g><defs><linearGradient id="mcafog_paint0_linear_1858_9374" x1="64.0008" y1="39" x2="64.0008" y2="89" gradientUnits="userSpaceOnUse"><stop stop-color="#F3F7FE"/><stop offset="1" stop-color="#E6EFFC"/></linearGradient><clipPath id="mcafog_clip0_1858_9374"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_hazy() {
+String wwMa_hazy() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcahazy_haze" clip-path="url(#mcahazy_clip0_1858_9516)"><g id="mcahazy_Sky"><g id="mcahazy_Clouds"><g id="mcahazy_Cloud"><path id="mcahazy_Cloud_2" d="M55.2625 48.4746C60.1228 40.6111 70.2976 37.38 78.8152 40.9434C87.3215 44.5023 92.1381 54.0026 89.9031 62.9648L89.7419 63.6143L90.4109 63.585C97.4205 63.2791 103.5 68.9' +
         '917 103.5 76.0283C103.5 82.8395 97.7719 88.4997 90.9773 88.5H37.9539C31.1276 88.5018 25.203 83.1709 24.5593 76.3604C23.9159 69.5518 28.7371 63.2124 35.4431 61.9453L35.9265 61.8535L35.8425 61.3691C35.0258 56.6239 37.1259 51.7168 41.1052 49.0127C45.0952 46.3014 50.4461 46.1537 54.5798 48.6396L55.0027 48.8945L55.2625 48.4746Z" fill="url(#mcahazy_paint0_linear_1858_9516)" stroke="#E6EFFC" stroke-miter' +
         'limit="10"/></g><animateTransform attributeName="transform" type="translate" values="0 0;0 -3;0 0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"/></g></g><g id="mcahazy_Precipitation"><path id="mcahazy_Line 2" d="M40 95H88" stroke="#E2E8F0" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-dasharray="12 9"><animateTransform' +
@@ -154,7 +154,7 @@ String wtMa_hazy() {
         '"128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_drizzle() {
+String wwMa_drizzle() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcadrizzle_drizzle" clip-path="url(#mcadrizzle_clip0_1858_8512)"><g id="mcadrizzle_Sky"><g id="mcadrizzle_Clouds"><g id="mcadrizzle_Cloud"><path id="mcadrizzle_Cloud_2" d="M55.2623 48.4746C60.1227 40.6111 70.2975 37.38 78.8151 40.9434C87.3214 44.5023 92.138 54.0026 89.903 62.9648L89.7418 63.6143L90.4108 63.585C97.4203' +
         ' 63.2791 103.5 68.9917 103.5 76.0283C103.5 82.8395 97.7717 88.4997 90.9772 88.5H37.9537C31.1275 88.5018 25.2029 83.1709 24.5592 76.3604C23.9158 69.5518 28.7369 63.2124 35.443 61.9453L35.9264 61.8535L35.8424 61.3691C35.0256 56.6239 37.1258 51.7168 41.1051 49.0127C45.0951 46.3014 50.4459 46.1537 54.5797 48.6396L55.0026 48.8945L55.2623 48.4746Z" fill="url(#mcadrizzle_paint0_linear_1858_8512)" stroke=' +
         '"#E6EFFC" stroke-miterlimit="10"/></g><animateTransform attributeName="transform" type="translate" values="0 0;0 -3;0 0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"/></g></g><g id="mcadrizzle_Precipitation"><g id="mcadrizzle_Raindrops"><path id="mcadrizzle_Raindrop 1" d="M52 87V90" stroke="#0A5AD4" stroke-width="4" stroke-linecap="round"><an' +
@@ -164,7 +164,7 @@ String wtMa_drizzle() {
         '0008" y1="39" x2="64.0008" y2="89" gradientUnits="userSpaceOnUse"><stop stop-color="#F3F7FE"/><stop offset="1" stop-color="#E6EFFC"/></linearGradient><clipPath id="mcadrizzle_clip0_1858_8512"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_chancerain() {
+String wwMa_chancerain() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcachancerain_partly-cloudy-day-rain" clip-path="url(#mcachancerain_clip0_1858_8372)"><g id="mcachancerain_Sky"><g id="mcachancerain_Sun"><circle id="mcachancerain_Core" cx="39" cy="51" r="8.5" fill="url(#mcachancerain_paint0_linear_1858_8372)" stroke="#F8AF18"/><g id="mcachancerain_Rays"><path d="M37.6875 31.3125C37.' +
         '6875 30.5876 38.2751 30 39 30C39.7249 30 40.3125 30.5876 40.3125 31.3125V37.4375C40.3125 38.1624 39.7249 38.75 39 38.75C38.2751 38.75 37.6875 38.1624 37.6875 37.4375V31.3125Z" fill="#F8AF18"/><path d="M51.9931 36.1508C52.5056 35.6382 53.3367 35.6382 53.8492 36.1508C54.3618 36.6633 54.3618 37.4943 53.8492 38.0069L49.5182 42.3379C49.0056 42.8505 48.1746 42.8505 47.6621 42.3379C47.1495 41.8254 47.149' +
         '5 40.9944 47.6621 40.4818L51.9931 36.1508Z" fill="#F8AF18"/><path d="M58.6875 49.6875C59.4124 49.6875 60 50.2751 60 51C60 51.7249 59.4124 52.3125 58.6875 52.3125H52.5625C51.8376 52.3125 51.25 51.7249 51.25 51C51.25 50.2751 51.8376 49.6875 52.5625 49.6875H58.6875Z" fill="#F8AF18"/><path d="M53.8492 63.9931C54.3618 64.5057 54.3618 65.3367 53.8492 65.8492C53.3367 66.3618 52.5056 66.3618 51.9931 65.84' +
@@ -181,7 +181,7 @@ String wtMa_chancerain() {
         '/svg>'
 }
 
-String wtMa_showers() {
+String wwMa_showers() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcashowers_partly-cloudy-day-drizzle" clip-path="url(#mcashowers_clip0_1858_8515)"><g id="mcashowers_Sky"><g id="mcashowers_Sun"><circle id="mcashowers_Core" cx="39" cy="51" r="8.5" fill="url(#mcashowers_paint0_linear_1858_8515)" stroke="#F8AF18"/><g id="mcashowers_Rays"><path d="M37.6875 31.3125C37.6875 30.5876 38.27' +
         '51 30 39 30C39.7249 30 40.3125 30.5876 40.3125 31.3125V37.4375C40.3125 38.1624 39.7249 38.75 39 38.75C38.2751 38.75 37.6875 38.1624 37.6875 37.4375V31.3125Z" fill="#F8AF18"/><path d="M51.9931 36.1508C52.5056 35.6382 53.3367 35.6382 53.8492 36.1508C54.3618 36.6633 54.3618 37.4943 53.8492 38.0069L49.5182 42.3379C49.0056 42.8505 48.1746 42.8505 47.6621 42.3379C47.1495 41.8254 47.1495 40.9944 47.6621 ' +
         '40.4818L51.9931 36.1508Z" fill="#F8AF18"/><path d="M58.6875 49.6875C59.4124 49.6875 60 50.2751 60 51C60 51.7249 59.4124 52.3125 58.6875 52.3125H52.5625C51.8376 52.3125 51.25 51.7249 51.25 51C51.25 50.2751 51.8376 49.6875 52.5625 49.6875H58.6875Z" fill="#F8AF18"/><path d="M53.8492 63.9931C54.3618 64.5057 54.3618 65.3367 53.8492 65.8492C53.3367 66.3618 52.5056 66.3618 51.9931 65.8492L47.6621 61.5182' +
@@ -197,7 +197,7 @@ String wtMa_showers() {
         '#F8AF18"/></linearGradient><linearGradient id="mcashowers_paint1_linear_1858_8515" x1="64.0008" y1="39" x2="64.0008" y2="89" gradientUnits="userSpaceOnUse"><stop stop-color="#F3F7FE"/><stop offset="1" stop-color="#E6EFFC"/></linearGradient><clipPath id="mcashowers_clip0_1858_8515"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_rain() {
+String wwMa_rain() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcarain_rain" clip-path="url(#mcarain_clip0_1858_8370)"><g id="mcarain_Sky"><g id="mcarain_Clouds"><g id="mcarain_Cloud"><path id="mcarain_Cloud_2" d="M55.2623 48.4746C60.1227 40.6111 70.2975 37.38 78.8151 40.9434C87.3214 44.5023 92.138 54.0026 89.903 62.9648L89.7418 63.6143L90.4108 63.585C97.4203 63.2791 103.5 68.991' +
         '7 103.5 76.0283C103.5 82.8395 97.7717 88.4997 90.9772 88.5H37.9537C31.1275 88.5018 25.2029 83.1709 24.5592 76.3604C23.9158 69.5518 28.7369 63.2124 35.443 61.9453L35.9264 61.8535L35.8424 61.3691C35.0256 56.6239 37.1258 51.7168 41.1051 49.0127C45.0951 46.3014 50.4459 46.1537 54.5797 48.6396L55.0026 48.8945L55.2623 48.4746Z" fill="url(#mcarain_paint0_linear_1858_8370)" stroke="#E6EFFC" stroke-miterli' +
         'mit="10"/></g><animateTransform attributeName="transform" type="translate" values="0 0;0 -3;0 0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"/></g></g><g id="mcarain_Precipitation"><g id="mcarain_Raindrops"><path id="mcarain_Raindrop 1" d="M52 83V95" stroke="#0A5AD4" stroke-width="4" stroke-linecap="round"><animateTransform attributeName="tra' +
@@ -207,7 +207,7 @@ String wtMa_rain() {
         'tUnits="userSpaceOnUse"><stop stop-color="#F3F7FE"/><stop offset="1" stop-color="#E6EFFC"/></linearGradient><clipPath id="mcarain_clip0_1858_8370"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_chancetstorms() {
+String wwMa_chancetstorms() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcachancetstorms_thunderstorms-day" clip-path="url(#mcachancetstorms_clip0_1858_9913)"><g id="mcachancetstorms_Sky"><g id="mcachancetstorms_Sun"><circle id="mcachancetstorms_Core" cx="39" cy="51" r="8.5" fill="url(#mcachancetstorms_paint0_linear_1858_9913)" stroke="#F8AF18"/><g id="mcachancetstorms_Rays"><path d="M37.' +
         '6875 31.3125C37.6875 30.5876 38.2751 30 39 30C39.7249 30 40.3125 30.5876 40.3125 31.3125V37.4375C40.3125 38.1624 39.7249 38.75 39 38.75C38.2751 38.75 37.6875 38.1624 37.6875 37.4375V31.3125Z" fill="#F8AF18"/><path d="M51.9931 36.1508C52.5056 35.6382 53.3367 35.6382 53.8492 36.1508C54.3618 36.6633 54.3618 37.4943 53.8492 38.0069L49.5182 42.3379C49.0056 42.8505 48.1746 42.8505 47.6621 42.3379C47.149' +
         '5 41.8254 47.1495 40.9944 47.6621 40.4818L51.9931 36.1508Z" fill="#F8AF18"/><path d="M58.6875 49.6875C59.4124 49.6875 60 50.2751 60 51C60 51.7249 59.4124 52.3125 58.6875 52.3125H52.5625C51.8376 52.3125 51.25 51.7249 51.25 51C51.25 50.2751 51.8376 49.6875 52.5625 49.6875H58.6875Z" fill="#F8AF18"/><path d="M53.8492 63.9931C54.3618 64.5057 54.3618 65.3367 53.8492 65.8492C53.3367 66.3618 52.5056 66.36' +
@@ -222,7 +222,7 @@ String wtMa_chancetstorms() {
         ' gradientUnits="userSpaceOnUse"><stop stop-color="#F7B23B"/><stop offset="1" stop-color="#F6A823"/></linearGradient><clipPath id="mcachancetstorms_clip0_1858_9913"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_tstorms() {
+String wwMa_tstorms() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcatstorms_thunderstorms-rain" clip-path="url(#mcatstorms_clip0_1858_9933)"><g id="mcatstorms_Sky"><g id="mcatstorms_Clouds"><g id="mcatstorms_Cloud"><path id="mcatstorms_Cloud_2" d="M55.2625 48.4746C60.1228 40.6111 70.2976 37.38 78.8152 40.9434C87.3215 44.5023 92.1381 54.0026 89.9031 62.9648L89.7419 63.6143L90.4109 6' +
         '3.585C97.4205 63.2791 103.5 68.9917 103.5 76.0283C103.5 82.8395 97.7719 88.4997 90.9773 88.5H37.9539C31.1276 88.5018 25.203 83.1709 24.5593 76.3604C23.9159 69.5518 28.7371 63.2124 35.4431 61.9453L35.9265 61.8535L35.8425 61.3691C35.0258 56.6239 37.1259 51.7168 41.1052 49.0127C45.0952 46.3014 50.4461 46.1537 54.5798 48.6396L55.0027 48.8945L55.2625 48.4746Z" fill="url(#mcatstorms_paint0_linear_1858_9' +
         '933)" stroke="#E6EFFC" stroke-miterlimit="10"/></g><animateTransform attributeName="transform" type="translate" values="0 0;0 -3;0 0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"/></g></g><g id="mcatstorms_Precipitation"><g id="mcatstorms_Raindrops"><path id="mcatstorms_Raindrop 1" d="M52 83V95" stroke="#0A5AD4" stroke-width="4" stroke-lineca' +
@@ -234,7 +234,7 @@ String wtMa_tstorms() {
         'stop-color="#F6A823"/></linearGradient><clipPath id="mcatstorms_clip0_1858_9933"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_chanceflurries() {
+String wwMa_chanceflurries() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcachanceflurries_partly-cloudy-day-snow" clip-path="url(#mcachanceflurries_clip0_1858_8863)"><g id="mcachanceflurries_Sky"><g id="mcachanceflurries_Sun"><circle id="mcachanceflurries_Core" cx="39" cy="51" r="8.5" fill="url(#mcachanceflurries_paint0_linear_1858_8863)" stroke="#F8AF18"/><g id="mcachanceflurries_Rays"><' +
         'path d="M37.6875 31.3125C37.6875 30.5876 38.2751 30 39 30C39.7249 30 40.3125 30.5876 40.3125 31.3125V37.4375C40.3125 38.1624 39.7249 38.75 39 38.75C38.2751 38.75 37.6875 38.1624 37.6875 37.4375V31.3125Z" fill="#F8AF18"/><path d="M51.9931 36.1508C52.5056 35.6382 53.3367 35.6382 53.8492 36.1508C54.3618 36.6633 54.3618 37.4943 53.8492 38.0069L49.5182 42.3379C49.0056 42.8505 48.1746 42.8505 47.6621 42' +
         '.3379C47.1495 41.8254 47.1495 40.9944 47.6621 40.4818L51.9931 36.1508Z" fill="#F8AF18"/><path d="M58.6875 49.6875C59.4124 49.6875 60 50.2751 60 51C60 51.7249 59.4124 52.3125 58.6875 52.3125H52.5625C51.8376 52.3125 51.25 51.7249 51.25 51C51.25 50.2751 51.8376 49.6875 52.5625 49.6875H58.6875Z" fill="#F8AF18"/><path d="M53.8492 63.9931C54.3618 64.5057 54.3618 65.3367 53.8492 65.8492C53.3367 66.3618 5' +
@@ -269,7 +269,7 @@ String wtMa_chanceflurries() {
         '="mcachanceflurries_paint1_linear_1858_8863" x1="64.0008" y1="39" x2="64.0008" y2="89" gradientUnits="userSpaceOnUse"><stop stop-color="#F3F7FE"/><stop offset="1" stop-color="#E6EFFC"/></linearGradient><clipPath id="mcachanceflurries_clip0_1858_8863"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_flurries() {
+String wwMa_flurries() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcaflurries_snow" clip-path="url(#mcaflurries_clip0_1858_8860)"><g id="mcaflurries_Sky"><g id="mcaflurries_Clouds"><g id="mcaflurries_Cloud"><path id="mcaflurries_Cloud_2" d="M55.2623 48.4746C60.1227 40.6111 70.2975 37.38 78.8151 40.9434C87.3214 44.5023 92.138 54.0026 89.903 62.9648L89.7418 63.6143L90.4108 63.585C97.4' +
         '203 63.2791 103.5 68.9917 103.5 76.0283C103.5 82.8395 97.7717 88.4997 90.9772 88.5H37.9537C31.1275 88.5018 25.2029 83.1709 24.5592 76.3604C23.9158 69.5518 28.7369 63.2124 35.443 61.9453L35.9264 61.8535L35.8424 61.3691C35.0256 56.6239 37.1258 51.7168 41.1051 49.0127C45.0951 46.3014 50.4459 46.1537 54.5797 48.6396L55.0026 48.8945L55.2623 48.4746Z" fill="url(#mcaflurries_paint0_linear_1858_8860)" str' +
         'oke="#E6EFFC" stroke-miterlimit="10"/></g><animateTransform attributeName="transform" type="translate" values="0 0;0 -3;0 0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"/></g></g><g id="mcaflurries_Precipitation"><g id="mcaflurries_Snowflakes"><path id="mcaflurries_Snowflake 1" d="M52.5781 90.366L51.3735 89.6775C51.4794 89.2326 51.4786 88.768' +
@@ -298,7 +298,7 @@ String wtMa_flurries() {
         'clipPath id="mcaflurries_clip0_1858_8860"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_chancesnow() {
+String wwMa_chancesnow() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcachancesnow_partly-cloudy-day-snow" clip-path="url(#mcachancesnow_clip0_1858_8863)"><g id="mcachancesnow_Sky"><g id="mcachancesnow_Sun"><circle id="mcachancesnow_Core" cx="39" cy="51" r="8.5" fill="url(#mcachancesnow_paint0_linear_1858_8863)" stroke="#F8AF18"/><g id="mcachancesnow_Rays"><path d="M37.6875 31.3125C37.' +
         '6875 30.5876 38.2751 30 39 30C39.7249 30 40.3125 30.5876 40.3125 31.3125V37.4375C40.3125 38.1624 39.7249 38.75 39 38.75C38.2751 38.75 37.6875 38.1624 37.6875 37.4375V31.3125Z" fill="#F8AF18"/><path d="M51.9931 36.1508C52.5056 35.6382 53.3367 35.6382 53.8492 36.1508C54.3618 36.6633 54.3618 37.4943 53.8492 38.0069L49.5182 42.3379C49.0056 42.8505 48.1746 42.8505 47.6621 42.3379C47.1495 41.8254 47.149' +
         '5 40.9944 47.6621 40.4818L51.9931 36.1508Z" fill="#F8AF18"/><path d="M58.6875 49.6875C59.4124 49.6875 60 50.2751 60 51C60 51.7249 59.4124 52.3125 58.6875 52.3125H52.5625C51.8376 52.3125 51.25 51.7249 51.25 51C51.25 50.2751 51.8376 49.6875 52.5625 49.6875H58.6875Z" fill="#F8AF18"/><path d="M53.8492 63.9931C54.3618 64.5057 54.3618 65.3367 53.8492 65.8492C53.3367 66.3618 52.5056 66.3618 51.9931 65.84' +
@@ -333,7 +333,7 @@ String wtMa_chancesnow() {
         '.0008" y2="89" gradientUnits="userSpaceOnUse"><stop stop-color="#F3F7FE"/><stop offset="1" stop-color="#E6EFFC"/></linearGradient><clipPath id="mcachancesnow_clip0_1858_8863"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_snow() {
+String wwMa_snow() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcasnow_snow" clip-path="url(#mcasnow_clip0_1858_8860)"><g id="mcasnow_Sky"><g id="mcasnow_Clouds"><g id="mcasnow_Cloud"><path id="mcasnow_Cloud_2" d="M55.2623 48.4746C60.1227 40.6111 70.2975 37.38 78.8151 40.9434C87.3214 44.5023 92.138 54.0026 89.903 62.9648L89.7418 63.6143L90.4108 63.585C97.4203 63.2791 103.5 68.991' +
         '7 103.5 76.0283C103.5 82.8395 97.7717 88.4997 90.9772 88.5H37.9537C31.1275 88.5018 25.2029 83.1709 24.5592 76.3604C23.9158 69.5518 28.7369 63.2124 35.443 61.9453L35.9264 61.8535L35.8424 61.3691C35.0256 56.6239 37.1258 51.7168 41.1051 49.0127C45.0951 46.3014 50.4459 46.1537 54.5797 48.6396L55.0026 48.8945L55.2623 48.4746Z" fill="url(#mcasnow_paint0_linear_1858_8860)" stroke="#E6EFFC" stroke-miterli' +
         'mit="10"/></g><animateTransform attributeName="transform" type="translate" values="0 0;0 -3;0 0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"/></g></g><g id="mcasnow_Precipitation"><g id="mcasnow_Snowflakes"><path id="mcasnow_Snowflake 1" d="M52.5781 90.366L51.3735 89.6775C51.4794 89.2326 51.4786 88.7687 51.3708 88.3241L52.5781 87.6345C52.673' +
@@ -362,7 +362,7 @@ String wtMa_snow() {
         '28" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_chancesleet() {
+String wwMa_chancesleet() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcachancesleet_partly-cloudy-day-sleet" clip-path="url(#mcachancesleet_clip0_1858_9093)"><g id="mcachancesleet_Sky"><g id="mcachancesleet_Sun"><circle id="mcachancesleet_Core" cx="39" cy="51" r="8.5" fill="url(#mcachancesleet_paint0_linear_1858_9093)" stroke="#F8AF18"/><g id="mcachancesleet_Rays"><path d="M37.6875 31.' +
         '3125C37.6875 30.5876 38.2751 30 39 30C39.7249 30 40.3125 30.5876 40.3125 31.3125V37.4375C40.3125 38.1624 39.7249 38.75 39 38.75C38.2751 38.75 37.6875 38.1624 37.6875 37.4375V31.3125Z" fill="#F8AF18"/><path d="M51.9931 36.1508C52.5056 35.6382 53.3367 35.6382 53.8492 36.1508C54.3618 36.6633 54.3618 37.4943 53.8492 38.0069L49.5182 42.3379C49.0056 42.8505 48.1746 42.8505 47.6621 42.3379C47.1495 41.825' +
         '4 47.1495 40.9944 47.6621 40.4818L51.9931 36.1508Z" fill="#F8AF18"/><path d="M58.6875 49.6875C59.4124 49.6875 60 50.2751 60 51C60 51.7249 59.4124 52.3125 58.6875 52.3125H52.5625C51.8376 52.3125 51.25 51.7249 51.25 51C51.25 50.2751 51.8376 49.6875 52.5625 49.6875H58.6875Z" fill="#F8AF18"/><path d="M53.8492 63.9931C54.3618 64.5057 54.3618 65.3367 53.8492 65.8492C53.3367 66.3618 52.5056 66.3618 51.99' +
@@ -400,7 +400,7 @@ String wtMa_chancesleet() {
         'adient><linearGradient id="mcachancesleet_paint1_linear_1858_9093" x1="64.0008" y1="39" x2="64.0008" y2="89" gradientUnits="userSpaceOnUse"><stop stop-color="#F3F7FE"/><stop offset="1" stop-color="#E6EFFC"/></linearGradient><clipPath id="mcachancesleet_clip0_1858_9093"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_sleet() {
+String wwMa_sleet() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcasleet_sleet" clip-path="url(#mcasleet_clip0_1858_9090)"><g id="mcasleet_Sky"><g id="mcasleet_Clouds"><g id="mcasleet_Cloud"><path id="mcasleet_Cloud_2" d="M55.2623 48.4746C60.1227 40.6111 70.2975 37.38 78.8151 40.9434C87.3214 44.5023 92.138 54.0026 89.903 62.9648L89.7418 63.6143L90.4108 63.585C97.4203 63.2791 103.5' +
         ' 68.9917 103.5 76.0283C103.5 82.8395 97.7717 88.4997 90.9772 88.5H37.9537C31.1275 88.5018 25.2029 83.1709 24.5592 76.3604C23.9158 69.5518 28.7369 63.2124 35.443 61.9453L35.9264 61.8535L35.8424 61.3691C35.0256 56.6239 37.1258 51.7168 41.1051 49.0127C45.0951 46.3014 50.4459 46.1537 54.5797 48.6396L55.0026 48.8945L55.2623 48.4746Z" fill="url(#mcasleet_paint0_linear_1858_9090)" stroke="#E6EFFC" stroke' +
         '-miterlimit="10"/></g><animateTransform attributeName="transform" type="translate" values="0 0;0 -3;0 0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"/></g></g><g id="mcasleet_Precipitation"><g id="mcasleet_Snowflakes"><path id="mcasleet_Snowflake 1" d="M52.5781 90.366L51.3735 89.6775C51.4794 89.2326 51.4786 88.7687 51.3708 88.3241L52.5781 87.' +
@@ -432,7 +432,7 @@ String wtMa_sleet() {
         'earGradient><clipPath id="mcasleet_clip0_1858_9090"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_hail() {
+String wwMa_hail() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcahail_hail" clip-path="url(#mcahail_clip0_1858_8718)"><g id="mcahail_Sky"><g id="mcahail_Clouds"><g id="mcahail_Cloud"><path id="mcahail_Cloud_2" d="M55.2623 48.4746C60.1227 40.6111 70.2975 37.38 78.8151 40.9434C87.3214 44.5023 92.138 54.0026 89.903 62.9648L89.7418 63.6143L90.4108 63.585C97.4203 63.2791 103.5 68.991' +
         '7 103.5 76.0283C103.5 82.8395 97.7717 88.4997 90.9772 88.5H37.9537C31.1275 88.5018 25.2029 83.1709 24.5592 76.3604C23.9158 69.5518 28.7369 63.2124 35.443 61.9453L35.9264 61.8535L35.8424 61.3691C35.0256 56.6239 37.1258 51.7168 41.1051 49.0127C45.0951 46.3014 50.4459 46.1537 54.5797 48.6396L55.0026 48.8945L55.2623 48.4746Z" fill="url(#mcahail_paint0_linear_1858_8718)" stroke="#E6EFFC" stroke-miterli' +
         'mit="10"/></g><animateTransform attributeName="transform" type="translate" values="0 0;0 -3;0 0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"/></g></g><g id="mcahail_Precipitation"><g id="mcahail_Ice balls"><path id="mcahail_Ice Ball 1" d="M52 86C51.4067 86 50.8266 86.1759 50.3333 86.5056C49.8399 86.8352 49.4554 87.3038 49.2283 87.852C49.0013' +
@@ -445,25 +445,25 @@ String wtMa_hail() {
         'e"><stop stop-color="#F3F7FE"/><stop offset="1" stop-color="#E6EFFC"/></linearGradient><clipPath id="mcahail_clip0_1858_8718"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_wind() {
+String wwMa_wind() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcawind_wind"><g id="mcawind_Wind"><path id="mcawind_Wind Line 1" d="M87.79 40.1352C93.9756 33.347 105 38.4049 105 47.4463C105 53.2746 100.522 58 95 58H24" stroke="#E2E8F0" stroke-width="4" stroke-miterlimit="10" stroke-linecap="round" stroke-dasharray="50"><animate attributeName="stroke-dashoffset" values="0;1000" du' +
         'r="6s" begin="0s" repeatCount="indefinite"/></path><path id="mcawind_Wind Line 1_2" d="M60.1281 87.868C66.4202 94.5186 78 89.8717 78 80.5556C78 74.7263 73.3503 70 67.6154 70C61.8805 70 24 70 24 70" stroke="#E2E8F0" stroke-width="4" stroke-miterlimit="10" stroke-linecap="round" stroke-dasharray="50"><animate attributeName="stroke-dashoffset" values="0;1000" dur="6s" begin="0.2s" repeatCount="indefi' +
         'nite"/></path></g></g></svg>'
 }
 
-String wtMa_nt_sunny() {
+String wwMa_nt_sunny() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcant_sunny_clear-night"><g id="mcant_sunny_Moon"><path id="mcant_sunny_Moon_2" d="M60.3018 32.582C55.2817 53.6999 73.6001 74.3477 95.3252 72.5146C91.5193 85.7702 79.1986 95.4998 64.5361 95.5C46.8375 95.5 32.5001 81.3444 32.5 63.8984C32.5 47.8688 44.6066 34.6278 60.3018 32.582Z" fill="url(#mcant_sunny_paint0_linear_18' +
         '37_5080)" stroke="#72B9D5" stroke-linecap="round" stroke-linejoin="round"/><animateTransform attributeName="transform" type="rotate" values="-6 63.9 64.0;6 63.9 64.0;-6 63.9 64.0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"/></g></g><defs><linearGradient id="mcant_sunny_paint0_linear_1837_5080" x1="64" y1="32" x2="64" y2="96" gradientUnits="' +
         'userSpaceOnUse"><stop stop-color="#86C3DB"/><stop offset="1" stop-color="#72B9D5"/></linearGradient></defs></svg>'
 }
 
-String wtMa_nt_clear() {
+String wwMa_nt_clear() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcant_clear_clear-night"><g id="mcant_clear_Moon"><path id="mcant_clear_Moon_2" d="M60.3018 32.582C55.2817 53.6999 73.6001 74.3477 95.3252 72.5146C91.5193 85.7702 79.1986 95.4998 64.5361 95.5C46.8375 95.5 32.5001 81.3444 32.5 63.8984C32.5 47.8688 44.6066 34.6278 60.3018 32.582Z" fill="url(#mcant_clear_paint0_linear_18' +
         '37_5080)" stroke="#72B9D5" stroke-linecap="round" stroke-linejoin="round"/><animateTransform attributeName="transform" type="rotate" values="-6 63.9 64.0;6 63.9 64.0;-6 63.9 64.0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"/></g></g><defs><linearGradient id="mcant_clear_paint0_linear_1837_5080" x1="64" y1="32" x2="64" y2="96" gradientUnits="' +
         'userSpaceOnUse"><stop stop-color="#86C3DB"/><stop offset="1" stop-color="#72B9D5"/></linearGradient></defs></svg>'
 }
 
-String wtMa_nt_mostlysunny() {
+String wwMa_nt_mostlysunny() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcant_mostlysunny_mostly-clear-night" clip-path="url(#mcant_mostlysunny_clip0_1858_8342)"><g id="mcant_mostlysunny_Sky"><g id="mcant_mostlysunny_Moon"><path id="mcant_mostlysunny_Moon_2" d="M52.2529 42.5869C48.9384 57.2007 61.6736 71.1024 76.3213 70.0273C73.6524 78.9635 65.298 85.5 55.3682 85.5C43.2847 85.4999 33.5 75' +
         '.8355 33.5 63.9297C33.5002 53.0673 41.6473 44.0798 52.2529 42.5869Z" fill="url(#mcant_mostlysunny_paint0_linear_1858_8342)" stroke="#72B9D5" stroke-linecap="round" stroke-linejoin="round"/><animateTransform attributeName="transform" type="rotate" values="-6 54.9 64.0;6 54.9 64.0;-6 54.9 64.0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"/></g>' +
         '<g id="mcant_mostlysunny_Clouds"><g id="mcant_mostlysunny_Cloud"><path id="mcant_mostlysunny_Cloud_2" d="M58.0142 59.8887C61.3363 54.3602 68.3655 51.9679 74.3082 54.5254C80.2917 57.1004 83.5145 63.9169 81.9859 70.2227L81.8297 70.8701L82.4947 70.8408C87.4096 70.6202 91.4996 74.7706 91.4996 79.6602C91.4994 84.3966 87.6454 88.499 82.8834 88.499C70.5117 88.4877 58.1362 88.5 45.7672 88.5C40.9829 88.501' +
@@ -472,7 +472,7 @@ String wtMa_nt_mostlysunny() {
         'near_1858_8342" x1="64.0008" y1="53" x2="64.0008" y2="89" gradientUnits="userSpaceOnUse"><stop stop-color="#F3F7FE"/><stop offset="1" stop-color="#E6EFFC"/></linearGradient><clipPath id="mcant_mostlysunny_clip0_1858_8342"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_nt_partlycloudy() {
+String wwMa_nt_partlycloudy() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcant_partlycloudy_partly-cloudy-night" clip-path="url(#mcant_partlycloudy_clip0_1858_8252)"><g id="mcant_partlycloudy_Sky"><g id="mcant_partlycloudy_Moon"><path id="mcant_partlycloudy_Moon_2" d="M35.1152 34.5947C33.3777 43.1625 40.7532 51.2141 49.3135 50.7832C47.6732 55.8338 42.8891 59.4999 37.2178 59.5C30.188 59.5 2' +
         '4.5002 53.8786 24.5 46.959C24.5 40.7451 29.0879 35.5838 35.1152 34.5947Z" fill="url(#mcant_partlycloudy_paint0_linear_1858_8252)" stroke="#72B9D5" stroke-linecap="round" stroke-linejoin="round"/><animateTransform attributeName="transform" type="rotate" values="-6 36.9 47.0;6 36.9 47.0;-6 36.9 47.0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"' +
         '/></g><g id="mcant_partlycloudy_Clouds"><g id="mcant_partlycloudy_Cloud"><path id="mcant_partlycloudy_Cloud_2" d="M55.2623 48.4746C60.1227 40.6111 70.2975 37.38 78.8151 40.9434C87.3214 44.5023 92.138 54.0026 89.903 62.9648L89.7418 63.6143L90.4108 63.585C97.4203 63.2791 103.5 68.9917 103.5 76.0283C103.5 82.8395 97.7717 88.4997 90.9772 88.5H37.9537C31.1275 88.5018 25.2029 83.1709 24.5592 76.3604C23.' +
@@ -481,7 +481,7 @@ String wtMa_nt_partlycloudy() {
         '="39" x2="64.0008" y2="89" gradientUnits="userSpaceOnUse"><stop stop-color="#F3F7FE"/><stop offset="1" stop-color="#E6EFFC"/></linearGradient><clipPath id="mcant_partlycloudy_clip0_1858_8252"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_nt_partlysunny() {
+String wwMa_nt_partlysunny() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcant_partlysunny_partly-cloudy-night" clip-path="url(#mcant_partlysunny_clip0_1858_8252)"><g id="mcant_partlysunny_Sky"><g id="mcant_partlysunny_Moon"><path id="mcant_partlysunny_Moon_2" d="M35.1152 34.5947C33.3777 43.1625 40.7532 51.2141 49.3135 50.7832C47.6732 55.8338 42.8891 59.4999 37.2178 59.5C30.188 59.5 24.500' +
         '2 53.8786 24.5 46.959C24.5 40.7451 29.0879 35.5838 35.1152 34.5947Z" fill="url(#mcant_partlysunny_paint0_linear_1858_8252)" stroke="#72B9D5" stroke-linecap="round" stroke-linejoin="round"/><animateTransform attributeName="transform" type="rotate" values="-6 36.9 47.0;6 36.9 47.0;-6 36.9 47.0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"/></g>' +
         '<g id="mcant_partlysunny_Clouds"><g id="mcant_partlysunny_Cloud"><path id="mcant_partlysunny_Cloud_2" d="M55.2623 48.4746C60.1227 40.6111 70.2975 37.38 78.8151 40.9434C87.3214 44.5023 92.138 54.0026 89.903 62.9648L89.7418 63.6143L90.4108 63.585C97.4203 63.2791 103.5 68.9917 103.5 76.0283C103.5 82.8395 97.7717 88.4997 90.9772 88.5H37.9537C31.1275 88.5018 25.2029 83.1709 24.5592 76.3604C23.9158 69.5' +
@@ -490,7 +490,7 @@ String wtMa_nt_partlysunny() {
         '.0008" y2="89" gradientUnits="userSpaceOnUse"><stop stop-color="#F3F7FE"/><stop offset="1" stop-color="#E6EFFC"/></linearGradient><clipPath id="mcant_partlysunny_clip0_1858_8252"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_nt_mostlycloudy() {
+String wwMa_nt_mostlycloudy() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcant_mostlycloudy_overcast-night" clip-path="url(#mcant_mostlycloudy_clip0_1858_8272)"><g id="mcant_mostlycloudy_Sky"><g id="mcant_mostlycloudy_Moon"><path id="mcant_mostlycloudy_Moon_2" d="M35.1152 34.5947C33.3777 43.1625 40.7532 51.2141 49.3135 50.7832C47.6732 55.8338 42.8891 59.4999 37.2178 59.5C30.188 59.5 24.500' +
         '2 53.8786 24.5 46.959C24.5 40.7451 29.0879 35.5838 35.1152 34.5947Z" fill="url(#mcant_mostlycloudy_paint0_linear_1858_8272)" stroke="#72B9D5" stroke-linecap="round" stroke-linejoin="round"/><animateTransform attributeName="transform" type="rotate" values="-6 36.9 47.0;6 36.9 47.0;-6 36.9 47.0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"/></g' +
         '><g id="mcant_mostlycloudy_Clouds"><g id="mcant_mostlycloudy_Secondary Cloud"><path id="mcant_mostlycloudy_Cloud" d="M83.8392 48.6934C86.2444 44.9584 91.2146 43.529 95.3177 45.1768C99.3609 46.8006 101.814 51.1888 100.71 55.4365L100.54 56.0898L101.215 56.0615C104.496 55.924 107.5 58.4646 107.5 61.7744C107.5 64.9759 104.669 67.4999 101.489 67.5H74.9769C71.7679 67.5008 68.8449 65.1182 68.5287 61.9072' +
@@ -502,7 +502,7 @@ String wtMa_nt_mostlycloudy() {
         'C"/></linearGradient><clipPath id="mcant_mostlycloudy_clip0_1858_8272"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_nt_fog() {
+String wwMa_nt_fog() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcant_fog_fog-night"><g id="mcant_fog_Mask group"><mask id="mcant_fog_mask0_1868_4607" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="128" height="75"><rect id="mcant_fog_Mask" width="128" height="75" fill="black"/></mask><g mask="url(#mcant_fog_mask0_1868_4607)"><g id="mcant_fog_Moon"><path id=' +
         '"mcant_fog_Moon_2" d="M61.2529 40.5869C57.9384 55.2007 70.6736 69.1024 85.3213 68.0273C82.6524 76.9635 74.298 83.5 64.3682 83.5C52.2847 83.4999 42.5 73.8355 42.5 61.9297C42.5002 51.0673 50.6473 42.0798 61.2529 40.5869Z" fill="url(#mcant_fog_paint0_linear_1868_4607)" stroke="#72B9D5" stroke-linecap="round" stroke-linejoin="round"/><animateTransform attributeName="transform" type="rotate" values="-6' +
         ' 63.9 62.0;6 63.9 62.0;-6 63.9 62.0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"/></g></g></g><g id="mcant_fog_Precipitation"><path id="mcant_fog_Line 2" d="M40 81H88" stroke="#E2E8F0" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round"><animateTransform attributeName="transform" type="translate" values="0 0;3 0;0 0" dur="3s" begi' +
@@ -510,7 +510,7 @@ String wtMa_nt_fog() {
         '1"/></path></g></g><defs><linearGradient id="mcant_fog_paint0_linear_1868_4607" x1="64" y1="40" x2="64" y2="84" gradientUnits="userSpaceOnUse"><stop stop-color="#86C3DB"/><stop offset="1" stop-color="#72B9D5"/></linearGradient></defs></svg>'
 }
 
-String wtMa_nt_hazy() {
+String wwMa_nt_hazy() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcant_hazy_haze-night"><g id="mcant_hazy_Mask group"><mask id="mcant_hazy_mask0_1868_4609" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="128" height="75"><rect id="mcant_hazy_Mask" width="128" height="75" fill="black"/></mask><g mask="url(#mcant_hazy_mask0_1868_4609)"><g id="mcant_hazy_Moon"><p' +
         'ath id="mcant_hazy_Moon_2" d="M61.2529 40.5869C57.9384 55.2007 70.6736 69.1024 85.3213 68.0273C82.6524 76.9635 74.298 83.5 64.3682 83.5C52.2847 83.4999 42.5 73.8355 42.5 61.9297C42.5002 51.0673 50.6473 42.0798 61.2529 40.5869Z" fill="url(#mcant_hazy_paint0_linear_1868_4609)" stroke="#72B9D5" stroke-linecap="round" stroke-linejoin="round"/><animateTransform attributeName="transform" type="rotate" v' +
         'alues="-6 63.9 62.0;6 63.9 62.0;-6 63.9 62.0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"/></g></g></g><g id="mcant_hazy_Precipitation"><path id="mcant_hazy_Line 2" d="M40 81H88" stroke="#E2E8F0" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-dasharray="12 9"><animateTransform attributeName="transform" type="translate"' +
@@ -518,7 +518,7 @@ String wtMa_nt_hazy() {
         'inite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"/></path></g></g><defs><linearGradient id="mcant_hazy_paint0_linear_1868_4609" x1="64" y1="40" x2="64" y2="84" gradientUnits="userSpaceOnUse"><stop stop-color="#86C3DB"/><stop offset="1" stop-color="#72B9D5"/></linearGradient></defs></svg>'
 }
 
-String wtMa_nt_chancerain() {
+String wwMa_nt_chancerain() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcant_chancerain_partly-cloudy-night-rain" clip-path="url(#mcant_chancerain_clip0_1858_8374)"><g id="mcant_chancerain_Sky"><g id="mcant_chancerain_Moon"><path id="mcant_chancerain_Moon_2" d="M35.1152 34.5947C33.3777 43.1625 40.7532 51.2141 49.3135 50.7832C47.6732 55.8338 42.8891 59.4999 37.2178 59.5C30.188 59.5 24.500' +
         '2 53.8786 24.5 46.959C24.5 40.7451 29.0879 35.5838 35.1152 34.5947Z" fill="url(#mcant_chancerain_paint0_linear_1858_8374)" stroke="#72B9D5" stroke-linecap="round" stroke-linejoin="round"/><animateTransform attributeName="transform" type="rotate" values="-6 36.9 47.0;6 36.9 47.0;-6 36.9 47.0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"/></g><' +
         'g id="mcant_chancerain_Clouds"><g id="mcant_chancerain_Cloud"><path id="mcant_chancerain_Cloud_2" d="M55.2623 48.4746C60.1227 40.6111 70.2975 37.38 78.8151 40.9434C87.3214 44.5023 92.138 54.0026 89.903 62.9648L89.7418 63.6143L90.4108 63.585C97.4203 63.2791 103.5 68.9917 103.5 76.0283C103.5 82.8395 97.7717 88.4997 90.9772 88.5H37.9537C31.1275 88.5018 25.2029 83.1709 24.5592 76.3604C23.9158 69.5518 ' +
@@ -530,7 +530,7 @@ String wtMa_nt_chancerain() {
         'r="#72B9D5"/></linearGradient><linearGradient id="mcant_chancerain_paint1_linear_1858_8374" x1="64.0008" y1="39" x2="64.0008" y2="89" gradientUnits="userSpaceOnUse"><stop stop-color="#F3F7FE"/><stop offset="1" stop-color="#E6EFFC"/></linearGradient><clipPath id="mcant_chancerain_clip0_1858_8374"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_nt_showers() {
+String wwMa_nt_showers() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcant_showers_partly-cloudy-night-drizzle" clip-path="url(#mcant_showers_clip0_1858_8518)"><g id="mcant_showers_Sky"><g id="mcant_showers_Moon"><path id="mcant_showers_Moon_2" d="M35.1152 34.5947C33.3777 43.1625 40.7532 51.2141 49.3135 50.7832C47.6732 55.8338 42.8891 59.4999 37.2178 59.5C30.188 59.5 24.5002 53.8786 24' +
         '.5 46.959C24.5 40.7451 29.0879 35.5838 35.1152 34.5947Z" fill="url(#mcant_showers_paint0_linear_1858_8518)" stroke="#72B9D5" stroke-linecap="round" stroke-linejoin="round"/><animateTransform attributeName="transform" type="rotate" values="-6 36.9 47.0;6 36.9 47.0;-6 36.9 47.0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"/></g><g id="mcant_sho' +
         'wers_Clouds"><g id="mcant_showers_Cloud"><path id="mcant_showers_Cloud_2" d="M55.2623 48.4746C60.1227 40.6111 70.2975 37.38 78.8151 40.9434C87.3214 44.5023 92.138 54.0026 89.903 62.9648L89.7418 63.6143L90.4108 63.585C97.4203 63.2791 103.5 68.9917 103.5 76.0283C103.5 82.8395 97.7717 88.4997 90.9772 88.5H37.9537C31.1275 88.5018 25.2029 83.1709 24.5592 76.3604C23.9158 69.5518 28.7369 63.2124 35.443 6' +
@@ -542,7 +542,7 @@ String wtMa_nt_showers() {
         ' id="mcant_showers_paint1_linear_1858_8518" x1="64.0008" y1="39" x2="64.0008" y2="89" gradientUnits="userSpaceOnUse"><stop stop-color="#F3F7FE"/><stop offset="1" stop-color="#E6EFFC"/></linearGradient><clipPath id="mcant_showers_clip0_1858_8518"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_nt_chancetstorms() {
+String wwMa_nt_chancetstorms() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcant_chancetstorms_thunderstorms-night" clip-path="url(#mcant_chancetstorms_clip0_1858_9915)"><g id="mcant_chancetstorms_Sky"><g id="mcant_chancetstorms_Moon"><path id="mcant_chancetstorms_Moon_2" d="M35.1152 34.5947C33.3777 43.1625 40.7532 51.2141 49.3135 50.7832C47.6732 55.8338 42.8891 59.4999 37.2178 59.5C30.188 5' +
         '9.5 24.5002 53.8786 24.5 46.959C24.5 40.7451 29.0879 35.5838 35.1152 34.5947Z" fill="url(#mcant_chancetstorms_paint0_linear_1858_9915)" stroke="#72B9D5" stroke-linecap="round" stroke-linejoin="round"/><animateTransform attributeName="transform" type="rotate" values="-6 36.9 47.0;6 36.9 47.0;-6 36.9 47.0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 ' +
         '.58 1"/></g><g id="mcant_chancetstorms_Clouds"><g id="mcant_chancetstorms_Cloud"><path id="mcant_chancetstorms_Cloud_2" d="M55.2625 48.4746C60.1228 40.6111 70.2976 37.38 78.8152 40.9434C87.3215 44.5023 92.1381 54.0026 89.9031 62.9648L89.7419 63.6143L90.4109 63.585C97.4205 63.2791 103.5 68.9917 103.5 76.0283C103.5 82.8395 97.7719 88.4997 90.9773 88.5H37.9539C31.1276 88.5018 25.203 83.1709 24.5593 7' +
@@ -553,7 +553,7 @@ String wtMa_nt_chancetstorms() {
         '="#F7B23B"/><stop offset="1" stop-color="#F6A823"/></linearGradient><clipPath id="mcant_chancetstorms_clip0_1858_9915"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_nt_tstorms() {
+String wwMa_nt_tstorms() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcant_tstorms_thunderstorms-night-rain" clip-path="url(#mcant_tstorms_clip0_1858_9939)"><g id="mcant_tstorms_Sky"><g id="mcant_tstorms_Moon"><path id="mcant_tstorms_Moon_2" d="M35.1152 34.5947C33.3777 43.1625 40.7532 51.2141 49.3135 50.7832C47.6732 55.8338 42.8891 59.4999 37.2178 59.5C30.188 59.5 24.5002 53.8786 24.5 ' +
         '46.959C24.5 40.7451 29.0879 35.5838 35.1152 34.5947Z" fill="url(#mcant_tstorms_paint0_linear_1858_9939)" stroke="#72B9D5" stroke-linecap="round" stroke-linejoin="round"/><animateTransform attributeName="transform" type="rotate" values="-6 36.9 47.0;6 36.9 47.0;-6 36.9 47.0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"/></g><g id="mcant_tstorm' +
         's_Clouds"><g id="mcant_tstorms_Cloud"><path id="mcant_tstorms_Cloud_2" d="M55.2625 48.4746C60.1228 40.6111 70.2976 37.38 78.8152 40.9434C87.3215 44.5023 92.1381 54.0026 89.9031 62.9648L89.7419 63.6143L90.4109 63.585C97.4205 63.2791 103.5 68.9917 103.5 76.0283C103.5 82.8395 97.7719 88.4997 90.9773 88.5H37.9539C31.1276 88.5018 25.203 83.1709 24.5593 76.3604C23.9159 69.5518 28.7371 63.2124 35.4431 61' +
@@ -567,7 +567,7 @@ String wtMa_nt_tstorms() {
         'se"><stop stop-color="#F7B23B"/><stop offset="1" stop-color="#F6A823"/></linearGradient><clipPath id="mcant_tstorms_clip0_1858_9939"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_nt_chanceflurries() {
+String wwMa_nt_chanceflurries() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcant_chanceflurries_partly-cloudy-night-snow" clip-path="url(#mcant_chanceflurries_clip0_1858_8866)"><g id="mcant_chanceflurries_Sky"><g id="mcant_chanceflurries_Moon"><path id="mcant_chanceflurries_Moon_2" d="M35.1152 34.5947C33.3777 43.1625 40.7532 51.2141 49.3135 50.7832C47.6732 55.8338 42.8891 59.4999 37.2178 59.' +
         '5C30.188 59.5 24.5002 53.8786 24.5 46.959C24.5 40.7451 29.0879 35.5838 35.1152 34.5947Z" fill="url(#mcant_chanceflurries_paint0_linear_1858_8866)" stroke="#72B9D5" stroke-linecap="round" stroke-linejoin="round"/><animateTransform attributeName="transform" type="rotate" values="-6 36.9 47.0;6 36.9 47.0;-6 36.9 47.0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .5' +
         '8 1; .42 0 .58 1"/></g><g id="mcant_chanceflurries_Clouds"><g id="mcant_chanceflurries_Cloud"><path id="mcant_chanceflurries_Cloud_2" d="M55.2623 48.4746C60.1227 40.6111 70.2975 37.38 78.8151 40.9434C87.3214 44.5023 92.138 54.0026 89.903 62.9648L89.7418 63.6143L90.4108 63.585C97.4203 63.2791 103.5 68.9917 103.5 76.0283C103.5 82.8395 97.7717 88.4997 90.9772 88.5H37.9537C31.1275 88.5018 25.2029 83.1' +
@@ -598,7 +598,7 @@ String wtMa_nt_chanceflurries() {
         '1="64.0008" y1="39" x2="64.0008" y2="89" gradientUnits="userSpaceOnUse"><stop stop-color="#F3F7FE"/><stop offset="1" stop-color="#E6EFFC"/></linearGradient><clipPath id="mcant_chanceflurries_clip0_1858_8866"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_nt_chancesnow() {
+String wwMa_nt_chancesnow() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcant_chancesnow_partly-cloudy-night-snow" clip-path="url(#mcant_chancesnow_clip0_1858_8866)"><g id="mcant_chancesnow_Sky"><g id="mcant_chancesnow_Moon"><path id="mcant_chancesnow_Moon_2" d="M35.1152 34.5947C33.3777 43.1625 40.7532 51.2141 49.3135 50.7832C47.6732 55.8338 42.8891 59.4999 37.2178 59.5C30.188 59.5 24.500' +
         '2 53.8786 24.5 46.959C24.5 40.7451 29.0879 35.5838 35.1152 34.5947Z" fill="url(#mcant_chancesnow_paint0_linear_1858_8866)" stroke="#72B9D5" stroke-linecap="round" stroke-linejoin="round"/><animateTransform attributeName="transform" type="rotate" values="-6 36.9 47.0;6 36.9 47.0;-6 36.9 47.0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"/></g><' +
         'g id="mcant_chancesnow_Clouds"><g id="mcant_chancesnow_Cloud"><path id="mcant_chancesnow_Cloud_2" d="M55.2623 48.4746C60.1227 40.6111 70.2975 37.38 78.8151 40.9434C87.3214 44.5023 92.138 54.0026 89.903 62.9648L89.7418 63.6143L90.4108 63.585C97.4203 63.2791 103.5 68.9917 103.5 76.0283C103.5 82.8395 97.7717 88.4997 90.9772 88.5H37.9537C31.1275 88.5018 25.2029 83.1709 24.5592 76.3604C23.9158 69.5518 ' +
@@ -629,7 +629,7 @@ String wtMa_nt_chancesnow() {
         'se"><stop stop-color="#F3F7FE"/><stop offset="1" stop-color="#E6EFFC"/></linearGradient><clipPath id="mcant_chancesnow_clip0_1858_8866"><rect width="128" height="128" fill="white"/></clipPath></defs></svg>'
 }
 
-String wtMa_nt_chancesleet() {
+String wwMa_nt_chancesleet() {
     return '<svg x="0" y="0" width="60" height="60" viewBox="0 0 128 128" fill="none"><g id="mcant_chancesleet_partly-cloudy-night-sleet" clip-path="url(#mcant_chancesleet_clip0_1858_9096)"><g id="mcant_chancesleet_Sky"><g id="mcant_chancesleet_Moon"><path id="mcant_chancesleet_Moon_2" d="M35.1152 34.5947C33.3777 43.1625 40.7532 51.2141 49.3135 50.7832C47.6732 55.8338 42.8891 59.4999 37.2178 59.5C30.188 59.5 ' +
         '24.5002 53.8786 24.5 46.959C24.5 40.7451 29.0879 35.5838 35.1152 34.5947Z" fill="url(#mcant_chancesleet_paint0_linear_1858_9096)" stroke="#72B9D5" stroke-linecap="round" stroke-linejoin="round"/><animateTransform attributeName="transform" type="rotate" values="-6 36.9 47.0;6 36.9 47.0;-6 36.9 47.0" dur="3s" begin="0s" repeatCount="indefinite" calcMode="spline" keySplines=".42 0 .58 1; .42 0 .58 1"' +
         '/></g><g id="mcant_chancesleet_Clouds"><g id="mcant_chancesleet_Cloud"><path id="mcant_chancesleet_Cloud_2" d="M55.2623 48.4746C60.1227 40.6111 70.2975 37.38 78.8151 40.9434C87.3214 44.5023 92.138 54.0026 89.903 62.9648L89.7418 63.6143L90.4108 63.585C97.4203 63.2791 103.5 68.9917 103.5 76.0283C103.5 82.8395 97.7717 88.4997 90.9772 88.5H37.9537C31.1275 88.5018 25.2029 83.1709 24.5592 76.3604C23.915' +

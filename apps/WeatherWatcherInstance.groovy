@@ -1,5 +1,5 @@
 /**
- *  Weather Watcher (child app of Weather Watcher Manager; was "Weather Tile Instance" before 0.2.12)
+ *  Weather Watcher (child app of Weather Watcher Manager)
  *
  *  Copyright 2026 Rob Cummings
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -57,7 +57,7 @@ mappings {
 @Field static final Map SOURCES = ["open-meteo": "Open-Meteo (free, global, default)", "nws": "NWS / weather.gov (free, US only)",
                                    "custom": "Keyed provider (OpenWeatherMap One Call compatible)"]
 // Icon pack provider methods (each comes from an #include'd library; see WeatherWatcherIcons header)
-@Field static final List WT_ICON_PACK_PROVIDERS = ["wtIconPacks", "wtIconPacksOutline", "wtIconPacksMeteocons", "wtIconPacksMeteoconsAnimated", "wtIconPacksMono"]
+@Field static final List WW_ICON_PACK_PROVIDERS = ["wwIconPacks", "wwIconPacksOutline", "wwIconPacksMeteocons", "wwIconPacksMeteoconsAnimated", "wwIconPacksMono"]
 @Field static final Map REFRESH_OPTS = ["15": "15 minutes", "30": "30 minutes", "60": "1 hour", "180": "3 hours"]
 @Field static final Map THEMES = [
     dark : [bg: "#1a1a1a", text: "#ffffff", cloud: "#ffffff", light: "#f6d32d", precip: "#99c1f1", frozen: "#dceeff",
@@ -152,7 +152,7 @@ def mainPage() {
             input "endpoint", "enum", title: "Tile URL", options: ["local": "Local (LAN only)", "cloud": "Cloud (works remotely)"],
                   defaultValue: "local", required: true
             if (state.accessToken) {
-                paragraph "Add the device <b>${tileDeviceName()}</b> to a dashboard with template <b>Attribute</b>, attribute <b>weatherTile</b>."
+                paragraph "Add the device <b>${tileDeviceName()}</b> to a dashboard with template <b>Attribute</b>, attribute <b>weatherWatcher</b>."
                 paragraph "<a href='${svgUrl(settings.endpoint ?: 'local')}' target='_blank'>Preview the tile image</a>"
                 input "btnRegen", "button", title: "Regenerate access token"
             } else {
@@ -564,16 +564,16 @@ private String dayLabel(String date, int idx) {
 
 private String esc(s) { (s ?: "").toString().replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;") }
 
-@Field static final String WT_OLD_UPDATED_FORMAT = "'Updated' MMM d, h:mm a"
-@Field static final String WT_UPDATED_FORMAT = "MMM d, h:mm a"
+@Field static final String WW_OLD_UPDATED_FORMAT = "'Updated' MMM d, h:mm a"
+@Field static final String WW_UPDATED_FORMAT = "MMM d, h:mm a"
 
 private String fmtUpdated(Long ms) {
     if (!ms) return ""
-    String f = settings.updatedFormat ?: WT_UPDATED_FORMAT
-    if (f == WT_OLD_UPDATED_FORMAT) f = WT_UPDATED_FORMAT      // old default -> new default
+    String f = settings.updatedFormat ?: WW_UPDATED_FORMAT
+    if (f == WW_OLD_UPDATED_FORMAT) f = WW_UPDATED_FORMAT      // old default -> new default
     String t
     try { t = new Date(ms).format(f, location.timeZone) }
-    catch (e) { t = new Date(ms).format(WT_UPDATED_FORMAT, location.timeZone) }
+    catch (e) { t = new Date(ms).format(WW_UPDATED_FORMAT, location.timeZone) }
     if (settings.updatedShowPlace == false) return t
     String p = placeLabel()
     if (p && p.length() > 28) p = p.take(27) + "\u2026"
@@ -727,9 +727,9 @@ private void publishAttributes(List allDays) {
         String src = "${svgUrl(settings.endpoint ?: 'local')}&v=${state.svgHash}"
         String tile = "<img src='${src}' style='width:100%;height:auto;display:block' alt='forecast'>"
         if (tile.length() > 1024) log.warn "${app.label}: tile attribute is ${tile.length()} chars (limit 1024)"
-        a.weatherTile = tile
+        a.weatherWatcher = tile
     } else {
-        a.weatherTile = "Enable OAuth for Weather Watcher"
+        a.weatherWatcher = "Enable OAuth for Weather Watcher"
     }
     if (state.lastSuccess) {
         a.lastUpdated = new Date(state.lastSuccess as Long).format("yyyy-MM-dd'T'HH:mm:ssXXX", location.timeZone)
@@ -767,7 +767,7 @@ private void publishAttributes(List allDays) {
 
 private Map iconPacks() {
     Map all = [:]
-    WT_ICON_PACK_PROVIDERS.each { String m ->
+    WW_ICON_PACK_PROVIDERS.each { String m ->
         try { all.putAll("${m}"() as Map) } catch (e) { log.warn "Icon pack provider ${m}() missing: ${e}" }
     }
     return all

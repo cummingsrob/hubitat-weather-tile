@@ -1,5 +1,5 @@
 /**
- *  Weather Watcher Device (driver; was "Weather Tile Device" before 0.2.12)
+ *  Weather Watcher Device (driver)
  *
  *  Copyright 2026 Rob Cummings. Apache License, Version 2.0.
  *  Created and updated by the "Weather Watcher" child app; do not add manually.
@@ -11,7 +11,7 @@ metadata {
         capability "Sensor"
         capability "Refresh"
 
-        attribute "weatherTile", "string"
+        attribute "weatherWatcher", "string"
         attribute "lastUpdated", "string"
         attribute "lastUpdatedDisplay", "string"
         attribute "source", "string"

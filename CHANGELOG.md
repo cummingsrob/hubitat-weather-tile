@@ -4,6 +4,15 @@
 - More optional pack libraries: Makin-Things (MIT), Tabler (MIT), Lucide (ISC), amCharts (CC BY 4.0).
 - Night variants for Rob's filled and Rob's outline packs.
 
+## 0.2.14 - 2026-10-29
+- **Breaking:** device attribute `weatherTile` renamed to `weatherWatcher`. After updating, change dashboard Attribute tiles and rules from `weatherTile` to `weatherWatcher`.
+- Rename cleanup: internal `wt*` names (short for the old Weather Tile name) are now `ww*`:
+  - icon provider methods `wtIconPacks*` → `wwIconPacks*`
+  - icon method prefixes `wtIf_`/`wtIo_`/`wtMs_`/`wtMa_`/`wtMo_` → `wwIf_`/`wwIo_`/`wwMs_`/`wwMa_`/`wwMo_`
+  - constants `WT_*` → `WW_*`
+- Removed the old-name notes from the app and driver header comments.
+- Unchanged: HPM ids, namespace `cummingsrob`, and the child device network id prefix `WTILE-` (changing it would orphan existing devices and dashboards).
+
 ## 0.2.13 - 2026-10-29
 - Finished the rename to Weather Watcher:
   - GitHub repo `cummingsrob/hubitat-weather-tile` is now `cummingsrob/hubitat-weather-watcher` (old URLs redirect).
