@@ -1,10 +1,12 @@
 # Changelog
 
 ## Next up
-- Rename icon packs to credit Rob for both the filled and outline sets (modified from erikflowers/weather-icons).
 - Monochrome pack from the erikflowers font files.
 - More optional pack libraries: Makin-Things (MIT), Tabler (MIT), Lucide (ISC), amCharts (CC BY 4.0).
 - Night icons for today's slot only (before sunrise / after sunset; NWS "Tonight"); future days stay daytime.
+
+## 0.2.10 - 2026-10-29
+- Icon pack menu labels now credit Rob: "Rob's colored set (default)" is **Rob's filled (default)** and "Outline (erikflowers)" is **Rob's outline** (both modified from erikflowers/weather-icons). Library names, file names and pack keys (`filled`, `outline`) are unchanged, so existing tiles keep their setting. ICONS-LICENSE.txt, NOTICE and README updated.
 
 ## 0.2.9 - 2026-10-29
 - New icon packs, each its own library: **Meteocons (static)** (`cummingsrob.WeatherTileIconsMeteocons`) and **Meteocons (animated)** (`cummingsrob.WeatherTileIconsMeteoconsAnimated`), from basmilius/weather-icons (MIT). Every condition key has an icon. IDs are prefixed per icon so several icons share one tile cleanly.

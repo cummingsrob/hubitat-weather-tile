@@ -18,7 +18,7 @@ library (
 
 /** Icon pack provider (see README). */
 Map wtIconPacksOutline() {
-    return [outline: [label: "Outline (erikflowers)", icons: [
+    return [outline: [label: "Rob's outline", icons: [
         'chanceflurries': wtIo_chanceflurries(),
         'chancerain': wtIo_chancerain(),
         'chancesleet': wtIo_chancesleet(),

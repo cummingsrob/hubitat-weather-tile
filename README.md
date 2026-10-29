@@ -9,7 +9,7 @@ A multi-day weather forecast strip for Hubitat Elevation dashboards. Pick Open-M
 - **Configurable:** 1-7 days, units, dark or light theme, transparent background, fonts and colors, icon pack, and which values show.
 - **No dependencies:** built-in Hubitat APIs only.
 
-**Version:** 0.2.9 ([changelog](CHANGELOG.md)). Requirements and roadmap: [REQUIREMENTS.md](REQUIREMENTS.md).
+**Version:** 0.2.10 ([changelog](CHANGELOG.md)). Requirements and roadmap: [REQUIREMENTS.md](REQUIREMENTS.md).
 
 ## Quick install
 1. **Hubitat Package Manager:** **Install** → **From a URL** → `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/packageManifest.json`. HPM installs everything and turns on OAuth.
@@ -19,6 +19,7 @@ A multi-day weather forecast strip for Hubitat Elevation dashboards. Pick Open-M
 Other ways to install (bundle zip, or file by file) are below.
 
 ## Recent changes
+- **0.2.10:** Rob's two icon packs are now labeled **Rob's filled (default)** and **Rob's outline** in the Icon pack menu.
 - **0.2.9:** two new icon packs, Meteocons static and Meteocons animated, plus an **Animate icons** on/off setting.
 - **0.2.8:** the tile image always matches the latest forecast after an update, and the last-updated line keeps the place name.
 - **0.2.7:** after midnight the tile drops yesterday right away and fetches a fresh forecast at about 00:02.
@@ -32,8 +33,8 @@ Full history: [CHANGELOG.md](CHANGELOG.md).
 ## Pieces
 | File | Type | Purpose |
 |---|---|---|
-| `libraries/cummingsrob.WeatherTileIcons.groovy` | Library | Default icon pack (Rob's colored set). |
-| `libraries/cummingsrob.WeatherTileIconsOutline.groovy` | Library | Outline icon pack. |
+| `libraries/cummingsrob.WeatherTileIcons.groovy` | Library | Default icon pack: Rob's filled (modified from erikflowers/weather-icons). |
+| `libraries/cummingsrob.WeatherTileIconsOutline.groovy` | Library | Rob's outline icon pack (modified from erikflowers/weather-icons). |
 | `libraries/cummingsrob.WeatherTileIconsMeteocons.groovy` | Library | Meteocons static icon pack (MIT). |
 | `libraries/cummingsrob.WeatherTileIconsMeteoconsAnimated.groovy` | Library | Meteocons animated icon pack (MIT). |
 | `apps/WeatherTileManager.groovy` | App (parent) | Holds your weather tiles. Install once. |
@@ -75,7 +76,7 @@ Create a new library (for example `cummingsrob.WeatherTileIconsMeteocons`) with 
 - **Units:** follow hub (default), imperial, or metric.
 - **Days:** 1-7 (default 7: today + 6).
 - **Theme:** dark background with light icons (default) or light. Optional transparent background, corner radius, font family, font size, and per-color overrides.
-- **Icon pack:** Rob's colored set (default), outline, Meteocons (static) or Meteocons (animated).
+- **Icon pack:** Rob's filled (default), Rob's outline, Meteocons (static) or Meteocons (animated).
 - **Animate icons:** shown only for the animated pack; on by default. Off shows each icon's first frame. Animation uses SVG SMIL inside the tile image, which works in Hubitat dashboards and current browsers.
 - **Show/hide:** high/low, rain %, rain amount, hide zero values, day-label style.
 - **Last updated:** tiny line, location then time, e.g. "Grosse Pointe Woods, Oct 29, 12:07 AM" (hub time zone). The location is the tile's label, or a place name looked up once from latitude/longitude (NWS in the US, BigDataCloud elsewhere), or the hub name. Time format setting (default `MMM d, h:mm a`); the location prefix can be turned off.
@@ -97,6 +98,6 @@ Debug: `<tile URL base>/forecast.json?access_token=...` returns the cached forec
 
 ## Credits and licenses
 - Code: Apache-2.0 ([LICENSE](LICENSE), [NOTICE](NOTICE)). Portions adapted from Rachio-Community, © 2018 Anthony Santilli, © 2024 lnjustin, Apache-2.0.
-- Icons: derived from [erikflowers/weather-icons](https://github.com/erikflowers/weather-icons); the filled set is Rob Cummings' color-modified version. SIL OFL 1.1 ([ICONS-LICENSE.txt](ICONS-LICENSE.txt)).
+- Icons: derived from [erikflowers/weather-icons](https://github.com/erikflowers/weather-icons); the **Rob's filled** and **Rob's outline** packs are Rob Cummings' modified versions. SIL OFL 1.1 ([ICONS-LICENSE.txt](ICONS-LICENSE.txt)).
 - Meteocons packs: [Meteocons](https://github.com/basmilius/weather-icons) by Bas Milius, MIT License (full text in [ICONS-LICENSE.txt](ICONS-LICENSE.txt)). Regenerate with `tools/gen_meteocons.py`.
 - Weather data: [Open-Meteo](https://open-meteo.com) (CC BY 4.0) and the US National Weather Service.

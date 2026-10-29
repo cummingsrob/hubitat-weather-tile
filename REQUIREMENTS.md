@@ -31,7 +31,7 @@ Status: **approved; v0.1.0 implemented (2026-10-28)**. See README for what is an
 - Units: default follows the hub; override for temperature °F/°C and precipitation in/mm.
 - Days shown: configurable (1–7); default **today + 6 days (7 total)**.
 - Refresh/cache interval (default 30 min; min 15 min).
-- Icon pack: default **Rob's colored set** (derived from erikflowers); other packs per §12.
+- Icon pack: default **Rob's filled** (derived from erikflowers); other packs per §12.
 - Theme: default **dark background with light icons/text**; light (and possibly auto) selectable.
 - Colors (text, highs/lows, rain, background, icon tint), font family/size, background transparent/solid, corner radius.
 - Show/hide rain % and rain amount; hide zero values.
@@ -83,7 +83,7 @@ Status: **approved; v0.1.0 implemented (2026-10-28)**. See README for what is an
 11. **Last updated:** shown on the tile (format is a setting, hub time zone) and exposed as an attribute. Default since 0.2.6: **"Grosse Pointe Woods, Oct 29, 12:07 AM"** (location, then time; no "Updated" word), rendered **tiny** (small font, low emphasis).
 12. **Icon license:** Rob has no preference. Because his icons are modified from erikflowers/weather-icons (SIL OFL 1.1), they ship under **OFL 1.1 with attribution** (required for derivatives); no reserved font name used. Repo code stays **Apache-2.0**.
 13. **Attributes:** §11 list approved as a starting point; can be edited later.
-14. **Defaults:** theme = **dark background, light icons**; icon pack = **Rob's colored set**. SVG source: the inline SVG definitions in lnjustin/Rachio-Community code (to be extracted at build time; not extracted yet), or files Rob provides.
+14. **Defaults:** theme = **dark background, light icons**; icon pack = **Rob's filled**. SVG source: the inline SVG definitions in lnjustin/Rachio-Community code (to be extracted at build time; not extracted yet), or files Rob provides.
 
 ## 11. Device attributes (approved starting point)
 Per day *n* = 0..6 (only up to the configured day count):
@@ -123,7 +123,7 @@ Candidates (licenses verified 2026-10-28):
 None at this time.
 
 ## Next up (Rob's to-dos)
-- **Rename icon packs** to credit Rob for both sets: Rob's filled set and Rob's outline set, each modified from erikflowers/weather-icons.
+- Done in 0.2.10: icon packs renamed to credit Rob: **Rob's filled (default)** and **Rob's outline**, each modified from erikflowers/weather-icons. Library names and pack keys unchanged.
 - **Monochrome pack** built from the erikflowers font files.
 - **More open-source packs as optional libraries:** Makin-Things weather-icons (MIT), Tabler Icons (MIT), Lucide (ISC), amCharts animated weather icons (CC BY 4.0, attribution required).
 - Done in 0.2.9: Meteocons static and animated packs, with an Animate icons setting.

@@ -18,7 +18,7 @@ library (
 
 /** Icon pack provider (see README). */
 Map wtIconPacks() {
-    return [filled: [label: "Rob's colored set (default)", icons: [
+    return [filled: [label: "Rob's filled (default)", icons: [
         'chanceflurries': wtIf_chanceflurries(),
         'chancerain': wtIf_chancerain(),
         'chancesleet': wtIf_chancesleet(),

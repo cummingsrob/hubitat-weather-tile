@@ -11,7 +11,8 @@ This product includes design and code adapted from Rachio-Community
 Adapted: serving a forecast SVG from an OAuth app endpoint, the forecast strip layout,
 CSS-class icon coloring, and the Open-Meteo daily request.
 
-Weather icons derived from erikflowers/weather-icons (SIL OFL 1.1).
+Icon packs "Rob's filled" and "Rob's outline": by Rob Cummings, modified from
+erikflowers/weather-icons (SIL OFL 1.1).
 Forecast data: Open-Meteo (https://open-meteo.com, CC BY 4.0) and the US National Weather Service.
 
 Meteocons weather icons by Bas Milius (https://github.com/basmilius/weather-icons), MIT License
