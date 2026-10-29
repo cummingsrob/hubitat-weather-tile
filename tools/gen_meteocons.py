@@ -14,6 +14,12 @@ MAP = {  # our condition key -> Meteocons fill icon
     "chancetstorms": "thunderstorms-day", "tstorms": "thunderstorms-rain",
     "chanceflurries": "partly-cloudy-day-snow", "flurries": "snow", "chancesnow": "partly-cloudy-day-snow",
     "snow": "snow", "chancesleet": "partly-cloudy-day-sleet", "sleet": "sleet", "hail": "hail", "wind": "wind",
+    # night variants (today's slot only, before sunrise / after sunset); keys without one fall back to the day icon
+    "nt_sunny": "clear-night", "nt_clear": "clear-night", "nt_mostlysunny": "mostly-clear-night",
+    "nt_partlycloudy": "partly-cloudy-night", "nt_partlysunny": "partly-cloudy-night", "nt_mostlycloudy": "overcast-night",
+    "nt_fog": "fog-night", "nt_hazy": "haze-night", "nt_chancerain": "partly-cloudy-night-rain",
+    "nt_showers": "partly-cloudy-night-drizzle", "nt_chancetstorms": "thunderstorms-night", "nt_tstorms": "thunderstorms-night-rain",
+    "nt_chanceflurries": "partly-cloudy-night-snow", "nt_chancesnow": "partly-cloudy-night-snow", "nt_chancesleet": "partly-cloudy-night-sleet",
 }
 
 def icon(path, pfx):

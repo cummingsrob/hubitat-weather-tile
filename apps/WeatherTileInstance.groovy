@@ -25,6 +25,7 @@ import groovy.transform.Field
 #include cummingsrob.WeatherTileIconsOutline
 #include cummingsrob.WeatherTileIconsMeteocons
 #include cummingsrob.WeatherTileIconsMeteoconsAnimated
+#include cummingsrob.WeatherTileIconsMono
 
 definition(
     name: "Weather Tile Instance",
@@ -56,7 +57,7 @@ mappings {
 @Field static final Map SOURCES = ["open-meteo": "Open-Meteo (free, global, default)", "nws": "NWS / weather.gov (free, US only)",
                                    "custom": "Keyed provider (OpenWeatherMap One Call compatible)"]
 // Icon pack provider methods (each comes from an #include'd library; see WeatherTileIcons header)
-@Field static final List WT_ICON_PACK_PROVIDERS = ["wtIconPacks", "wtIconPacksOutline", "wtIconPacksMeteocons", "wtIconPacksMeteoconsAnimated"]
+@Field static final List WT_ICON_PACK_PROVIDERS = ["wtIconPacks", "wtIconPacksOutline", "wtIconPacksMeteocons", "wtIconPacksMeteoconsAnimated", "wtIconPacksMono"]
 @Field static final Map REFRESH_OPTS = ["15": "15 minutes", "30": "30 minutes", "60": "1 hour", "180": "3 hours"]
 @Field static final Map THEMES = [
     dark : [bg: "#1a1a1a", text: "#ffffff", cloud: "#ffffff", light: "#f6d32d", precip: "#99c1f1", frozen: "#dceeff",
@@ -199,6 +200,7 @@ def initialize() {
     else if (m == 30)  runEvery30Minutes("scheduledRefresh")
     else if (m == 60)  runEvery1Hour("scheduledRefresh")
     else               runEvery3Hours("scheduledRefresh")
+    state.nextSunRedraw = null   // updated() unscheduled the sunrise/sunset redraw; renderAndPublish re-arms it
     schedule("0 1 0 * * ?", "renderAndPublish")   // roll days at midnight; refetches ~00:02 if data is from yesterday
     renderAndPublish()                             // settings changed -> re-render cached data
     runIn(2, "refreshForecast")
@@ -272,7 +274,7 @@ def refreshForecast() {
 private void fetchOpenMeteo() {
     boolean metric = unitSys() == "metric"
     Map q = [latitude: lat(), longitude: lon(), timezone: "auto", forecast_days: 7,
-             daily: "weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max",
+             daily: "weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,sunrise,sunset",
              temperature_unit: metric ? "celsius" : "fahrenheit", precipitation_unit: metric ? "mm" : "inch"]
     asynchttpGet("handleOpenMeteo", [uri: "https://api.open-meteo.com", path: "/v1/forecast", query: q, contentType: "application/json", headers: ["Accept": "application/json"], timeout: 20])
 }
@@ -287,7 +289,8 @@ def handleOpenMeteo(resp, data) {
             days << [date: t, high: d.temperature_2m_max[i], low: d.temperature_2m_min[i],
                      pop: d.precipitation_probability_max ? d.precipitation_probability_max[i] : null,
                      amt: d.precipitation_sum ? d.precipitation_sum[i] : null,
-                     cond: wmoToCondition(code), raw: "WMO ${code}"]
+                     cond: wmoToCondition(code), raw: "WMO ${code}",
+                     sunrise: d.sunrise ? d.sunrise[i] : null, sunset: d.sunset ? d.sunset[i] : null]
         }
         onForecast(days, "open-meteo")
     } catch (e) { onFailure("Open-Meteo parse error: ${e}") }
@@ -391,6 +394,7 @@ def handleNwsForecast(resp, data) {
                 d.raw = p.shortForecast
             } else {
                 d.low = p.temperature
+                if (!d.nightCond) { d.nightCond = nwsToCondition(p.shortForecast as String); d.nightRaw = p.shortForecast }   // NWS "Overnight"/"Tonight"
                 if (!d.cond) { d.cond = nwsToCondition(p.shortForecast as String); d.raw = p.shortForecast }
             }
             byDate[date] = d
@@ -492,7 +496,8 @@ private void onForecast(List days, String src) {
     String today = new Date().format("yyyy-MM-dd", location.timeZone)
     List keep = days.findAll { it.date && it.date >= today }.take(7).collect { d ->
         [date: d.date, high: num(d.high, 0), low: num(d.low, 0), pop: num(d.pop, 0),
-         amt: num(d.amt, unitSys() == "metric" ? 1 : 2), cond: d.cond ?: "unknown", raw: d.raw?.toString()]
+         amt: num(d.amt, unitSys() == "metric" ? 1 : 2), cond: d.cond ?: "unknown", raw: d.raw?.toString(),
+         nightCond: d.nightCond, nightRaw: d.nightRaw?.toString(), sunrise: d.sunrise?.toString(), sunset: d.sunset?.toString()]
     }
     if (!keep) { onFailure("${src}: no forecast days returned"); return }
     state.failCount = 0
@@ -534,6 +539,7 @@ private void refreshIfNewDay() {
 def renderAndPublish() {
     refreshIfNewDay()
     List days = currentDays()
+    scheduleSunRedraw(days)
     if (state.lastSuccess && (now() - (state.lastSuccess as Long)) > refreshMin() * 3L * 60000L && state.status == "ok") {
         state.status = "stale"
         state.statusMessage = "No successful update since ${fmtUpdated(state.lastSuccess as Long)}"
@@ -665,7 +671,7 @@ private String buildSvg(List allDays) {
 
     StringBuilder sb = new StringBuilder(64000)
     sb << '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 ' << w << ' ' << h << '" preserveAspectRatio="xMidYMid meet">'
-    sb << '<style>.cloud{fill:' << c.cloud << '}.light{fill:' << c.light << '}.precip{fill:' << c.precip << '}.frozenPrecip{fill:' << c.frozen << '}'
+    sb << '<style>.cloud{fill:' << c.cloud << '}.light{fill:' << c.light << '}.precip{fill:' << c.precip << '}.frozenPrecip{fill:' << c.frozen << '}.mono{fill:' << c.text << '}'
     sb << 'text{font-family:' << font << '}.day{fill:' << c.text << ';font-size:' << (11 * fs) << 'px;text-transform:uppercase}'
     sb << '.hi{fill:' << c.high << '}.lo{fill:' << c.low << '}.t{font-size:' << (12 * fs) << 'px}.p{fill:' << c.rainText << ';font-size:' << (10 * fs) << 'px}'
     sb << '.u{fill:' << c.muted << ';font-size:' << (6.5 * fs) << 'px}</style>'
@@ -679,9 +685,11 @@ private String buildSvg(List allDays) {
         int cx = COL_W * i + COL_W.intdiv(2)
         sb << '<g>'
         sb << '<text x="' << cx << '" y="' << labelY << '" text-anchor="middle" class="day">' << esc(dayLabel(d.date as String, i)) << '</text>'
-        List cond = CONDITIONS[d.cond] ?: CONDITIONS.unknown
-        String icon = icons[iconKey(cond, icons)]
-        sb << '<g transform="translate(' << (COL_W * i + 2) << ',' << iconY << ')"><title>' << esc(d.raw ?: cond[1]) << '</title>' << icon << '</g>'
+        boolean night = (i == 0 && isNightNow(d))      // night icons for today's slot only
+        List cond = CONDITIONS[(night && d.nightCond) ? d.nightCond : d.cond] ?: CONDITIONS.unknown
+        String icon = icons[iconKey(cond, icons, night)]
+        String tip = night && d.nightCond ? (d.nightRaw ?: cond[1]) : (d.raw ?: cond[1])
+        sb << '<g transform="translate(' << (COL_W * i + 2) << ',' << iconY << ')"><title>' << esc(tip) << '</title>' << icon << '</g>'
         if (showT) {
             sb << '<text x="' << cx << '" y="' << tempY << '" text-anchor="middle" class="t">'
             if (d.high != null) sb << '<tspan class="hi">' << fmt(d.high as BigDecimal) << '°</tspan>'
@@ -780,11 +788,54 @@ private String stripAnimation(String svg) {
               .replaceAll(/(?s)<(animate|animateTransform|animateMotion|set)\b[^>]*>.*?<\/\1>/, "")
 }
 
-private String iconKey(List cond, Map icons) {
+private String iconKey(List cond, Map icons, boolean night = false) {
+    if (night) {
+        String n = cond[0].find { icons.containsKey("nt_" + it) }
+        if (n) return "nt_" + n                     // pack has a night variant; otherwise use the day icon
+    }
     String k = cond[0].find { icons.containsKey(it) }
     if (k) return k
     return icons.containsKey("cloudy") ? "cloudy" : icons.keySet().first()
 }
+
+// ---------------------------------------------------------------- night (today's slot)
+
+/** Today's sunrise/sunset: from the forecast (Open-Meteo, local time) or the hub's own sun times. */
+private Map sunTimes(Map d) {
+    Map r = [:]
+    try {
+        if (d?.sunrise && d?.sunset) {
+            r.sunrise = Date.parse("yyyy-MM-dd'T'HH:mm", d.sunrise.toString().take(16), location.timeZone)
+            r.sunset = Date.parse("yyyy-MM-dd'T'HH:mm", d.sunset.toString().take(16), location.timeZone)
+        }
+    } catch (e) { r = [:] }
+    if (!r.sunrise || !r.sunset) {
+        try { Map h = getSunriseAndSunset(); r = [sunrise: h?.sunrise, sunset: h?.sunset] } catch (e) { r = [:] }
+    }
+    return r
+}
+
+private boolean isNightNow(Map d) {
+    if (!d || d.date != new Date().format("yyyy-MM-dd", location.timeZone)) return false
+    Map t = sunTimes(d)
+    if (!t.sunrise || !t.sunset) return false
+    long n = now()
+    return n < (t.sunrise as Date).time || n >= (t.sunset as Date).time
+}
+
+/** Redraw at today's next sunrise or sunset so the night icon switches on time. */
+private void scheduleSunRedraw(List days) {
+    try {
+        Map t = sunTimes(days ? days[0] as Map : null)
+        Date next = [t.sunrise, t.sunset].findAll { it && (it as Date).time > now() }.min { (it as Date).time } as Date
+        if (next && state.nextSunRedraw != next.time) {
+            state.nextSunRedraw = next.time
+            runOnce(new Date(next.time + 30000L), "sunRedraw", [overwrite: true])
+        }
+    } catch (e) { log.debug "${app.label}: sun redraw not scheduled: ${e}" }
+}
+
+def sunRedraw() { state.nextSunRedraw = null; renderAndPublish() }
 
 // ---------------------------------------------------------------- endpoints
 
