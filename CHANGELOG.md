@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.3 - 2026-10-28
+- Fix "Cannot parse library definition" (the real cause): the hub could not parse the libraries' large `@Field static final Map` of long icon strings. Each icon is now a small method returning its SVG (split into 400-character chunks), and the provider methods map icon keys to those calls. Verified by compiling on a hub.
+
 ## 0.2.2 - 2026-10-28
 - Fix "Cannot parse library definition" on library import: the header comment no longer mentions the word library or contains parentheses/quotes the hub parser could pick up, the `library (...)` block matches the BirdsLikeWires layout (plain string literals, alphabetical keys) and `documentationLink` has no `#` anchor.
 
