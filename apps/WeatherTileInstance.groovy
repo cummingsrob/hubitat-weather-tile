@@ -265,13 +265,13 @@ private void fetchOpenMeteo() {
     Map q = [latitude: lat(), longitude: lon(), timezone: "auto", forecast_days: 7,
              daily: "weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max",
              temperature_unit: metric ? "celsius" : "fahrenheit", precipitation_unit: metric ? "mm" : "inch"]
-    asynchttpGet("handleOpenMeteo", [uri: "https://api.open-meteo.com", path: "/v1/forecast", query: q, timeout: 20])
+    asynchttpGet("handleOpenMeteo", [uri: "https://api.open-meteo.com", path: "/v1/forecast", query: q, contentType: "application/json", headers: ["Accept": "application/json"], timeout: 20])
 }
 
 def handleOpenMeteo(resp, data) {
     if (!responseOk(resp, "Open-Meteo")) return
     try {
-        def d = resp.getJson()?.daily
+        def d = respJson(resp)?.daily
         List days = []
         d.time.eachWithIndex { t, i ->
             Integer code = d.weathercode[i] as Integer
@@ -305,12 +305,47 @@ private String wmoToCondition(Integer c) {
     return "unknown"
 }
 
-private Map nwsHeaders() { ["User-Agent": "(hubitat-weather-tile, github.com/cummingsrob/hubitat-weather-tile)", "Accept": "application/geo+json"] }
+/** Parse a response body as JSON whatever form the hub hands it over in (Map/List, String, bytes, stream, reader). */
+private Object respJson(resp) {
+    def d = null
+    try { d = resp.getData() } catch (ignored) { }
+    if (d instanceof Map || d instanceof List) return d
+    String txt = bodyText(d)
+    if (!txt) {
+        try { return resp.getJson() } catch (ignored) { }
+        throw new IllegalStateException("empty response body")
+    }
+    txt = txt.trim()
+    if (txt.startsWith("\uFEFF")) txt = txt.substring(1).trim()
+    if (!(txt.startsWith("{") || txt.startsWith("["))) {
+        try { def j = resp.getJson(); if (j instanceof Map || j instanceof List) return j } catch (ignored) { }
+        throw new IllegalStateException("response is not JSON (starts: ${txt.take(60)})")
+    }
+    return new groovy.json.JsonSlurper().parseText(txt)
+}
+
+private String bodyText(d) {
+    if (d == null) return null
+    if (d instanceof String) return (String) d
+    if (d instanceof byte[]) return gunzipIfNeeded((byte[]) d)
+    if (d instanceof InputStream) return gunzipIfNeeded(((InputStream) d).bytes)
+    if (d instanceof Reader) return ((Reader) d).text
+    return d.toString()
+}
+
+private String gunzipIfNeeded(byte[] b) {
+    if (b.length > 2 && (b[0] & 0xff) == 0x1f && (b[1] & 0xff) == 0x8b) {
+        return new java.util.zip.GZIPInputStream(new ByteArrayInputStream(b)).getText("UTF-8")
+    }
+    return new String(b, "UTF-8")
+}
+
+private Map nwsHeaders() { ["User-Agent": "(hubitat-weather-tile, github.com/cummingsrob/hubitat-weather-tile)", "Accept": "application/geo+json, application/json"] }
 
 private void fetchNws() {
     if (!state.nwsForecastUrl || state.nwsKey != locationKey()) {
         String p = "/points/${(lat() as BigDecimal).setScale(4, BigDecimal.ROUND_HALF_UP)},${(lon() as BigDecimal).setScale(4, BigDecimal.ROUND_HALF_UP)}"
-        asynchttpGet("handleNwsPoints", [uri: "https://api.weather.gov", path: p, headers: nwsHeaders(), timeout: 20])
+        asynchttpGet("handleNwsPoints", [uri: "https://api.weather.gov", path: p, contentType: "application/json", headers: nwsHeaders(), timeout: 20])
     } else {
         fetchNwsForecast()
     }
@@ -319,7 +354,7 @@ private void fetchNws() {
 def handleNwsPoints(resp, data) {
     if (!responseOk(resp, "NWS points")) return
     try {
-        String url = resp.getJson()?.properties?.forecast
+        String url = respJson(resp)?.properties?.forecast
         if (!url) { onFailure("NWS: no forecast URL for this location (US only)"); return }
         state.nwsForecastUrl = url
         state.nwsKey = locationKey()
@@ -329,7 +364,7 @@ def handleNwsPoints(resp, data) {
 
 private void fetchNwsForecast() {
     Map q = unitSys() == "metric" ? [units: "si"] : [units: "us"]
-    asynchttpGet("handleNwsForecast", [uri: state.nwsForecastUrl, query: q, headers: nwsHeaders(), timeout: 25])
+    asynchttpGet("handleNwsForecast", [uri: state.nwsForecastUrl, query: q, contentType: "application/json", headers: nwsHeaders(), timeout: 25])
 }
 
 def handleNwsForecast(resp, data) {
@@ -338,7 +373,7 @@ def handleNwsForecast(resp, data) {
         return
     }
     try {
-        def periods = resp.getJson()?.properties?.periods
+        def periods = respJson(resp)?.properties?.periods
         Map byDate = [:]
         periods.each { p ->
             String date = p.startTime?.substring(0, 10)
@@ -385,13 +420,13 @@ private String nwsToCondition(String s) {
 private void fetchCustom() {
     if (!settings.customUrl || !settings.customKey) { onFailure("Custom provider needs an API base URL and key"); return }
     Map q = [lat: lat(), lon: lon(), units: unitSys(), appid: settings.customKey, exclude: "current,minutely,hourly,alerts"]
-    asynchttpGet("handleCustom", [uri: settings.customUrl, query: q, timeout: 20])
+    asynchttpGet("handleCustom", [uri: settings.customUrl, query: q, contentType: "application/json", headers: ["Accept": "application/json"], timeout: 20])
 }
 
 def handleCustom(resp, data) {
     if (!responseOk(resp, "Custom provider")) return
     try {
-        def j = resp.getJson()
+        def j = respJson(resp)
         TimeZone tz = j.timezone ? TimeZone.getTimeZone(j.timezone as String) : location.timeZone
         boolean metric = unitSys() == "metric"
         List days = j.daily.collect { d ->

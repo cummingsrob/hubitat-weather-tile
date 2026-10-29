@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.4 - 2026-10-28
+- Fix "NWS points parse error: groovy.json.JsonException ... character read is 'e'": responses are no longer parsed with `getJson()`. A new `respJson()` reads the body whether the hub returns it as a Map/List, String, bytes, stream (including gzip) or reader, strips a BOM, and reports the start of any non-JSON body.
+- All requests (NWS points and forecast, Open-Meteo, custom) set `contentType: application/json`; NWS sends `Accept: application/geo+json, application/json` and a User-Agent.
+
 ## 0.2.3 - 2026-10-28
 - Fix "Cannot parse library definition" (the real cause): the hub could not parse the libraries' large `@Field static final Map` of long icon strings. Each icon is now a small method returning its SVG (split into 400-character chunks), and the provider methods map icon keys to those calls. Verified by compiling on a hub.
 
