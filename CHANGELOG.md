@@ -3,9 +3,13 @@
 ## Next up
 - Rename icon packs to credit Rob for both the filled and outline sets (modified from erikflowers/weather-icons).
 - Monochrome pack from the erikflowers font files.
-- Optional pack libraries: Meteocons (MIT), Makin-Things (MIT), Tabler (MIT), Lucide (ISC), amCharts (CC BY 4.0).
-- Animated icon variants with an on/off setting.
+- More optional pack libraries: Makin-Things (MIT), Tabler (MIT), Lucide (ISC), amCharts (CC BY 4.0).
 - Night icons for today's slot only (before sunrise / after sunset; NWS "Tonight"); future days stay daytime.
+
+## 0.2.9 - 2026-10-29
+- New icon packs, each its own library: **Meteocons (static)** (`cummingsrob.WeatherTileIconsMeteocons`) and **Meteocons (animated)** (`cummingsrob.WeatherTileIconsMeteoconsAnimated`), from basmilius/weather-icons (MIT). Every condition key has an icon. IDs are prefixed per icon so several icons share one tile cleanly.
+- New setting **Animate icons** (on by default, shown only for the animated pack). Off removes the SVG animation elements.
+- `tools/gen_meteocons.py` regenerates both libraries; build.py adds them to bundle.zip and bundle-library.zip.
 
 ## 0.2.8 - 2026-10-29
 - Fix: after an HPM code update the tile could keep serving an old image (for example yesterday's icons and time) even though the forecast had updated. The in-memory image is now stored with its version, and each image request checks it against the version recorded at the last update; if it is missing or different, the image is redrawn from the stored forecast first.

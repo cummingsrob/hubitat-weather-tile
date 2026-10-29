@@ -8,7 +8,8 @@
 import os, re, zipfile, time
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NS, BUNDLE = "cummingsrob", "WeatherTile"
-LIBS = ["libraries/cummingsrob.WeatherTileIcons.groovy", "libraries/cummingsrob.WeatherTileIconsOutline.groovy"]
+LIBS = ["libraries/cummingsrob.WeatherTileIcons.groovy", "libraries/cummingsrob.WeatherTileIconsOutline.groovy",
+        "libraries/cummingsrob.WeatherTileIconsMeteocons.groovy", "libraries/cummingsrob.WeatherTileIconsMeteoconsAnimated.groovy"]
 DRIVERS = [("drivers/WeatherTileDevice.groovy", "cummingsrob.WeatherTileDevice.groovy")]
 APPS = [("apps/WeatherTileManager.groovy", "cummingsrob.WeatherTileManager.groovy"),   # parent first
         ("apps/WeatherTileInstance.groovy", "cummingsrob.WeatherTileInstance.groovy")]

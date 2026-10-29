@@ -23,6 +23,8 @@ import groovy.transform.Field
 
 #include cummingsrob.WeatherTileIcons
 #include cummingsrob.WeatherTileIconsOutline
+#include cummingsrob.WeatherTileIconsMeteocons
+#include cummingsrob.WeatherTileIconsMeteoconsAnimated
 
 definition(
     name: "Weather Tile Instance",
@@ -54,7 +56,7 @@ mappings {
 @Field static final Map SOURCES = ["open-meteo": "Open-Meteo (free, global, default)", "nws": "NWS / weather.gov (free, US only)",
                                    "custom": "Keyed provider (OpenWeatherMap One Call compatible)"]
 // Icon pack provider methods (each comes from an #include'd library; see WeatherTileIcons header)
-@Field static final List WT_ICON_PACK_PROVIDERS = ["wtIconPacks", "wtIconPacksOutline"]
+@Field static final List WT_ICON_PACK_PROVIDERS = ["wtIconPacks", "wtIconPacksOutline", "wtIconPacksMeteocons", "wtIconPacksMeteoconsAnimated"]
 @Field static final Map REFRESH_OPTS = ["15": "15 minutes", "30": "30 minutes", "60": "1 hour", "180": "3 hours"]
 @Field static final Map THEMES = [
     dark : [bg: "#1a1a1a", text: "#ffffff", cloud: "#ffffff", light: "#f6d32d", precip: "#99c1f1", frozen: "#dceeff",
@@ -121,7 +123,10 @@ def mainPage() {
             input "theme", "enum", title: "Theme", options: ["dark": "Dark background, light icons", "light": "Light background, dark text"],
                   defaultValue: "dark", required: true
             input "iconPack", "enum", title: "Icon pack", options: iconPacks().collectEntries { k, v -> [(k): v.label] },
-                  defaultValue: "filled", required: true
+                  defaultValue: "filled", required: true, submitOnChange: true
+            if (iconPacks()[settings.iconPack ?: "filled"]?.animated) {
+                input "animateIcons", "bool", title: "Animate icons", defaultValue: true
+            }
             input "transparentBg", "bool", title: "Transparent background", defaultValue: false
             input "cornerRadius", "number", title: "Corner radius (px)", range: "0..40", defaultValue: 8
             input "fontFamily", "text", title: "Font family", defaultValue: "sans-serif"
@@ -762,7 +767,17 @@ private Map iconPacks() {
 
 private Map packIcons() {
     Map packs = iconPacks()
-    return (packs[settings.iconPack ?: "filled"] ?: packs.filled ?: packs.values().first())?.icons ?: [:]
+    Map p = (packs[settings.iconPack ?: "filled"] ?: packs.filled ?: packs.values().first()) ?: [:]
+    Map icons = p.icons ?: [:]
+    if (p.animated && settings.animateIcons == false) icons = icons.collectEntries { k, v -> [(k): stripAnimation(v as String)] }
+    return icons
+}
+
+/** Remove SMIL animation elements (animate, animateTransform, animateMotion, set) so the icon shows its first frame. */
+private String stripAnimation(String svg) {
+    if (!svg) return svg
+    return svg.replaceAll(/<(animate|animateTransform|animateMotion|set)\b[^>]*\/>/, "")
+              .replaceAll(/(?s)<(animate|animateTransform|animateMotion|set)\b[^>]*>.*?<\/\1>/, "")
 }
 
 private String iconKey(List cond, Map icons) {

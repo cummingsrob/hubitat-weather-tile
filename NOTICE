@@ -13,3 +13,6 @@ CSS-class icon coloring, and the Open-Meteo daily request.
 
 Weather icons derived from erikflowers/weather-icons (SIL OFL 1.1).
 Forecast data: Open-Meteo (https://open-meteo.com, CC BY 4.0) and the US National Weather Service.
+
+Meteocons weather icons by Bas Milius (https://github.com/basmilius/weather-icons), MIT License
+(see ICONS-LICENSE.txt), used in the Meteocons static and animated icon packs.

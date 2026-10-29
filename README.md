@@ -9,7 +9,7 @@ A multi-day weather forecast strip for Hubitat Elevation dashboards. Pick Open-M
 - **Configurable:** 1-7 days, units, dark or light theme, transparent background, fonts and colors, icon pack, and which values show.
 - **No dependencies:** built-in Hubitat APIs only.
 
-**Version:** 0.2.8 ([changelog](CHANGELOG.md)). Requirements and roadmap: [REQUIREMENTS.md](REQUIREMENTS.md).
+**Version:** 0.2.9 ([changelog](CHANGELOG.md)). Requirements and roadmap: [REQUIREMENTS.md](REQUIREMENTS.md).
 
 ## Quick install
 1. **Hubitat Package Manager:** **Install** → **From a URL** → `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/packageManifest.json`. HPM installs everything and turns on OAuth.
@@ -19,6 +19,7 @@ A multi-day weather forecast strip for Hubitat Elevation dashboards. Pick Open-M
 Other ways to install (bundle zip, or file by file) are below.
 
 ## Recent changes
+- **0.2.9:** two new icon packs, Meteocons static and Meteocons animated, plus an **Animate icons** on/off setting.
 - **0.2.8:** the tile image always matches the latest forecast after an update, and the last-updated line keeps the place name.
 - **0.2.7:** after midnight the tile drops yesterday right away and fetches a fresh forecast at about 00:02.
 - **0.2.6:** last-updated line shows the location and time ("Grosse Pointe Woods, Oct 29, 12:07 AM"); manifest URLs carry `?v=<version>` to skip GitHub's cache.
@@ -33,6 +34,8 @@ Full history: [CHANGELOG.md](CHANGELOG.md).
 |---|---|---|
 | `libraries/cummingsrob.WeatherTileIcons.groovy` | Library | Default icon pack (Rob's colored set). |
 | `libraries/cummingsrob.WeatherTileIconsOutline.groovy` | Library | Outline icon pack. |
+| `libraries/cummingsrob.WeatherTileIconsMeteocons.groovy` | Library | Meteocons static icon pack (MIT). |
+| `libraries/cummingsrob.WeatherTileIconsMeteoconsAnimated.groovy` | Library | Meteocons animated icon pack (MIT). |
 | `apps/WeatherTileManager.groovy` | App (parent) | Holds your weather tiles. Install once. |
 | `apps/WeatherTileInstance.groovy` | App (child, **OAuth**) | One tile: settings, fetching, SVG endpoint. `#include`s the icon library. |
 | `drivers/WeatherTileDevice.groovy` | Driver | The device each tile creates; put it on a dashboard. |
@@ -50,7 +53,7 @@ HPM → **Install** → **From a URL** → `https://raw.githubusercontent.com/cu
 3. Continue at step 5 below.
 
 ## Install option C: manual, one file at a time
-1. **Libraries Code** → **+ New Library** → **Import** → `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/libraries/cummingsrob.WeatherTileIcons.groovy` → **Save**. Repeat for `.../libraries/cummingsrob.WeatherTileIconsOutline.groovy`.
+1. **Libraries Code** → **+ New Library** → **Import** → `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/libraries/cummingsrob.WeatherTileIcons.groovy` → **Save**. Repeat for `.../libraries/cummingsrob.WeatherTileIconsOutline.groovy`, `.../libraries/cummingsrob.WeatherTileIconsMeteocons.groovy` and `.../libraries/cummingsrob.WeatherTileIconsMeteoconsAnimated.groovy`. All four libraries must be installed before you save the Weather Tile Instance app (HPM and the bundle install them for you).
 2. **Drivers Code** → **+ New Driver** → **Import** → `.../drivers/WeatherTileDevice.groovy` → **Save**.
 3. **Apps Code** → **+ New App** → **Import** → `.../apps/WeatherTileManager.groovy` → **Save**.
 4. **Apps Code** → **+ New App** → **Import** → `.../apps/WeatherTileInstance.groovy` → **Save** → **OAuth** → **Enable OAuth in App** → **Update** → **Save**.
@@ -72,7 +75,8 @@ Create a new library (for example `cummingsrob.WeatherTileIconsMeteocons`) with 
 - **Units:** follow hub (default), imperial, or metric.
 - **Days:** 1-7 (default 7: today + 6).
 - **Theme:** dark background with light icons (default) or light. Optional transparent background, corner radius, font family, font size, and per-color overrides.
-- **Icon pack:** Rob's colored set (default) or outline.
+- **Icon pack:** Rob's colored set (default), outline, Meteocons (static) or Meteocons (animated).
+- **Animate icons:** shown only for the animated pack; on by default. Off shows each icon's first frame. Animation uses SVG SMIL inside the tile image, which works in Hubitat dashboards and current browsers.
 - **Show/hide:** high/low, rain %, rain amount, hide zero values, day-label style.
 - **Last updated:** tiny line, location then time, e.g. "Grosse Pointe Woods, Oct 29, 12:07 AM" (hub time zone). The location is the tile's label, or a place name looked up once from latitude/longitude (NWS in the US, BigDataCloud elsewhere), or the hub name. Time format setting (default `MMM d, h:mm a`); the location prefix can be turned off.
 - **Tile URL:** local (LAN) or cloud (remote dashboards).
@@ -89,9 +93,10 @@ Debug: `<tile URL base>/forecast.json?access_token=...` returns the cached forec
 - The rendered SVG is cached in memory and rebuilt from saved forecast data after a hub reboot.
 - Extra fields (current conditions, wind, humidity, sunrise/sunset, alerts) are not implemented yet (v2).
 - HPM tracks the icon libraries through the library bundle; changing a library means rebuilding the zips (`python3 tools/build.py`).
-- Animated icon packs, a monochrome pack and night icons are not included yet; see Next up in [REQUIREMENTS.md](REQUIREMENTS.md#next-up-robs-to-dos).
+- A monochrome pack and night icons are not included yet; see Next up in [REQUIREMENTS.md](REQUIREMENTS.md#next-up-robs-to-dos).
 
 ## Credits and licenses
 - Code: Apache-2.0 ([LICENSE](LICENSE), [NOTICE](NOTICE)). Portions adapted from Rachio-Community, © 2018 Anthony Santilli, © 2024 lnjustin, Apache-2.0.
 - Icons: derived from [erikflowers/weather-icons](https://github.com/erikflowers/weather-icons); the filled set is Rob Cummings' color-modified version. SIL OFL 1.1 ([ICONS-LICENSE.txt](ICONS-LICENSE.txt)).
+- Meteocons packs: [Meteocons](https://github.com/basmilius/weather-icons) by Bas Milius, MIT License (full text in [ICONS-LICENSE.txt](ICONS-LICENSE.txt)). Regenerate with `tools/gen_meteocons.py`.
 - Weather data: [Open-Meteo](https://open-meteo.com) (CC BY 4.0) and the US National Weather Service.
