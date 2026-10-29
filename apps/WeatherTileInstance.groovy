@@ -13,8 +13,8 @@
  *  the SVG-at-an-OAuth-endpoint approach, the forecast strip layout, the CSS-class color scheme,
  *  and the Open-Meteo request shape.
  *
- *  Weather icon SVG paths live in the library cummingsrob.WeatherTileIcons
- *  (libraries/cummingsrob.WeatherTileIcons.groovy) and are derived from erikflowers/weather-icons (https://github.com/erikflowers/weather-icons),
+ *  Weather icon SVG paths live in the libraries cummingsrob.WeatherTileIcons and
+ *  cummingsrob.WeatherTileIconsOutline (libraries/) and are derived from erikflowers/weather-icons (https://github.com/erikflowers/weather-icons),
  *  licensed under the SIL Open Font License 1.1 (see ICONS-LICENSE.txt). The filled set is
  *  Rob Cummings' color-modified version. No Reserved Font Name is used.
  */
@@ -22,6 +22,7 @@
 import groovy.transform.Field
 
 #include cummingsrob.WeatherTileIcons
+#include cummingsrob.WeatherTileIconsOutline
 
 definition(
     name: "Weather Tile Instance",
@@ -52,7 +53,7 @@ mappings {
 @Field static final Map SOURCES = ["open-meteo": "Open-Meteo (free, global, default)", "nws": "NWS / weather.gov (free, US only)",
                                    "custom": "Keyed provider (OpenWeatherMap One Call compatible)"]
 // Icon pack provider methods (each comes from an #include'd library; see WeatherTileIcons header)
-@Field static final List WT_ICON_PACK_PROVIDERS = ["wtIconPacks"]
+@Field static final List WT_ICON_PACK_PROVIDERS = ["wtIconPacks", "wtIconPacksOutline"]
 @Field static final Map REFRESH_OPTS = ["15": "15 minutes", "30": "30 minutes", "60": "1 hour", "180": "3 hours"]
 @Field static final Map THEMES = [
     dark : [bg: "#1a1a1a", text: "#ffffff", cloud: "#ffffff", light: "#f6d32d", precip: "#99c1f1", frozen: "#dceeff",

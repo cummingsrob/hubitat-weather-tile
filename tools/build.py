@@ -8,7 +8,7 @@
 import os, re, zipfile, time
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NS, BUNDLE = "cummingsrob", "WeatherTile"
-LIBS = ["libraries/cummingsrob.WeatherTileIcons.groovy"]
+LIBS = ["libraries/cummingsrob.WeatherTileIcons.groovy", "libraries/cummingsrob.WeatherTileIconsOutline.groovy"]
 DRIVERS = [("drivers/WeatherTileDevice.groovy", "cummingsrob.WeatherTileDevice.groovy")]
 APPS = [("apps/WeatherTileManager.groovy", "cummingsrob.WeatherTileManager.groovy"),   # parent first
         ("apps/WeatherTileInstance.groovy", "cummingsrob.WeatherTileInstance.groovy")]
@@ -33,7 +33,11 @@ def expand(src):
     def repl(m):
         lib = rd("libraries/%s.groovy" % m.group(1))
         return re.sub(r"(?ms)^library\s*\(.*?^\)\s*$", "", lib)
-    return re.sub(r"(?m)^#include\s+([\w.]+)\s*$", repl, src)
+    out = re.sub(r"(?m)^#include\s+([\w.]+)\s*$", repl, src)
+    # Hubitat hoists imports from included libraries; do the same so the expanded file compiles
+    imports = list(dict.fromkeys(re.findall(r"(?m)^import\s+[\w.*]+\s*$", out)))
+    out = re.sub(r"(?m)^import\s+[\w.*]+\s*$\n?", "", out)
+    return "\n".join(imports) + "\n" + out
 os.makedirs(os.path.join(ROOT, "build"), exist_ok=True)
 open(os.path.join(ROOT, "build/WeatherTileInstance.expanded.groovy"), "w").write(expand(rd("apps/WeatherTileInstance.groovy")))
 print("built bundle.zip, bundle-library.zip, build/WeatherTileInstance.expanded.groovy")

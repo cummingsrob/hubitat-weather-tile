@@ -1,20 +1,21 @@
 {
   "packageName": "Weather Tile",
   "author": "Rob Cummings",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "minimumHEVersion": "2.3.0",
   "dateReleased": "2026-10-28",
   "documentationLink": "https://github.com/cummingsrob/hubitat-weather-tile#readme",
   "communityLink": "",
   "licenseFile": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/LICENSE",
-  "releaseNotes": "0.2.0: icons moved to library cummingsrob.WeatherTileIcons (installed via bundle). 0.1.0: first release.",
+  "releaseNotes": "0.2.1: fix library bundle (library() metadata first; icons split into two libraries). 0.2.0: icons moved to libraries. 0.1.0: first release.",
   "bundles": [
     {
       "id": "f3a8c1d6-2e47-4b90-8c5d-61e0a9b7c404",
       "name": "WeatherTile",
       "namespace": "cummingsrob",
       "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/bundle-library.zip",
-      "required": true
+      "required": true,
+      "version": "0.2.1"
     }
   ],
   "apps": [

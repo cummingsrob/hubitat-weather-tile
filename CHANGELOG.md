@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.1 - 2026-10-28
+- Fix HPM install failure "Failed to install bundle WeatherTile": the library now starts with its `library(...)` metadata, with imports after it (the layout used by working published bundles), instead of an `import` line before it.
+- Icons split into two smaller libraries: `cummingsrob.WeatherTileIcons` (filled, default) and `cummingsrob.WeatherTileIconsOutline`; both are in the bundles.
+- Build script mirrors Hubitat's import hoisting when expanding `#include`s for local checks.
+
 ## 0.2.0 - 2026-10-28
 - Icon SVGs moved out of the instance app into the Hubitat library `cummingsrob.WeatherTileIcons` (`#include`d by the app).
 - Icon packs are now discovered from provider methods so new packs can ship as separate libraries; conditions use fallback icon keys.
