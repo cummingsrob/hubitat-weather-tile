@@ -7,7 +7,7 @@
 
 metadata {
     definition(name: "Weather Watcher Device", namespace: "cummingsrob", author: "Rob Cummings",
-               importUrl: "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/drivers/WeatherTileDevice.groovy") {
+               importUrl: "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/drivers/WeatherWatcherDevice.groovy") {
         capability "Sensor"
         capability "Refresh"
 

@@ -1,5 +1,5 @@
 /*
- *  Weather Watcher Icons - WeatherTileIconsOutline
+ *  Weather Watcher Icons - WeatherWatcherIconsOutline
  *  Icon SVG path data derived from erikflowers/weather-icons, SIL OFL 1.1 (see ICONS-LICENSE.txt),
  *  extracted from Rachio-Community. Outline = erikflowers-style outline set.
  *  No Reserved Font Name is used. Wrapper code: Apache-2.0, Copyright 2026 Rob Cummings.
@@ -10,8 +10,8 @@ library (
     author: "Rob Cummings",
     category: "Convenience",
     description: "Outline icon pack for Weather Watcher",
-    documentationLink: "https://github.com/cummingsrob/hubitat-weather-tile",
-    name: "WeatherTileIconsOutline",
+    documentationLink: "https://github.com/cummingsrob/hubitat-weather-watcher",
+    name: "WeatherWatcherIconsOutline",
     namespace: "cummingsrob"
 )
 

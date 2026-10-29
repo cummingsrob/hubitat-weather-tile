@@ -6,7 +6,7 @@
     {
       "name": "Weather Watcher",
       "category": "Convenience",
-      "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/packageManifest.json",
+      "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/packageManifest.json",
       "description": "Multi-day forecast for Hubitat: a dashboard tile plus device attributes for rules (Open-Meteo, NWS, or keyed provider).",
       "tags": ["Weather", "Dashboards"]
     }

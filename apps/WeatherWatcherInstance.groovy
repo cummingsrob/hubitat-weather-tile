@@ -13,19 +13,19 @@
  *  the SVG-at-an-OAuth-endpoint approach, the forecast strip layout, the CSS-class color scheme,
  *  and the Open-Meteo request shape.
  *
- *  Weather icon SVG paths live in the libraries cummingsrob.WeatherTileIcons and
- *  cummingsrob.WeatherTileIconsOutline (libraries/) and are derived from erikflowers/weather-icons (https://github.com/erikflowers/weather-icons),
+ *  Weather icon SVG paths live in the libraries cummingsrob.WeatherWatcherIcons and
+ *  cummingsrob.WeatherWatcherIconsOutline (libraries/) and are derived from erikflowers/weather-icons (https://github.com/erikflowers/weather-icons),
  *  licensed under the SIL Open Font License 1.1 (see ICONS-LICENSE.txt). The filled set is
  *  Rob Cummings' color-modified version. No Reserved Font Name is used.
  */
 
 import groovy.transform.Field
 
-#include cummingsrob.WeatherTileIcons
-#include cummingsrob.WeatherTileIconsOutline
-#include cummingsrob.WeatherTileIconsMeteocons
-#include cummingsrob.WeatherTileIconsMeteoconsAnimated
-#include cummingsrob.WeatherTileIconsMono
+#include cummingsrob.WeatherWatcherIcons
+#include cummingsrob.WeatherWatcherIconsOutline
+#include cummingsrob.WeatherWatcherIconsMeteocons
+#include cummingsrob.WeatherWatcherIconsMeteoconsAnimated
+#include cummingsrob.WeatherWatcherIconsMono
 
 definition(
     name: "Weather Watcher",
@@ -36,7 +36,7 @@ definition(
     parent: "cummingsrob:Weather Watcher Manager",
     oauth: true,
     iconUrl: "", iconX2Url: "", iconX3Url: "",
-    importUrl: "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/apps/WeatherTileInstance.groovy"
+    importUrl: "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/apps/WeatherWatcherInstance.groovy"
 )
 
 preferences {
@@ -56,7 +56,7 @@ mappings {
 @Field static java.util.concurrent.ConcurrentHashMap<String, Map> SVG_CACHE = new java.util.concurrent.ConcurrentHashMap<String, Map>()
 @Field static final Map SOURCES = ["open-meteo": "Open-Meteo (free, global, default)", "nws": "NWS / weather.gov (free, US only)",
                                    "custom": "Keyed provider (OpenWeatherMap One Call compatible)"]
-// Icon pack provider methods (each comes from an #include'd library; see WeatherTileIcons header)
+// Icon pack provider methods (each comes from an #include'd library; see WeatherWatcherIcons header)
 @Field static final List WT_ICON_PACK_PROVIDERS = ["wtIconPacks", "wtIconPacksOutline", "wtIconPacksMeteocons", "wtIconPacksMeteoconsAnimated", "wtIconPacksMono"]
 @Field static final Map REFRESH_OPTS = ["15": "15 minutes", "30": "30 minutes", "60": "1 hour", "180": "3 hours"]
 @Field static final Map THEMES = [
@@ -344,7 +344,7 @@ private String bodyText(d) {
     return d.toString()
 }
 
-private Map nwsHeaders() { ["User-Agent": "(hubitat-weather-tile, github.com/cummingsrob/hubitat-weather-tile)", "Accept": "application/geo+json, application/json"] }
+private Map nwsHeaders() { ["User-Agent": "(hubitat-weather-watcher, github.com/cummingsrob/hubitat-weather-watcher)", "Accept": "application/geo+json, application/json"] }
 
 private void fetchNws() {
     if (!state.nwsForecastUrl || state.nwsKey != locationKey()) {

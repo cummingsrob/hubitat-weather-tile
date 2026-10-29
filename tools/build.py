@@ -3,17 +3,17 @@
 
   bundle.zip          libraries + driver + apps (Hubitat Developer tools > Bundles > Import ZIP)
   bundle-library.zip  libraries only (used by HPM; apps/driver are separate HPM entries so OAuth gets enabled)
-  build/WeatherTileInstance.expanded.groovy  app with #include replaced by library code (minus library(...))
+  build/WeatherWatcherInstance.expanded.groovy  app with #include replaced by library code (minus library(...))
 """
 import os, re, zipfile, time
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-NS, BUNDLE = "cummingsrob", "WeatherTile"
-LIBS = ["libraries/cummingsrob.WeatherTileIcons.groovy", "libraries/cummingsrob.WeatherTileIconsOutline.groovy",
-        "libraries/cummingsrob.WeatherTileIconsMeteocons.groovy", "libraries/cummingsrob.WeatherTileIconsMeteoconsAnimated.groovy",
-        "libraries/cummingsrob.WeatherTileIconsMono.groovy"]
-DRIVERS = [("drivers/WeatherTileDevice.groovy", "cummingsrob.WeatherTileDevice.groovy")]
-APPS = [("apps/WeatherTileManager.groovy", "cummingsrob.WeatherTileManager.groovy"),   # parent first
-        ("apps/WeatherTileInstance.groovy", "cummingsrob.WeatherTileInstance.groovy")]
+NS, BUNDLE = "cummingsrob", "WeatherWatcher"
+LIBS = ["libraries/cummingsrob.WeatherWatcherIcons.groovy", "libraries/cummingsrob.WeatherWatcherIconsOutline.groovy",
+        "libraries/cummingsrob.WeatherWatcherIconsMeteocons.groovy", "libraries/cummingsrob.WeatherWatcherIconsMeteoconsAnimated.groovy",
+        "libraries/cummingsrob.WeatherWatcherIconsMono.groovy"]
+DRIVERS = [("drivers/WeatherWatcherDevice.groovy", "cummingsrob.WeatherWatcherDevice.groovy")]
+APPS = [("apps/WeatherWatcherManager.groovy", "cummingsrob.WeatherWatcherManager.groovy"),   # parent first
+        ("apps/WeatherWatcherInstance.groovy", "cummingsrob.WeatherWatcherInstance.groovy")]
 
 def rd(p): return open(os.path.join(ROOT, p), encoding="utf-8").read()
 
@@ -41,8 +41,8 @@ def expand(src):
     out = re.sub(r"(?m)^import\s+[\w.*]+\s*$\n?", "", out)
     return "\n".join(imports) + "\n" + out
 os.makedirs(os.path.join(ROOT, "build"), exist_ok=True)
-open(os.path.join(ROOT, "build/WeatherTileInstance.expanded.groovy"), "w").write(expand(rd("apps/WeatherTileInstance.groovy")))
-print("built bundle.zip, bundle-library.zip, build/WeatherTileInstance.expanded.groovy")
+open(os.path.join(ROOT, "build/WeatherWatcherInstance.expanded.groovy"), "w").write(expand(rd("apps/WeatherWatcherInstance.groovy")))
+print("built bundle.zip, bundle-library.zip, build/WeatherWatcherInstance.expanded.groovy")
 
 # Cache-busting: point every manifest location at ?v=<version> so hubs skip GitHub raw's stale cache
 import json

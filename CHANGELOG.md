@@ -4,6 +4,15 @@
 - More optional pack libraries: Makin-Things (MIT), Tabler (MIT), Lucide (ISC), amCharts (CC BY 4.0).
 - Night variants for Rob's filled and Rob's outline packs.
 
+## 0.2.13 - 2026-10-29
+- Finished the rename to Weather Watcher:
+  - GitHub repo `cummingsrob/hubitat-weather-tile` is now `cummingsrob/hubitat-weather-watcher` (old URLs redirect).
+  - Files: `apps/WeatherWatcherManager.groovy`, `apps/WeatherWatcherInstance.groovy`, `drivers/WeatherWatcherDevice.groovy`.
+  - Icon libraries: `cummingsrob.WeatherTileIcons*` are now `cummingsrob.WeatherWatcherIcons*` (WeatherWatcherIcons, ...Outline, ...Meteocons, ...MeteoconsAnimated, ...Mono), with matching `library()` names and `#include` lines.
+  - Bundle name `WeatherTile` is now `WeatherWatcher` (same HPM id).
+- Unchanged: namespace `cummingsrob`, HPM package/app/driver/bundle ids, all attribute names (including `weatherTile`).
+- After the HPM update, delete the old `cummingsrob.WeatherTileIcons*` libraries and the old WeatherTile bundle (see README).
+
 ## 0.2.12 - 2026-10-29
 - Renamed to **Weather Watcher** (a dashboard tile plus device attributes for rules). Parent app "Weather Tile Manager" is now **Weather Watcher Manager**, child app "Weather Tile Instance" is now **Weather Watcher**, driver "Weather Tile Device" is now **Weather Watcher Device**; HPM package and repository name **Weather Watcher**. New default label "Weather Watcher".
 - Upgrade-safe: namespace `cummingsrob`, file names, library names, attribute names (including `weatherTile`), HPM package/app/driver/bundle ids and the bundle name are unchanged, so HPM updates the existing code in place and keeps app instances, devices, settings and OAuth. Bundle or manual installs: update each existing code entry in place (see README).

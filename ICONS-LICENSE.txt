@@ -1,4 +1,4 @@
-Weather icon SVG paths in apps/WeatherTileInstance.groovy (ICONS_FILLED, ICONS_OUTLINE)
+Weather icon SVG paths in apps/WeatherWatcherInstance.groovy (ICONS_FILLED, ICONS_OUTLINE)
 
 Derived from Weather Icons by Erik Flowers and Lukas Bischoff
   https://github.com/erikflowers/weather-icons  (icons: SIL OFL 1.1, code: MIT, docs: CC BY 3.0)
@@ -6,10 +6,10 @@ The "filled" set is a color-modified derivative by Rob Cummings (2024-2026).
 Path data was taken from Rachio-Community (https://github.com/lnjustin/Rachio-Community).
 These derivatives do not use the upstream font name.
 
-Icon packs "Rob's filled" (library cummingsrob.WeatherTileIcons) and "Rob's outline"
-(library cummingsrob.WeatherTileIconsOutline): Copyright (c) 2026 Rob Cummings, modified from
+Icon packs "Rob's filled" (library cummingsrob.WeatherWatcherIcons) and "Rob's outline"
+(library cummingsrob.WeatherWatcherIconsOutline): Copyright (c) 2026 Rob Cummings, modified from
 the original below. No Reserved Font Name is used.
-Icon pack "Monochrome (erikflowers)" (library cummingsrob.WeatherTileIconsMono): glyphs from
+Icon pack "Monochrome (erikflowers)" (library cummingsrob.WeatherWatcherIconsMono): glyphs from
 the original below (svg/ exports of the font), scaled and given one fill class. SIL OFL 1.1.
 
 Copyright (c) 2013-2017, Erik Flowers, Lukas Bischoff (http://erikflowers.github.io/weather-icons).
@@ -108,8 +108,8 @@ FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE.
 
 ================================================================
-Meteocons (libraries cummingsrob.WeatherTileIconsMeteocons and
-cummingsrob.WeatherTileIconsMeteoconsAnimated), from https://github.com/basmilius/weather-icons
+Meteocons (libraries cummingsrob.WeatherWatcherIconsMeteocons and
+cummingsrob.WeatherWatcherIconsMeteoconsAnimated), from https://github.com/basmilius/weather-icons
 (npm @meteocons/svg and @meteocons/svg-static 0.1.0, "fill" style). Modified: ids prefixed,
 whitespace removed, wrapped in a nested <svg>. Licensed under the MIT License:
 

@@ -20,7 +20,7 @@ definition(
     singleInstance: true,
     installOnOpen: true,
     iconUrl: "", iconX2Url: "", iconX3Url: "",
-    importUrl: "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/apps/WeatherTileManager.groovy"
+    importUrl: "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/apps/WeatherWatcherManager.groovy"
 )
 
 preferences {

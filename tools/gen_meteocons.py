@@ -45,7 +45,7 @@ def lib(name, prov, meth, label, desc, src, pfx):
     author: "Rob Cummings",
     category: "Convenience",
     description: "%s",
-    documentationLink: "https://github.com/cummingsrob/hubitat-weather-tile",
+    documentationLink: "https://github.com/cummingsrob/hubitat-weather-watcher",
     name: "%s",
     namespace: "cummingsrob"
 )
@@ -68,6 +68,6 @@ Map %s() {
     open(os.path.join(ROOT, "libraries/cummingsrob.%s.groovy" % name), "w", encoding="utf-8").write(txt)
 
 anim, static = sys.argv[1], sys.argv[2]
-lib("WeatherTileIconsMeteocons", "wtIconPacksMeteocons", "wtMs", "Meteocons (static)", "Meteocons static icon pack for Weather Watcher", static, "mcs")
-lib("WeatherTileIconsMeteoconsAnimated", "wtIconPacksMeteoconsAnimated", "wtMa", "Meteocons (animated)", "Meteocons animated icon pack for Weather Watcher", anim, "mca")
+lib("WeatherWatcherIconsMeteocons", "wtIconPacksMeteocons", "wtMs", "Meteocons (static)", "Meteocons static icon pack for Weather Watcher", static, "mcs")
+lib("WeatherWatcherIconsMeteoconsAnimated", "wtIconPacksMeteoconsAnimated", "wtMa", "Meteocons (animated)", "Meteocons animated icon pack for Weather Watcher", anim, "mca")
 print("generated Meteocons libraries")

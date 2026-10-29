@@ -123,6 +123,7 @@ Candidates (licenses verified 2026-10-28):
 None at this time.
 
 ## Next up (Rob's to-dos)
+- Done in 0.2.13: repo `hubitat-weather-watcher`, files `WeatherWatcher*.groovy`, icon libraries `cummingsrob.WeatherWatcherIcons*`, bundle `WeatherWatcher`; ids, namespace and attribute names kept.
 - Done in 0.2.12: renamed to **Weather Watcher** (Weather Watcher Manager, Weather Watcher, Weather Watcher Device). Ids, file names, library names and attributes kept for clean upgrades.
 - Done in 0.2.10: icon packs renamed to credit Rob: **Rob's filled (default)** and **Rob's outline**, each modified from erikflowers/weather-icons. Library names and pack keys unchanged.
 - Done in 0.2.11: **Monochrome (erikflowers)** pack from the erikflowers font glyphs.
