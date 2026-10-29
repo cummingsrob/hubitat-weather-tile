@@ -4,6 +4,13 @@
 - More optional pack libraries: Makin-Things (MIT), Tabler (MIT), Lucide (ISC), amCharts (CC BY 4.0).
 - Night variants for Rob's filled and Rob's outline packs.
 
+## 0.2.20 - 2026-10-29
+- New **current conditions** block on the tile, above the forecast: big icon (same pack and theme; night variant after sunset), bold temperature, condition text, feels-like and today's H/L, plus chips for Humidity, Wind (speed + direction) and Rain today.
+- Two new settings under Forecast content: **Show current conditions** (default **off**, so upgraded tiles keep their size; turn it on to get the taller tile) and **Show forecast** (default on). Both on: current above forecast; only one: just that part.
+- Current data: Open-Meteo `current` (same request), NWS latest observation from the nearest station (station looked up once and cached), keyed provider One Call `current` (the request no longer excludes `current`).
+- New device attributes (always published when current data is available, even if the block is hidden): `temperature`, `humidity` (TemperatureMeasurement / RelativeHumidityMeasurement capabilities), `feelsLike`, `windSpeed`, `windDirection` (degrees), `windCardinal`, `weather`, `currentCondition`, `currentIcon`, `currentObserved`. Wind is mph (imperial) or km/h (metric).
+- README restored (it was accidentally emptied in 0.2.18).
+
 ## 0.2.19 - 2026-10-29
 - Settings page: each group now opens with a light bordered title box (translucent grey, works on light and dark themes) instead of a bold section title and rule; the Status lines sit inside the Status box. Collapsed groups (Color overrides, Advanced · Logging) keep a plain clickable section title plus the box.
 - No setting names changed.

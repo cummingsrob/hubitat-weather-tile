@@ -112,7 +112,7 @@ def mainPage() {
             if (settings.source == "custom") {
                 input "customUrl", "text", title: "API base URL", required: true, width: 8,
                       defaultValue: "https://api.openweathermap.org/data/3.0/onecall",
-                      description: "Called as BASE?lat=..&lon=..&units=..&appid=KEY&exclude=current,minutely,hourly,alerts"
+                      description: "Called as BASE?lat=..&lon=..&units=..&appid=KEY&exclude=minutely,hourly,alerts"
                 input "customKey", "password", title: "API key", required: true, width: 4
             }
         }
@@ -128,6 +128,8 @@ def mainPage() {
         }
         section("") {
             paragraph box("Forecast content")
+            input "showForecast", "bool", title: "Show forecast", defaultValue: true, width: 6
+            input "showCurrent", "bool", title: "Show current conditions", defaultValue: false, width: 6
             input "numDays", "enum", title: "Days shown (including today)", options: ["1","2","3","4","5","6","7"], defaultValue: "7", required: true, width: 4
             input "units", "enum", title: "Units", options: ["hub": "Follow hub (${location.temperatureScale == 'C' ? 'metric' : 'imperial'})",
                   "imperial": "Imperial (°F, in)", "metric": "Metric (°C, mm)"], defaultValue: "hub", required: true, width: 4
@@ -316,14 +318,25 @@ private void fetchOpenMeteo() {
     boolean metric = unitSys() == "metric"
     Map q = [latitude: lat(), longitude: lon(), timezone: "auto", forecast_days: 7,
              daily: "weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,sunrise,sunset",
-             temperature_unit: metric ? "celsius" : "fahrenheit", precipitation_unit: metric ? "mm" : "inch"]
+             current: "temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m,is_day",
+             temperature_unit: metric ? "celsius" : "fahrenheit", precipitation_unit: metric ? "mm" : "inch", wind_speed_unit: metric ? "kmh" : "mph"]
     asynchttpGet("handleOpenMeteo", [uri: "https://api.open-meteo.com", path: "/v1/forecast", query: q, contentType: "application/json", headers: ["Accept": "application/json"], timeout: 20])
 }
 
 def handleOpenMeteo(resp, data) {
     if (!responseOk(resp, "Open-Meteo")) return
     try {
-        def d = respJson(resp)?.daily
+        def j = respJson(resp)
+        def d = j?.daily
+        try {
+            def c = j?.current
+            if (c != null && c.temperature_2m != null) {
+                Integer cc = c.weather_code as Integer
+                onCurrent([temp: c.temperature_2m, feels: c.apparent_temperature, humidity: c.relative_humidity_2m,
+                           wind: c.wind_speed_10m, windDir: c.wind_direction_10m, cond: wmoToCondition(cc), raw: null,
+                           isDay: c.is_day != null ? ((c.is_day as Integer) == 1) : null, time: c.time])
+            }
+        } catch (e) { logInfo "Open-Meteo current parse error: ${e}" }
         List days = []
         d.time.eachWithIndex { t, i ->
             Integer code = d.weathercode[i] as Integer
@@ -402,6 +415,8 @@ def handleNwsPoints(resp, data) {
         String url = respJson(resp)?.properties?.forecast
         if (!url) { onFailure("NWS: no forecast URL for this location (US only)"); return }
         state.nwsForecastUrl = url
+        state.nwsStationsUrl = respJson(resp)?.properties?.observationStations
+        state.nwsStation = null
         try {
             def rl = respJson(resp)?.properties?.relativeLocation?.properties
             if (rl?.city) { rememberPlace(rl.city.toString()) }
@@ -414,6 +429,48 @@ def handleNwsPoints(resp, data) {
 private void fetchNwsForecast() {
     Map q = unitSys() == "metric" ? [units: "si"] : [units: "us"]
     asynchttpGet("handleNwsForecast", [uri: state.nwsForecastUrl, query: q, contentType: "application/json", headers: nwsHeaders(), timeout: 25])
+    fetchNwsCurrent()
+}
+
+/** NWS current conditions: nearest observation station (cached), then its latest observation. Failures never affect the forecast. */
+private void fetchNwsCurrent() {
+    if (state.nwsStation) {
+        asynchttpGet("handleNwsObservation", [uri: "https://api.weather.gov", path: "/stations/${state.nwsStation}/observations/latest",
+                     contentType: "application/json", headers: nwsHeaders(), timeout: 20])
+    } else if (state.nwsStationsUrl) {
+        asynchttpGet("handleNwsStations", [uri: state.nwsStationsUrl, contentType: "application/json", headers: nwsHeaders(), timeout: 20])
+    } else {
+        state.nwsForecastUrl = null   // older install without the stations URL: resolve /points again next refresh
+    }
+}
+
+def handleNwsStations(resp, data) {
+    if (resp == null || resp.hasError() || (resp.status as Integer) >= 300) { logInfo "NWS stations failed: HTTP ${resp?.status}"; return }
+    try {
+        def f = respJson(resp)?.features
+        String id = f ? (f[0]?.properties?.stationIdentifier as String) : null
+        if (id) { state.nwsStation = id; fetchNwsCurrent() }
+    } catch (e) { logInfo "NWS stations parse error: ${e}" }
+}
+
+def handleNwsObservation(resp, data) {
+    if (resp == null || resp.hasError() || (resp.status as Integer) >= 300) {
+        logInfo "NWS observation failed: HTTP ${resp?.status}"
+        if (resp?.status == 404) state.nwsStation = null
+        return
+    }
+    try {
+        def p = respJson(resp)?.properties
+        boolean metric = unitSys() == "metric"
+        def cToU = { v -> v == null ? null : (metric ? (v as BigDecimal) : (v as BigDecimal) * 9 / 5 + 32) }
+        def kmhToU = { v -> v == null ? null : (metric ? (v as BigDecimal) : (v as BigDecimal) / 1.609344) }
+        def t = p?.temperature?.value
+        if (t == null) { logInfo "NWS observation has no temperature (station ${state.nwsStation})"; return }
+        def feels = p?.heatIndex?.value != null ? p.heatIndex.value : (p?.windChill?.value != null ? p.windChill.value : t)
+        onCurrent([temp: cToU(t), feels: cToU(feels), humidity: p?.relativeHumidity?.value, wind: kmhToU(p?.windSpeed?.value),
+                   windDir: p?.windDirection?.value, cond: nwsToCondition(p?.textDescription as String), raw: p?.textDescription,
+                   isDay: null, time: p?.timestamp])
+    } catch (e) { logInfo "NWS observation parse error: ${e}" }
 }
 
 def handleNwsForecast(resp, data) {
@@ -469,7 +526,7 @@ private String nwsToCondition(String s) {
 
 private void fetchCustom() {
     if (!settings.customUrl || !settings.customKey) { onFailure("Custom provider needs an API base URL and key"); return }
-    Map q = [lat: lat(), lon: lon(), units: unitSys(), appid: settings.customKey, exclude: "current,minutely,hourly,alerts"]
+    Map q = [lat: lat(), lon: lon(), units: unitSys(), appid: settings.customKey, exclude: "minutely,hourly,alerts"]
     asynchttpGet("handleCustom", [uri: settings.customUrl, query: q, contentType: "application/json", headers: ["Accept": "application/json"], timeout: 20])
 }
 
@@ -479,6 +536,17 @@ def handleCustom(resp, data) {
         def j = respJson(resp)
         TimeZone tz = j.timezone ? TimeZone.getTimeZone(j.timezone as String) : location.timeZone
         boolean metric = unitSys() == "metric"
+        try {
+            def c = j.current
+            if (c?.temp != null) {
+                Integer cid = c.weather ? (c.weather[0].id as Integer) : null
+                def ws = c.wind_speed == null ? null : (metric ? (c.wind_speed as BigDecimal) * 3.6 : c.wind_speed)   // m/s -> km/h
+                String icon = c.weather ? (c.weather[0].icon as String) : null
+                onCurrent([temp: c.temp, feels: c.feels_like, humidity: c.humidity, wind: ws, windDir: c.wind_deg, cond: owmToCondition(cid),
+                           raw: c.weather ? c.weather[0].description : null, isDay: icon ? !icon.endsWith("n") : null,
+                           time: c.dt ? new Date((c.dt as Long) * 1000L).format("yyyy-MM-dd'T'HH:mm:ssXXX", tz) : null])
+            }
+        } catch (e) { logInfo "Custom provider current parse error: ${e}" }
         List days = j.daily.collect { d ->
             Integer id = d.weather ? (d.weather[0].id as Integer) : null
             BigDecimal mm = ((d.rain ?: 0) as BigDecimal) + ((d.snow ?: 0) as BigDecimal)   // OWM reports mm in all unit systems
@@ -531,6 +599,37 @@ private void onFailure(String msg, boolean rateLimited = false) {
     state.status = state.forecast ? "stale" : "error"
     state.statusMessage = msg.take(200)
     renderAndPublish()
+}
+
+/** Store current conditions (state only; the forecast handler or a redraw publishes them). */
+private void onCurrent(Map c) {
+    state.current = [temp: num(c.temp, 0), feels: num(c.feels, 0), humidity: num(c.humidity, 0), wind: num(c.wind, 0),
+                     windDir: num(c.windDir, 0), cond: c.cond ?: "unknown", raw: c.raw?.toString(), isDay: c.isDay,
+                     time: c.time?.toString(), fetched: now(), units: unitSys()]
+    if (state.forecast && (settings.source ?: "open-meteo") == "nws") renderAndPublish()   // NWS current arrives after the forecast
+}
+
+/** Current conditions, or null if missing, older than 3 refresh intervals (min 2 h) or in other units. */
+private Map currentNow() {
+    Map c = state.current as Map
+    if (!c || c.temp == null || c.units != unitSys()) return null
+    if (now() - ((c.fetched ?: 0L) as Long) > Math.max(refreshMin() * 3L, 120L) * 60000L) return null
+    return c
+}
+
+private static String cardinal(BigDecimal deg) {
+    if (deg == null) return null
+    List d = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
+    return d[((int) Math.round((deg as double) / 22.5d)) % 16]
+}
+
+private boolean currentIsNight(Map c, List days) {
+    if (days) {
+        Map t = sunTimes(days[0] as Map)
+        if (t.sunrise && t.sunset && days[0].date == new Date().format("yyyy-MM-dd", location.timeZone)) return isNightNow(days[0] as Map)
+    }
+    if (c?.isDay != null) return !(c.isDay as boolean)
+    return isNightNow(days ? days[0] as Map : null)
 }
 
 private void onForecast(List days, String src) {
@@ -693,14 +792,20 @@ private String buildSvg(List allDays) {
     boolean anyP = showP && days.any { it.pop != null && (!hideZ || (it.pop as BigDecimal) > 0) }
     boolean anyA = showA && days.any { it.amt != null && (!hideZ || (it.amt as BigDecimal) > 0) }
 
-    int w = COL_W * n
+    boolean showF = opt("showForecast", true), showC = opt("showCurrent", false)
+    Map cur = showC ? currentNow() : null
+    int curH = showC ? 112 : 0                  // current block (drawn even while waiting for data)
+    int stripW = COL_W * n
+    int w = showC ? Math.max(stripW, 448) : (showF ? stripW : 448)
+    int xo = (w - stripW).intdiv(2)              // center the strip under a wider current block
     int y = 4
     int labelY = y + 12
     int iconY = labelY + 2
     int tempY = iconY + 64 + 4
     int popY = tempY + (showT ? 13 : 0)
     int amtY = popY + (anyP ? 12 : 0)
-    int h = amtY + (anyA ? 12 : 0) - 8
+    int stripH = amtY + (anyA ? 12 : 0) - 8
+    int h = (showF ? curH + stripH : (showC ? curH - 4 : 24))
     int updY = h + 9
     if (showU) h += 11
     h += 4
@@ -718,11 +823,16 @@ private String buildSvg(List allDays) {
     sb << '.u{fill:' << c.muted << ';font-size:' << (6.5 * fs) << 'px}</style>'
     sb << '<rect x="0" y="0" width="' << w << '" height="' << h << '" rx="' << rx << '" fill="' << bg << '"/>'
 
-    if (!days) {
-        sb << '<text x="' << (w / 2) << '" y="' << (h / 2) << '" text-anchor="middle" class="day">' << esc(state.statusMessage ?: "Waiting for forecast") << '</text>'
-    }
     Map icons = packIcons()
-    days.eachWithIndex { d, i ->
+    if (showC) sb << currentBlock(cur, days, icons, c, fs, w, showF)
+    if (!showF && !showC) {
+        sb << '<text x="' << (w / 2) << '" y="18" text-anchor="middle" class="day">Turn on Show forecast or Show current conditions</text>'
+    }
+    if (showF && !days) {
+        sb << '<text x="' << (w / 2) << '" y="' << (curH + stripH / 2) << '" text-anchor="middle" class="day">' << esc(state.statusMessage ?: "Waiting for forecast") << '</text>'
+    }
+    if (showF) sb << '<g transform="translate(' << xo << ',' << curH << ')">'
+    (showF ? days : []).eachWithIndex { d, i ->
         int cx = COL_W * i + COL_W.intdiv(2)
         sb << '<g>'
         sb << '<text x="' << cx << '" y="' << labelY << '" text-anchor="middle" class="day">' << esc(dayLabel(d.date as String, i)) << '</text>'
@@ -745,12 +855,54 @@ private String buildSvg(List allDays) {
         }
         sb << '</g>'
     }
+    if (showF) sb << '</g>'
     if (showU && state.lastSuccess) {
         String u = fmtUpdated(state.lastSuccess as Long)
         if (state.status == "stale" || state.status == "error") u += " (stale)"
         sb << '<text x="' << (w - 4) << '" y="' << updY << '" text-anchor="end" class="u">' << esc(u) << '</text>'
     }
     sb << '</svg>'
+    return sb.toString()
+}
+
+/** Current-conditions block: big icon, bold temperature, condition text, feels-like and today's H/L, then chips. */
+private String currentBlock(Map cur, List days, Map icons, Map c, BigDecimal fs, int w, boolean divider) {
+    def fmt = { BigDecimal v -> v == null ? "" : v.stripTrailingZeros().toPlainString() }
+    StringBuilder sb = new StringBuilder(16000)
+    sb << '<style>.ct{fill:' << c.high << ';font-size:' << (46 * fs) << 'px;font-weight:bold}.cc{fill:' << c.text << ';font-size:' << (15 * fs) << 'px}'
+    sb << '.cs{fill:' << c.low << ';font-size:' << (11 * fs) << 'px}.ch{fill:' << c.text << ';font-size:' << (11 * fs) << 'px}.chip{fill:' << c.muted << ';fill-opacity:0.28}</style>'
+    if (!cur) {
+        sb << '<text x="' << (w / 2) << '" y="58" text-anchor="middle" class="cs">Waiting for current conditions</text>'
+    } else {
+        boolean night = currentIsNight(cur, days)
+        List cond = CONDITIONS[cur.cond] ?: CONDITIONS.unknown
+        String text = cur.raw ? (cur.raw.toString().capitalize()) : cond[1]
+        sb << '<g transform="translate(12,10) scale(1.45)"><title>' << esc(text) << '</title>' << icons[iconKey(cond, icons, night)] << '</g>'
+        String t = fmt(cur.temp as BigDecimal) + '°'
+        int tx = 112
+        sb << '<text x="' << tx << '" y="58" class="ct">' << esc(t) << '</text>'
+        int cx = tx + (int) Math.round(t.length() * 27 * fs) + 14
+        sb << '<text x="' << cx << '" y="34" class="cc">' << esc(text.take(28)) << '</text>'
+        List sub = []
+        if (cur.feels != null) sub << "Feels like ${fmt(cur.feels as BigDecimal)}°"
+        Map d0 = days ? days[0] as Map : null
+        if (d0 && (d0.high != null || d0.low != null)) sub << ([d0.high != null ? "H ${fmt(d0.high as BigDecimal)}°" : null, d0.low != null ? "L ${fmt(d0.low as BigDecimal)}°" : null].findAll { it }.join(" "))
+        if (sub) sb << '<text x="' << cx << '" y="52" class="cs">' << esc(sub.join(" · ")) << '</text>'
+        boolean metric = (cur.units ?: unitSys()) == "metric"
+        List chips = []
+        if (cur.humidity != null) chips << "Humidity ${fmt(cur.humidity as BigDecimal)}%"
+        if (cur.wind != null) chips << ("Wind ${fmt(cur.wind as BigDecimal)} ${metric ? 'km/h' : 'mph'}" + (cur.windDir != null && (cur.wind as BigDecimal) > 0 ? " ${cardinal(cur.windDir as BigDecimal)}" : ""))
+        if (d0?.pop != null) chips << "Rain today ${fmt(d0.pop as BigDecimal)}%"
+        int x = tx
+        chips.each { String ch ->
+            int cw = (int) Math.round(ch.length() * 6.0 * fs) + 16
+            if (x + cw > w - 6) return
+            sb << '<rect x="' << x << '" y="70" width="' << cw << '" height="' << Math.round(20 * fs) << '" rx="' << Math.round(10 * fs) << '" class="chip"/>'
+            sb << '<text x="' << (x + 8) << '" y="' << (70 + Math.round(14 * fs)) << '" class="ch">' << esc(ch) << '</text>'
+            x += cw + 6
+        }
+    }
+    if (divider) sb << '<line x1="10" x2="' << (w - 10) << '" y1="104" y2="104" stroke="' << c.muted << '" stroke-opacity="0.45"/>'
     return sb.toString()
 }
 
@@ -794,6 +946,20 @@ private void publishAttributes(List allDays) {
         a["day${i}Icon"] = iconKey(cond, packIcons())
         a["day${i}PrecipChance"] = d.pop
         a["day${i}PrecipAmount"] = d.amt
+    }
+    Map cur = currentNow()
+    if (cur) {
+        List cc = CONDITIONS[cur.cond] ?: CONDITIONS.unknown
+        a.temperature = cur.temp
+        a.humidity = cur.humidity
+        a.feelsLike = cur.feels
+        a.windSpeed = cur.wind
+        a.windDirection = cur.windDir
+        a.windCardinal = cardinal(cur.windDir as BigDecimal)
+        a.currentCondition = cur.cond
+        a.weather = cur.raw ? cur.raw.toString().capitalize() : cc[1]
+        a.currentIcon = iconKey(cc, packIcons(), currentIsNight(cur, allDays))
+        if (cur.time) a.currentObserved = cur.time
     }
     if (days) {
         a.todayHigh = days[0].high
@@ -892,7 +1058,7 @@ def serveSvg() {
 
 def serveJson() {
     Map out = [source: state.forecastSource, units: state.forecastUnits, status: state.status, statusMessage: state.statusMessage,
-               lastSuccess: state.lastSuccess, days: currentDays()]
+               lastSuccess: state.lastSuccess, current: currentNow(), days: currentDays()]
     render contentType: "application/json", data: groovy.json.JsonOutput.toJson(out), status: 200
 }
 

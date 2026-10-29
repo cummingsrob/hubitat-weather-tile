@@ -1,7 +1,7 @@
 {
   "packageName": "Weather Watcher",
   "author": "Rob Cummings",
-  "version": "0.2.19",
+  "version": "0.2.20",
   "minimumHEVersion": "2.3.0",
   "dateReleased": "2026-10-29",
   "category": "Convenience",
@@ -12,13 +12,13 @@
   "documentationLink": "https://github.com/cummingsrob/hubitat-weather-watcher#readme",
   "licenseFile": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/LICENSE",
   "gitHubUrl": "https://github.com/cummingsrob/hubitat-weather-watcher",
-  "releaseNotes": "0.2.19: Weather Watcher settings page: each of the nine groups starts with a light bordered title box (status shown inside its box). No setting changes.",
+  "releaseNotes": "0.2.20: optional current-conditions block above the forecast (Show current conditions, off by default) and a Show forecast toggle; new current-weather device attributes (temperature, humidity, feelsLike, wind, weather).",
   "bundles": [
     {
       "id": "f3a8c1d6-2e47-4b90-8c5d-61e0a9b7c404",
       "name": "WeatherWatcher",
       "namespace": "cummingsrob",
-      "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/bundle-library.zip?v=0.2.19",
+      "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/bundle-library.zip?v=0.2.20",
       "required": true,
       "description": "Icon pack libraries (five packs) used by the Weather Watcher app."
     }
@@ -28,7 +28,7 @@
       "id": "6a1d3c52-8f0e-4b6a-9a77-2f6c1b0d9e01",
       "name": "Weather Watcher Manager",
       "namespace": "cummingsrob",
-      "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/apps/WeatherWatcherManager.groovy?v=0.2.19",
+      "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/apps/WeatherWatcherManager.groovy?v=0.2.20",
       "required": true,
       "primary": true,
       "oauth": false,
@@ -38,7 +38,7 @@
       "id": "b4e9f0a7-3c21-4d58-8e1f-7a90c6d2b302",
       "name": "Weather Watcher",
       "namespace": "cummingsrob",
-      "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/apps/WeatherWatcherInstance.groovy?v=0.2.19",
+      "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/apps/WeatherWatcherInstance.groovy?v=0.2.20",
       "required": true,
       "primary": false,
       "oauth": true,
@@ -50,7 +50,7 @@
       "id": "d27c8e15-9b4f-4e03-a6c2-5f18e3b7a403",
       "name": "Weather Watcher Device",
       "namespace": "cummingsrob",
-      "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/drivers/WeatherWatcherDevice.groovy?v=0.2.19",
+      "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/drivers/WeatherWatcherDevice.groovy?v=0.2.20",
       "required": true,
       "description": "Child device: weatherWatcher tile attribute plus weather attributes for rules."
     }

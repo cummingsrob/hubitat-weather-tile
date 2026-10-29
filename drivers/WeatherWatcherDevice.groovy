@@ -10,6 +10,8 @@ metadata {
                importUrl: "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/drivers/WeatherWatcherDevice.groovy") {
         capability "Sensor"
         capability "Refresh"
+        capability "TemperatureMeasurement"
+        capability "RelativeHumidityMeasurement"
 
         attribute "weatherWatcher", "string"
         attribute "lastUpdated", "string"
@@ -21,6 +23,14 @@ metadata {
         attribute "latitude", "number"
         attribute "longitude", "number"
         attribute "locationLabel", "string"
+        attribute "feelsLike", "number"
+        attribute "windSpeed", "number"
+        attribute "windDirection", "number"
+        attribute "windCardinal", "string"
+        attribute "weather", "string"
+        attribute "currentCondition", "string"
+        attribute "currentIcon", "string"
+        attribute "currentObserved", "string"
         attribute "todayHigh", "number"
         attribute "todayLow", "number"
         attribute "todayPrecipChance", "number"
