@@ -4,6 +4,11 @@
 - More optional pack libraries: Makin-Things (MIT), Tabler (MIT), Lucide (ISC), amCharts (CC BY 4.0).
 - Night variants for Rob's filled and Rob's outline packs.
 
+## 0.2.16 - 2026-10-29
+- Weather Watcher settings page reorganized into cards: Status (badge, source, last update, next refresh, preview, refresh button, tile link) at the top, then Name & source, Location, Forecast content, Look, Last-updated line (with a sample), Color overrides (collapsed, theme-default swatches), Dashboard, and Advanced (collapsed logging).
+- Side-by-side fields use Hubitat's `width:` grid; no setting names changed, so existing installs keep their values.
+- HPM packaging: package-level version only (build no longer adds a bundle version); repository package id, category, tags, gitHubUrl and component descriptions.
+
 ## 0.2.15 - 2026-10-29
 - Child device network id prefix `WTILE-` is now `WWATCH-`.
 - Removed the upgrade/migration notes for the old name from the README and REQUIREMENTS; install fresh.

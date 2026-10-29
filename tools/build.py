@@ -52,7 +52,5 @@ v = m["version"]
 for sect in ("bundles", "apps", "drivers"):
     for e in m.get(sect, []):
         e["location"] = e["location"].split("?", 1)[0] + "?v=" + v
-        if sect == "bundles":
-            e["version"] = v
 open(mp, "w", encoding="utf-8").write(json.dumps(m, indent=2, ensure_ascii=True) + "\n")
 print("manifest locations set to ?v=" + v)

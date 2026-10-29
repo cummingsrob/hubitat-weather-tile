@@ -9,7 +9,7 @@ A multi-day weather forecast for Hubitat Elevation: a dashboard tile, plus a dev
 - **Configurable:** 1-7 days, units, dark or light theme, transparent background, fonts and colors, icon pack, and which values show.
 - **No dependencies:** built-in Hubitat APIs only.
 
-**Version:** 0.2.15 ([changelog](CHANGELOG.md)). Requirements and roadmap: [REQUIREMENTS.md](REQUIREMENTS.md).
+**Version:** 0.2.16 ([changelog](CHANGELOG.md)). Requirements and roadmap: [REQUIREMENTS.md](REQUIREMENTS.md).
 
 ## Quick install
 1. **Hubitat Package Manager:** **Install** → **From a URL** → `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/packageManifest.json`. HPM installs everything and turns on OAuth.
