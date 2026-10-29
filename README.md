@@ -6,27 +6,43 @@ A standalone Hubitat Elevation app that shows a multi-day weather forecast strip
 
 The app serves the forecast as an SVG image from its own OAuth endpoint. The dashboard tile is a short `<img>` attribute (about 220 characters), well under Hubitat's 1,024-character limit. The forecast is fetched on a schedule and cached; viewing the dashboard never triggers a weather API call.
 
-**Status:** 0.1.0, first release. Built without being installed on a hub yet; see [Known limitations](#known-limitations). Requirements: [REQUIREMENTS.md](REQUIREMENTS.md).
+**Status:** 0.2.0. Built without being installed on a hub yet; see [Known limitations](#known-limitations). Requirements: [REQUIREMENTS.md](REQUIREMENTS.md).
 
 ## Pieces
 | File | Type | Purpose |
 |---|---|---|
+| `libraries/cummingsrob.WeatherTileIcons.groovy` | Library | Icon packs (Rob's colored set, outline). |
 | `apps/WeatherTileManager.groovy` | App (parent) | Holds your weather tiles. Install once. |
-| `apps/WeatherTileInstance.groovy` | App (child, **OAuth**) | One tile: settings, fetching, SVG endpoint. |
+| `apps/WeatherTileInstance.groovy` | App (child, **OAuth**) | One tile: settings, fetching, SVG endpoint. `#include`s the icon library. |
 | `drivers/WeatherTileDevice.groovy` | Driver | The device each tile creates; put it on a dashboard. |
+| `bundle.zip` | Bundle | All four above, for **Bundles → Import ZIP**. |
+| `bundle-library.zip` | Bundle | Library only (used by HPM). |
 
-No external libraries; only built-in Hubitat APIs.
+No external libraries; only built-in Hubitat APIs. The library must be on the hub before the instance app is saved.
 
-## Install (manual)
-1. **Drivers Code** → **+ New Driver** → **Import** → `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/drivers/WeatherTileDevice.groovy` → **Save**.
-2. **Apps Code** → **+ New App** → **Import** → `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/apps/WeatherTileManager.groovy` → **Save**.
-3. **Apps Code** → **+ New App** → **Import** → `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/apps/WeatherTileInstance.groovy` → **Save** → click **OAuth** (top right) → **Enable OAuth in App** → **Update** → **Save**.
-4. **Apps** → **+ Add User App** → **Weather Tile Manager** → **Done**.
-5. Open **Weather Tile Manager** → **Add a weather tile** → choose settings → **Done**. A device with the tile's name is created.
-6. On a dashboard, add a tile: device = that device, template = **Attribute**, attribute = **weatherTile**.
+## Install option A: Hubitat Package Manager (recommended)
+HPM → **Install** → **From a URL** → `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/packageManifest.json`. HPM installs the library bundle, the driver and both apps, and enables OAuth for the instance app. Then go to step 5 below. (Not yet submitted to the HPM master list.)
 
-## Install (Hubitat Package Manager)
-HPM → **Install** → **From a URL** → `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/packageManifest.json`. HPM enables OAuth for the instance app. Then do steps 4-6 above. (Not yet submitted to the HPM master list.)
+## Install option B: bundle
+1. **Developer tools → Bundles → Import ZIP** → URL `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/bundle.zip` (or download and upload it). This installs the library, driver and both apps.
+2. **Apps Code → Weather Tile Instance** → **OAuth** → **Enable OAuth in App** → **Update** → **Save**. (Bundles do not enable OAuth.)
+3. Continue at step 5 below.
+
+## Install option C: manual, one file at a time
+1. **Libraries Code** → **+ New Library** → **Import** → `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/libraries/cummingsrob.WeatherTileIcons.groovy` → **Save**.
+2. **Drivers Code** → **+ New Driver** → **Import** → `.../drivers/WeatherTileDevice.groovy` → **Save**.
+3. **Apps Code** → **+ New App** → **Import** → `.../apps/WeatherTileManager.groovy` → **Save**.
+4. **Apps Code** → **+ New App** → **Import** → `.../apps/WeatherTileInstance.groovy` → **Save** → **OAuth** → **Enable OAuth in App** → **Update** → **Save**.
+
+(`...` = `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main`)
+
+## Then (all options)
+5. **Apps** → **+ Add User App** → **Weather Tile Manager** → **Done**.
+6. Open **Weather Tile Manager** → **Add a weather tile** → choose settings → **Done**. A device with the tile's name is created.
+7. On a dashboard, add a tile: device = that device, template = **Attribute**, attribute = **weatherTile**.
+
+## Adding an icon pack (developers)
+Create a new library (for example `cummingsrob.WeatherTileIconsMeteocons`) with a provider method returning `[packId: [label: "...", icons: [sunny: '<g>...</g>', ...]]]`, drawn in a 64x64 box using the CSS classes `cloud`, `light`, `precip`, `frozenPrecip`. Add `#include` for it in `WeatherTileInstance.groovy`, add the method name to `WT_ICON_PACK_PROVIDERS`, add the library to `LIBS` in `tools/build.py`, and run `python3 tools/build.py` to rebuild the bundles. Missing icon keys fall back (see `CONDITIONS`).
 
 ## Settings (per tile)
 - **Source:** Open-Meteo (default, global, no key), NWS/weather.gov (US only, no key), or a keyed provider (API base URL + key; OpenWeatherMap One Call 3.0 `daily` format).
@@ -52,6 +68,7 @@ Debug: `<tile URL base>/forecast.json?access_token=...` returns the cached forec
 - The keyed provider only understands the OpenWeatherMap One Call `daily` format. Tomorrow.io and others need their own normalizer.
 - The rendered SVG is cached in memory and rebuilt from saved forecast data after a hub reboot.
 - Extra fields (current conditions, wind, humidity, sunrise/sunset, alerts) are not implemented yet (v2).
+- Bundle import and HPM library install are untested on a hub. HPM only tracks the library through the bundle; updating the library means rebuilding the zips (`python3 tools/build.py`).
 - Animated icon packs (Meteocons and others) are not included.
 
 ## Credits and licenses
