@@ -4,6 +4,11 @@
 - More optional pack libraries: Makin-Things (MIT), Tabler (MIT), Lucide (ISC), amCharts (CC BY 4.0).
 - Night variants for Rob's filled and Rob's outline packs.
 
+## 0.2.17 - 2026-10-29
+- Settings page redone with plain Hubitat sections: removed the emoji/HTML section headers, the styled status badge, the colour swatches and styled help text from 0.2.16, which rendered poorly on the hub.
+- Same nine groups (Status, Name & source, Location, Forecast content, Look, Last-updated line, Color overrides, Dashboard, Advanced · Logging) with side-by-side fields via `width:` on inputs. "Open tile image" is now a standard external link.
+- No setting names changed.
+
 ## 0.2.16 - 2026-10-29
 - Weather Watcher settings page reorganized into cards: Status (badge, source, last update, next refresh, preview, refresh button, tile link) at the top, then Name & source, Location, Forecast content, Look, Last-updated line (with a sample), Color overrides (collapsed, theme-default swatches), Dashboard, and Advanced (collapsed logging).
 - Side-by-side fields use Hubitat's `width:` grid; no setting names changed, so existing installs keep their values.

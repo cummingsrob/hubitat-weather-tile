@@ -96,15 +96,15 @@ mappings {
 def mainPage() {
     dynamicPage(name: "mainPage", title: "Weather Watcher", install: true, uninstall: true) {
         boolean hasToken = state.accessToken as boolean
-        section(hdr("\uD83D\uDCE1", "Status")) {
-            paragraph statusHtml(), width: hasToken ? 4 : 12
+        section("Status") {
+            paragraph statusText()
             if (hasToken && state.svgHash) {
-                paragraph "<img src='${svgUrl(settings.endpoint ?: 'local')}&v=${state.svgHash}' style='width:100%;max-width:520px;height:auto;border-radius:6px' alt='forecast preview'>", width: 8
+                paragraph "<img src='${svgUrl(settings.endpoint ?: 'local')}&v=${state.svgHash}' style='width:100%;max-width:520px;height:auto' alt='forecast preview'>"
             }
             input "btnRefresh", "button", title: "Refresh forecast now", width: 4
-            if (hasToken) paragraph "<a href='${svgUrl(settings.endpoint ?: 'local')}' target='_blank'>Open tile image \u2197</a>", width: 8
+            if (hasToken) href name: "openTile", title: "Open tile image", url: svgUrl(settings.endpoint ?: 'local'), style: "external", width: 4
         }
-        section(hdr("\uD83C\uDFF7\uFE0F", "Name &amp; source")) {
+        section("Name & source") {
             label title: "Name", required: true, defaultValue: "Weather Watcher", width: 6
             input "refreshMinutes", "enum", title: "Refresh interval", options: REFRESH_OPTS, defaultValue: "30", required: true, width: 6
             input "source", "enum", title: "Weather source", options: SOURCES, defaultValue: "open-meteo", required: true, submitOnChange: true
@@ -115,8 +115,8 @@ def mainPage() {
                 input "customKey", "password", title: "API key", required: true, width: 4
             }
         }
-        section(hdr("\uD83D\uDCCD", "Location")) {
-            paragraph small("Default is the hub location (${location.latitude}, ${location.longitude}).")
+        section("Location") {
+            paragraph "Default is the hub location (${location.latitude}, ${location.longitude})."
             input "useCustomLocation", "bool", title: "Use a custom location", defaultValue: false, submitOnChange: true, width: 6
             input "locationLabel", "text", title: "Location label (optional)", required: false, width: 6
             if (settings.useCustomLocation) {
@@ -124,18 +124,18 @@ def mainPage() {
                 input "longitude", "decimal", title: "Longitude (-180..180)", range: "-180..180", required: true, width: 6
             }
         }
-        section(hdr("\uD83D\uDCC5", "Forecast content")) {
+        section("Forecast content") {
             input "numDays", "enum", title: "Days shown (including today)", options: ["1","2","3","4","5","6","7"], defaultValue: "7", required: true, width: 4
             input "units", "enum", title: "Units", options: ["hub": "Follow hub (${location.temperatureScale == 'C' ? 'metric' : 'imperial'})",
                   "imperial": "Imperial (°F, in)", "metric": "Metric (°C, mm)"], defaultValue: "hub", required: true, width: 4
             input "dayLabelStyle", "enum", title: "Day labels", options: ["todayShort": "Today, Thu, Fri...", "short": "Wed, Thu, Fri...",
                   "todayTomorrow": "Today, Tomorrow, Fri...", "date": "10/28, 10/29..."], defaultValue: "todayShort", width: 4
-            input "showTemp", "bool", title: "High / low", defaultValue: true, width: 3
-            input "showPrecipChance", "bool", title: "Rain %", defaultValue: true, width: 3
-            input "showPrecipAmount", "bool", title: "Rain amount", defaultValue: true, width: 3
-            input "hideZero", "bool", title: "Hide zero rain", defaultValue: true, width: 3
+            input "showTemp", "bool", title: "Show high / low", defaultValue: true, width: 3
+            input "showPrecipChance", "bool", title: "Show rain %", defaultValue: true, width: 3
+            input "showPrecipAmount", "bool", title: "Show rain amount", defaultValue: true, width: 3
+            input "hideZero", "bool", title: "Hide zero rain values", defaultValue: true, width: 3
         }
-        section(hdr("\uD83C\uDFA8", "Look")) {
+        section("Look") {
             input "theme", "enum", title: "Theme", options: ["dark": "Dark background, light icons", "light": "Light background, dark text"],
                   defaultValue: "dark", required: true, width: 6
             input "iconPack", "enum", title: "Icon pack", options: iconPacks().collectEntries { k, v -> [(k): v.label] },
@@ -148,63 +148,49 @@ def mainPage() {
             input "fontScale", "number", title: "Font size (%)", range: "60..200", defaultValue: 100, width: 4
             input "fontFamily", "text", title: "Font family", defaultValue: "sans-serif", width: 4
         }
-        section(hdr("\uD83D\uDD52", "Last-updated line")) {
-            input "showUpdated", "bool", title: "Show line", defaultValue: true, width: 4
-            input "updatedShowPlace", "bool", title: "Start with location", defaultValue: true, width: 4
+        section("Last-updated line") {
+            input "showUpdated", "bool", title: "Show last-updated line", defaultValue: true, width: 4
+            input "updatedShowPlace", "bool", title: "Start with the location", defaultValue: true, width: 4
             input "updatedFormat", "text", title: "Time format (Java date pattern)", defaultValue: "MMM d, h:mm a", width: 4
-            paragraph small("Preview: <i>${esc(fmtUpdated(now()))}</i>")
+            paragraph "Sample: ${esc(fmtUpdated(now()))}"
         }
-        section(hdr("\uD83D\uDD8C\uFE0F", "Color overrides <span style='font-weight:normal;font-size:smaller'>(optional, e.g. #ffcc00; blank = theme default)</span>"), hideable: true, hidden: true) {
-            Map dflt = THEMES[settings.theme ?: "dark"]
+        section("Color overrides (optional, e.g. #ffcc00; blank = theme default)", hideable: true, hidden: true) {
             ["bg": "Background", "text": "Day text", "cloud": "Clouds", "light": "Sun", "precip": "Rain", "frozen": "Snow / ice",
              "high": "High temp", "low": "Low temp", "rainText": "Rain text"].each { k, v ->
-                input "color_${k}", "text", title: "${swatch(settings["color_${k}"] ?: dflt[k])}${v}", required: false, width: 4
+                input "color_${k}", "text", title: v, required: false, width: 4
             }
         }
-        section(hdr("\uD83D\uDDA5\uFE0F", "Dashboard")) {
+        section("Dashboard") {
             input "endpoint", "enum", title: "Tile URL", options: ["local": "Local (LAN only)", "cloud": "Cloud (works remotely)"],
-                  defaultValue: "local", required: true, width: 6
+                  defaultValue: "local", required: true
             if (hasToken) {
-                paragraph small("Add the device <b>${tileDeviceName()}</b> to a dashboard with template <b>Attribute</b>, attribute <b>weatherWatcher</b>. " +
-                          "Attribute tiles keep working if the token changes; Image tiles that use a copied link do not."), width: 6
-                input "btnRegen", "button", title: "Regenerate access token", width: 4
-                paragraph small("Breaks Image tiles and links that use the old token."), width: 8
+                paragraph "Add the device <b>${tileDeviceName()}</b> to a dashboard with template <b>Attribute</b>, attribute <b>weatherWatcher</b>. " +
+                          "Attribute tiles keep working if the token changes; Image tiles that use a copied link do not."
+                input "btnRegen", "button", title: "Regenerate access token (breaks copied links)"
             } else {
-                paragraph "<b>Enable OAuth</b> for this app in Apps Code, then click Done.", width: 6
+                paragraph "<b>Enable OAuth</b> for this app in Apps Code, then click Done."
             }
         }
-        section(hdr("\u2699\uFE0F", "Advanced \u00B7 Logging"), hideable: true, hidden: true) {
+        section("Advanced · Logging", hideable: true, hidden: true) {
             input "logLevel", "enum", title: "Logging", options: ["warn", "info", "debug"], defaultValue: "info", width: 4
         }
     }
 }
 
-// Section title with an icon (Hubitat renders HTML in section titles)
-private String hdr(String icon, String text) { "<span style='font-size:1.05em'>${icon}&nbsp; <b>${text}</b></span>" }
-private String small(String html) { "<span style='font-size:0.9em;color:#666'>${html}</span>" }
-private String swatch(String c) {
-    String safe = (c && (c ==~ /#[0-9A-Fa-f]{3,8}/ || c ==~ /[a-zA-Z]+/)) ? c : "transparent"
-    return "<span style='display:inline-block;width:12px;height:12px;border:1px solid #bbb;border-radius:2px;vertical-align:middle;margin-right:6px;background:${safe}'></span>"
-}
-private String statusHtml() {
-    String st = state.status ?: "pending"
-    Map pill = [ok: ["#e6f4ea", "#137333", "OK"], stale: ["#fef7e0", "#b06000", "STALE"], error: ["#fce8e6", "#c5221f", "ERROR"]]
-    List p = pill[st] ?: ["#eeeeee", "#555555", "WAITING"]
+private String statusText() {
+    String st = (state.status ?: "waiting").toString().toUpperCase()
     String src = (SOURCES[settings.source ?: "open-meteo"] ?: "").toString().replaceAll(/\s*\(.*\)$/, "")
-    StringBuilder sb = new StringBuilder()
-    sb << "<span style='display:inline-block;padding:2px 8px;border-radius:10px;background:${p[0]};color:${p[1]};font-weight:bold;font-size:0.85em'>${p[2]}</span>"
-    sb << "<div style='font-size:0.9em;color:#555;margin-top:6px;line-height:1.5'>${esc(src)}"
+    List lines = ["<b>Status: ${st}</b>", "Source: ${esc(src)}"]
     if (state.lastSuccess) {
         Long last = state.lastSuccess as Long
-        sb << "<br>Updated ${esc(new Date(last).format('MMM d, h:mm a', location.timeZone))}"
+        lines << "Last update: ${esc(new Date(last).format('MMM d, h:mm a', location.timeZone))}"
         Long mins = Math.max(0L, (long) Math.ceil(((last + refreshMin() * 60000L) - now()) / 60000.0d))
-        sb << "<br>Next refresh ${mins > 0 ? "in about ${mins} min" : "due now"}"
+        lines << "Next refresh: ${mins > 0 ? "in about ${mins} min" : "due now"}"
     } else {
-        sb << "<br>No forecast yet"
+        lines << "No forecast yet"
     }
-    if (state.statusMessage) sb << "<br>${esc(state.statusMessage.toString())}"
-    sb << "</div>"
-    return sb.toString()
+    if (state.statusMessage) lines << esc(state.statusMessage.toString())
+    return lines.join("<br>")
 }
 
 def appButtonHandler(String btn) {
