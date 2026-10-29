@@ -9,7 +9,7 @@ A multi-day weather forecast strip for Hubitat Elevation dashboards. Pick Open-M
 - **Configurable:** 1-7 days, units, dark or light theme, transparent background, fonts and colors, icon pack, and which values show.
 - **No dependencies:** built-in Hubitat APIs only.
 
-**Version:** 0.2.7 ([changelog](CHANGELOG.md)). Requirements and roadmap: [REQUIREMENTS.md](REQUIREMENTS.md).
+**Version:** 0.2.8 ([changelog](CHANGELOG.md)). Requirements and roadmap: [REQUIREMENTS.md](REQUIREMENTS.md).
 
 ## Quick install
 1. **Hubitat Package Manager:** **Install** → **From a URL** → `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/packageManifest.json`. HPM installs everything and turns on OAuth.
@@ -19,6 +19,7 @@ A multi-day weather forecast strip for Hubitat Elevation dashboards. Pick Open-M
 Other ways to install (bundle zip, or file by file) are below.
 
 ## Recent changes
+- **0.2.8:** the tile image always matches the latest forecast after an update, and the last-updated line keeps the place name.
 - **0.2.7:** after midnight the tile drops yesterday right away and fetches a fresh forecast at about 00:02.
 - **0.2.6:** last-updated line shows the location and time ("Grosse Pointe Woods, Oct 29, 12:07 AM"); manifest URLs carry `?v=<version>` to skip GitHub's cache.
 - **0.2.5:** HPM install and upgrade fixes (sandbox-safe response parsing, icon libraries the hub can parse), robust JSON handling for NWS.

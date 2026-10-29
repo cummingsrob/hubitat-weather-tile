@@ -49,7 +49,8 @@ mappings {
 @Field static final String NS = "cummingsrob"
 @Field static final Integer COL_W = 64
 // In-memory SVG cache (per app id). Rebuilt from state.forecast after a hub reboot; keeps big SVG out of state.
-@Field static java.util.concurrent.ConcurrentHashMap<String, String> SVG_CACHE = new java.util.concurrent.ConcurrentHashMap<String, String>()
+// Entries are [hash: String, svg: String]; the hash is checked against state.svgHash before serving.
+@Field static java.util.concurrent.ConcurrentHashMap<String, Map> SVG_CACHE = new java.util.concurrent.ConcurrentHashMap<String, Map>()
 @Field static final Map SOURCES = ["open-meteo": "Open-Meteo (free, global, default)", "nws": "NWS / weather.gov (free, US only)",
                                    "custom": "Keyed provider (OpenWeatherMap One Call compatible)"]
 // Icon pack provider methods (each comes from an #include'd library; see WeatherTileIcons header)
@@ -184,7 +185,7 @@ def initialize() {
     ensureDevice()
     String key = locationKey()
     if (state.nwsKey != key) { state.nwsForecastUrl = null }
-    if (state.placeKey != key) { state.placeName = null; state.placeKey = null; state.placeTried = 0L }
+    if (state.placeName && !samePlace(state.placeKey)) { state.placeName = null; state.placeKey = null; state.placeTried = 0L }
     state.failCount = 0
     state.nextAllowed = 0
     Integer m = (settings.refreshMinutes ?: "30") as Integer
@@ -257,7 +258,7 @@ def scheduledRefresh() {
 def refreshForecast() {
     String src = settings.source ?: "open-meteo"
     logDebug "Fetching forecast from ${src}"
-    if (!settings.locationLabel && state.placeKey != locationKey() && now() - ((state.placeTried ?: 0L) as Long) > 86400000L) lookupPlace()
+    if (!settings.locationLabel && !(state.placeName && samePlace(state.placeKey)) && now() - ((state.placeTried ?: 0L) as Long) > 86400000L) lookupPlace()
     if (src == "nws") fetchNws()
     else if (src == "custom") fetchCustom()
     else fetchOpenMeteo()
@@ -354,7 +355,7 @@ def handleNwsPoints(resp, data) {
         state.nwsForecastUrl = url
         try {
             def rl = respJson(resp)?.properties?.relativeLocation?.properties
-            if (rl?.city) { state.placeName = rl.city.toString(); state.placeKey = locationKey() }
+            if (rl?.city) { rememberPlace(rl.city.toString()) }
         } catch (ignored) { }
         state.nwsKey = locationKey()
         fetchNwsForecast()
@@ -534,7 +535,7 @@ def renderAndPublish() {
     }
     String svg = buildSvg(days)
     String hash = Integer.toHexString(svg.hashCode())
-    SVG_CACHE[app.id.toString()] = svg
+    SVG_CACHE[app.id.toString()] = [hash: hash, svg: svg]
     if (hash != state.svgHash) state.svgHash = hash
     publishAttributes(days)
 }
@@ -568,10 +569,26 @@ private String fmtUpdated(Long ms) {
     return p ? "${p}, ${t}" : t
 }
 
+/** Same place as the current lat/lon? Compares at ~100 m so number formatting differences don't matter. */
+private boolean samePlace(k) {
+    if (!k) return false
+    try {
+        List p = k.toString().split(",")
+        return Math.abs((p[0] as BigDecimal) - (lat() as BigDecimal)) < 0.001 && Math.abs((p[1] as BigDecimal) - (lon() as BigDecimal)) < 0.001
+    } catch (e) { return false }
+}
+
+/** Save a looked-up place name; lastPlaceName survives resets so a pending lookup never falls back to the hub name. */
+private void rememberPlace(String p) {
+    state.placeName = p; state.placeKey = locationKey()
+    state.lastPlaceName = p; state.lastPlaceKey = locationKey()
+}
+
 /** Location shown on the tile: the label setting, else a place name looked up from lat/lon, else the hub name. */
 private String placeLabel() {
     if (settings.locationLabel) return settings.locationLabel.toString()
-    if (state.placeName && state.placeKey == locationKey()) return state.placeName.toString()
+    if (state.placeName && samePlace(state.placeKey)) return state.placeName.toString()
+    if (state.lastPlaceName && samePlace(state.lastPlaceKey)) return state.lastPlaceName.toString()
     return location?.name ?: ""
 }
 
@@ -590,7 +607,7 @@ def handlePlaceNws(resp, data) {
     try {
         if (resp != null && !resp.hasError() && (resp.status as Integer) < 300) {
             def rl = respJson(resp)?.properties?.relativeLocation?.properties
-            if (rl?.city) { state.placeName = rl.city.toString(); state.placeKey = locationKey(); renderAndPublish(); return }
+            if (rl?.city) { rememberPlace(rl.city.toString()); renderAndPublish(); return }
         }
     } catch (ignored) { }
     lookupPlaceWorld()
@@ -609,7 +626,7 @@ def handlePlace(resp, data) {
         if (resp == null || resp.hasError() || (resp.status as Integer) >= 300) return
         def j = respJson(resp)
         String p = (j?.city ?: j?.locality ?: j?.principalSubdivision ?: "").toString().trim()
-        if (p) { state.placeName = p; state.placeKey = locationKey(); renderAndPublish() }
+        if (p) { rememberPlace(p); renderAndPublish() }
     } catch (e) { log.debug "Weather Tile: place lookup failed: ${e}" }
 }
 
@@ -757,8 +774,12 @@ private String iconKey(List cond, Map icons) {
 // ---------------------------------------------------------------- endpoints
 
 def serveSvg() {
-    String svg = SVG_CACHE[app.id.toString()]
-    if (!svg) { svg = buildSvg(currentDays()); SVG_CACHE[app.id.toString()] = svg }   // cached data only, never fetches
+    Map c = SVG_CACHE[app.id.toString()]
+    String svg = c?.svg
+    if (!svg || c?.hash != state.svgHash) {         // missing, or stale after a code update/reboot: redraw from stored forecast
+        svg = buildSvg(currentDays())               // cached data only, never fetches
+        SVG_CACHE[app.id.toString()] = [hash: state.svgHash, svg: svg]   // now current for this version
+    }
     render contentType: "image/svg+xml", data: svg, status: 200
 }
 

@@ -7,6 +7,10 @@
 - Animated icon variants with an on/off setting.
 - Night icons for today's slot only (before sunrise / after sunset; NWS "Tonight"); future days stay daytime.
 
+## 0.2.8 - 2026-10-29
+- Fix: after an HPM code update the tile could keep serving an old image (for example yesterday's icons and time) even though the forecast had updated. The in-memory image is now stored with its version, and each image request checks it against the version recorded at the last update; if it is missing or different, the image is redrawn from the stored forecast first.
+- Fix: the last-updated line could fall back to the hub name ("Home") while `locationLabel` showed the real place. The last good place name is kept across code updates and resets, location matching tolerates number-format differences, and the tile is redrawn when a lookup returns.
+
 ## 0.2.7 - 2026-10-29
 - Fix: just after midnight the tile still showed yesterday as the first day (e.g. "Wed, Today, Fri..."). Rendering, the SVG endpoint and `forecast.json` now skip forecast days earlier than today (hub time zone), so labels roll correctly ("Today, Fri, ..."). When the 00:01 re-render finds the forecast was fetched before midnight, it queues one fresh fetch about a minute later (once per day; error backoff still applies).
 
