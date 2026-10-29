@@ -1,5 +1,5 @@
 /**
- *  Weather Tile Manager (parent app)
+ *  Weather Watcher Manager (parent app; was "Weather Tile Manager" before 0.2.12)
  *
  *  Copyright 2026 Rob Cummings
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -12,7 +12,7 @@
  */
 
 definition(
-    name: "Weather Tile Manager",
+    name: "Weather Watcher Manager",
     namespace: "cummingsrob",
     author: "Rob Cummings",
     description: "Multi-day forecast strip tiles for Hubitat dashboards (Open-Meteo, NWS, or keyed provider).",
@@ -28,10 +28,10 @@ preferences {
 }
 
 def mainPage() {
-    dynamicPage(name: "mainPage", title: "Weather Tile Manager", install: true, uninstall: true) {
-        section("Weather tiles") {
-            paragraph "Each weather tile is its own child app with its own device. Add one per location or style."
-            app(name: "tiles", appName: "Weather Tile Instance", namespace: "cummingsrob", title: "Add a weather tile", multiple: true)
+    dynamicPage(name: "mainPage", title: "Weather Watcher Manager", install: true, uninstall: true) {
+        section("Weather Watchers") {
+            paragraph "Each Weather Watcher is its own child app with its own device (dashboard tile plus weather attributes for rules). Add one per location or style."
+            app(name: "tiles", appName: "Weather Watcher", namespace: "cummingsrob", title: "Add a Weather Watcher", multiple: true)
         }
         section("About") {
             paragraph "<small>Apache-2.0. Weather icons derived from erikflowers/weather-icons (SIL OFL 1.1). " +
@@ -43,5 +43,5 @@ def mainPage() {
 def installed() { initialize() }
 def updated()   { initialize() }
 def initialize() {
-    log.info "Weather Tile Manager: ${getChildApps()?.size() ?: 0} tile(s)"
+    log.info "Weather Watcher Manager: ${getChildApps()?.size() ?: 0} watcher(s)"
 }

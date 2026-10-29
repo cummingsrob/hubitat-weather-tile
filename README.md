@@ -1,24 +1,25 @@
-# Weather Tile for Hubitat
+# Weather Watcher for Hubitat
 
-A multi-day weather forecast strip for Hubitat Elevation dashboards. Pick Open-Meteo (worldwide, no key), the US National Weather Service (no key) or a keyed provider. The forecast is drawn as a crisp SVG with colored or outline icons, highs and lows, and rain chance and amount.
+A multi-day weather forecast for Hubitat Elevation: a dashboard tile, plus a device whose weather attributes (conditions, highs and lows, rain chance and amount) you can use in rules. Formerly "Weather Tile". Pick Open-Meteo (worldwide, no key), the US National Weather Service (no key) or a keyed provider. The forecast is drawn as a crisp SVG with colored or outline icons, highs and lows, and rain chance and amount.
 
-<p align="center"><img src="docs/preview.png" alt="Weather Tile preview: 7-day forecast strip" width="896"></p>
+<p align="center"><img src="docs/preview.png" alt="Weather Watcher preview: 7-day forecast strip" width="896"></p>
 
 - **Light on the hub:** the forecast is fetched on a schedule and cached, and opening a dashboard never calls a weather API. Errors back off and the last good forecast stays up, marked "(stale)".
 - **Fits a dashboard tile:** the tile attribute is a short `<img>` link (about 220 characters), served from the app's own endpoint on your LAN or through the Hubitat cloud.
 - **Configurable:** 1-7 days, units, dark or light theme, transparent background, fonts and colors, icon pack, and which values show.
 - **No dependencies:** built-in Hubitat APIs only.
 
-**Version:** 0.2.11 ([changelog](CHANGELOG.md)). Requirements and roadmap: [REQUIREMENTS.md](REQUIREMENTS.md).
+**Version:** 0.2.12 ([changelog](CHANGELOG.md)). Requirements and roadmap: [REQUIREMENTS.md](REQUIREMENTS.md).
 
 ## Quick install
 1. **Hubitat Package Manager:** **Install** → **From a URL** → `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/packageManifest.json`. HPM installs everything and turns on OAuth.
-2. **Apps** → **+ Add User App** → **Weather Tile Manager** → **Done**, then **Add a weather tile**.
+2. **Apps** → **+ Add User App** → **Weather Watcher Manager** → **Done**, then **Add a Weather Watcher**.
 3. On a dashboard, add a tile with that device, template **Attribute**, attribute **weatherTile**.
 
 Other ways to install (bundle zip, or file by file) are below.
 
 ## Recent changes
+- **0.2.12:** renamed to **Weather Watcher**. Apps: Weather Watcher Manager (parent) and Weather Watcher (child); driver: Weather Watcher Device. File names, library names, attributes and HPM ids are unchanged, so an HPM update keeps your existing apps, devices and settings.
 - **0.2.11:** new **Monochrome (erikflowers)** icon pack that follows the theme text color, and night icons for today's slot (before sunrise and after sunset).
 - **0.2.10:** Rob's two icon packs are now labeled **Rob's filled (default)** and **Rob's outline** in the Icon pack menu.
 - **0.2.9:** two new icon packs, Meteocons static and Meteocons animated, plus an **Animate icons** on/off setting.
@@ -39,9 +40,9 @@ Full history: [CHANGELOG.md](CHANGELOG.md).
 | `libraries/cummingsrob.WeatherTileIconsMeteocons.groovy` | Library | Meteocons static icon pack (MIT). |
 | `libraries/cummingsrob.WeatherTileIconsMeteoconsAnimated.groovy` | Library | Meteocons animated icon pack (MIT). |
 | `libraries/cummingsrob.WeatherTileIconsMono.groovy` | Library | Monochrome icon pack from erikflowers/weather-icons glyphs (SIL OFL 1.1). |
-| `apps/WeatherTileManager.groovy` | App (parent) | Holds your weather tiles. Install once. |
-| `apps/WeatherTileInstance.groovy` | App (child, **OAuth**) | One tile: settings, fetching, SVG endpoint. `#include`s the icon library. |
-| `drivers/WeatherTileDevice.groovy` | Driver | The device each tile creates; put it on a dashboard. |
+| `apps/WeatherTileManager.groovy` | App (parent) | **Weather Watcher Manager**: holds your Weather Watchers. Install once. |
+| `apps/WeatherTileInstance.groovy` | App (child, **OAuth**) | **Weather Watcher**: one forecast (tile + device): settings, fetching, SVG endpoint. `#include`s the icon library. |
+| `drivers/WeatherTileDevice.groovy` | Driver | **Weather Watcher Device**: the device each Weather Watcher creates; put it on a dashboard or use its attributes in rules. |
 | `bundle.zip` | Bundle | All of the above, for **Bundles → Import ZIP**. |
 | `bundle-library.zip` | Bundle | Libraries only (used by HPM). |
 
@@ -50,13 +51,17 @@ No external libraries; only built-in Hubitat APIs. The library must be on the hu
 ## Install option A: Hubitat Package Manager (recommended)
 HPM → **Install** → **From a URL** → `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/packageManifest.json`. HPM installs the library bundle, the driver and both apps, and enables OAuth for the instance app. Then go to step 5 below.
 
+## Upgrading from Weather Tile (0.2.11 or earlier)
+- **HPM:** just **Update**. HPM updates each app and driver in place (matched by id), so your Weather Watcher instance, its device, its settings, OAuth and the dashboard link all stay. Only the names in Apps Code, Drivers Code and the Add User App list change. Existing device and app labels are not touched (the old default label "Weather Tile" stays until you rename it).
+- **Bundle or manual installs:** a renamed app is not matched by bundle import. Update each existing entry in place instead: **Apps Code → Weather Tile Manager → Import** the new `apps/WeatherTileManager.groovy` → **Save**; then the same for **Weather Tile Instance** (`apps/WeatherTileInstance.groovy`) and **Drivers Code → Weather Tile Device** (`drivers/WeatherTileDevice.groovy`). Update the parent first. Libraries can be updated by bundle import as usual.
+
 ## Install option B: bundle
 1. **Developer tools → Bundles → Import ZIP** → URL `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/bundle.zip` (or download and upload it). This installs the library, driver and both apps.
-2. **Apps Code → Weather Tile Instance** → **OAuth** → **Enable OAuth in App** → **Update** → **Save**. (Bundles do not enable OAuth.)
+2. **Apps Code → Weather Watcher** → **OAuth** → **Enable OAuth in App** → **Update** → **Save**. (Bundles do not enable OAuth.)
 3. Continue at step 5 below.
 
 ## Install option C: manual, one file at a time
-1. **Libraries Code** → **+ New Library** → **Import** → `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/libraries/cummingsrob.WeatherTileIcons.groovy` → **Save**. Repeat for `.../libraries/cummingsrob.WeatherTileIconsOutline.groovy`, `.../libraries/cummingsrob.WeatherTileIconsMeteocons.groovy`, `.../libraries/cummingsrob.WeatherTileIconsMeteoconsAnimated.groovy` and `.../libraries/cummingsrob.WeatherTileIconsMono.groovy`. All five libraries must be installed before you save the Weather Tile Instance app (HPM and the bundle install them for you).
+1. **Libraries Code** → **+ New Library** → **Import** → `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/libraries/cummingsrob.WeatherTileIcons.groovy` → **Save**. Repeat for `.../libraries/cummingsrob.WeatherTileIconsOutline.groovy`, `.../libraries/cummingsrob.WeatherTileIconsMeteocons.groovy`, `.../libraries/cummingsrob.WeatherTileIconsMeteoconsAnimated.groovy` and `.../libraries/cummingsrob.WeatherTileIconsMono.groovy`. All five libraries must be installed before you save the Weather Watcher app (HPM and the bundle install them for you).
 2. **Drivers Code** → **+ New Driver** → **Import** → `.../drivers/WeatherTileDevice.groovy` → **Save**.
 3. **Apps Code** → **+ New App** → **Import** → `.../apps/WeatherTileManager.groovy` → **Save**.
 4. **Apps Code** → **+ New App** → **Import** → `.../apps/WeatherTileInstance.groovy` → **Save** → **OAuth** → **Enable OAuth in App** → **Update** → **Save**.
@@ -64,8 +69,8 @@ HPM → **Install** → **From a URL** → `https://raw.githubusercontent.com/cu
 (`...` = `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main`)
 
 ## Then (all options)
-5. **Apps** → **+ Add User App** → **Weather Tile Manager** → **Done**.
-6. Open **Weather Tile Manager** → **Add a weather tile** → choose settings → **Done**. A device with the tile's name is created.
+5. **Apps** → **+ Add User App** → **Weather Watcher Manager** → **Done**.
+6. Open **Weather Watcher Manager** → **Add a Weather Watcher** → choose settings → **Done**. A device with that name is created.
 7. On a dashboard, add a tile: device = that device, template = **Attribute**, attribute = **weatherTile**.
 
 ## Adding an icon pack (developers)

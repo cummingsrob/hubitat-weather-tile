@@ -4,6 +4,10 @@
 - More optional pack libraries: Makin-Things (MIT), Tabler (MIT), Lucide (ISC), amCharts (CC BY 4.0).
 - Night variants for Rob's filled and Rob's outline packs.
 
+## 0.2.12 - 2026-10-29
+- Renamed to **Weather Watcher** (a dashboard tile plus device attributes for rules). Parent app "Weather Tile Manager" is now **Weather Watcher Manager**, child app "Weather Tile Instance" is now **Weather Watcher**, driver "Weather Tile Device" is now **Weather Watcher Device**; HPM package and repository name **Weather Watcher**. New default label "Weather Watcher".
+- Upgrade-safe: namespace `cummingsrob`, file names, library names, attribute names (including `weatherTile`), HPM package/app/driver/bundle ids and the bundle name are unchanged, so HPM updates the existing code in place and keeps app instances, devices, settings and OAuth. Bundle or manual installs: update each existing code entry in place (see README).
+
 ## 0.2.11 - 2026-10-29
 - New icon pack **Monochrome (erikflowers)** (library `cummingsrob.WeatherTileIconsMono`), built from erikflowers/weather-icons font glyphs exported as SVG paths. Single color that follows the theme text color; day and night variants. `tools/gen_mono.py` regenerates it.
 - Night icons for today's slot only: before sunrise and after sunset, today shows a night variant. Sun times come from Open-Meteo (`sunrise`/`sunset`) or the hub location; NWS uses the overnight/tonight period's forecast for the night condition. The tile redraws at sunrise and sunset. Future days stay daytime. Packs without a night variant keep the day icon. The Animate icons setting still applies.

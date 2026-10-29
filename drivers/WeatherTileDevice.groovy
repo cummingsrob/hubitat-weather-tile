@@ -1,12 +1,12 @@
 /**
- *  Weather Tile Device (driver)
+ *  Weather Watcher Device (driver; was "Weather Tile Device" before 0.2.12)
  *
  *  Copyright 2026 Rob Cummings. Apache License, Version 2.0.
- *  Created and updated by the "Weather Tile Instance" child app; do not add manually.
+ *  Created and updated by the "Weather Watcher" child app; do not add manually.
  */
 
 metadata {
-    definition(name: "Weather Tile Device", namespace: "cummingsrob", author: "Rob Cummings",
+    definition(name: "Weather Watcher Device", namespace: "cummingsrob", author: "Rob Cummings",
                importUrl: "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/drivers/WeatherTileDevice.groovy") {
         capability "Sensor"
         capability "Refresh"

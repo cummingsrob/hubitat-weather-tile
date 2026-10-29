@@ -1,5 +1,5 @@
 /**
- *  Weather Tile Instance (child app of Weather Tile Manager)
+ *  Weather Watcher (child app of Weather Watcher Manager; was "Weather Tile Instance" before 0.2.12)
  *
  *  Copyright 2026 Rob Cummings
  *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -28,12 +28,12 @@ import groovy.transform.Field
 #include cummingsrob.WeatherTileIconsMono
 
 definition(
-    name: "Weather Tile Instance",
+    name: "Weather Watcher",
     namespace: "cummingsrob",
     author: "Rob Cummings",
-    description: "One forecast-strip weather tile and its device.",
+    description: "One Weather Watcher: a forecast-strip dashboard tile and a device with weather attributes for rules.",
     category: "Convenience",
-    parent: "cummingsrob:Weather Tile Manager",
+    parent: "cummingsrob:Weather Watcher Manager",
     oauth: true,
     iconUrl: "", iconX2Url: "", iconX3Url: "",
     importUrl: "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-tile/main/apps/WeatherTileInstance.groovy"
@@ -48,7 +48,7 @@ mappings {
     path("/forecast.json") { action: [GET: "serveJson"] }
 }
 
-@Field static final String DRIVER_NAME = "Weather Tile Device"
+@Field static final String DRIVER_NAME = "Weather Watcher Device"
 @Field static final String NS = "cummingsrob"
 @Field static final Integer COL_W = 64
 // In-memory SVG cache (per app id). Rebuilt from state.forecast after a hub reboot; keeps big SVG out of state.
@@ -94,9 +94,9 @@ mappings {
 // ---------------------------------------------------------------- UI
 
 def mainPage() {
-    dynamicPage(name: "mainPage", title: "Weather Tile", install: true, uninstall: true) {
+    dynamicPage(name: "mainPage", title: "Weather Watcher", install: true, uninstall: true) {
         section("Name") {
-            label title: "Tile name", required: true, defaultValue: "Weather Tile"
+            label title: "Name", required: true, defaultValue: "Weather Watcher"
         }
         section("Weather source") {
             input "source", "enum", title: "Source", options: SOURCES, defaultValue: "open-meteo", required: true, submitOnChange: true
@@ -209,11 +209,11 @@ def initialize() {
 private void ensureToken() {
     if (state.accessToken) return
     try { createAccessToken() }
-    catch (e) { log.warn "${app.label}: OAuth is not enabled for Weather Tile Instance in Apps Code" }
+    catch (e) { log.warn "${app.label}: OAuth is not enabled for Weather Watcher in Apps Code" }
 }
 
 private String tileDni() { "WTILE-${app.id}" }
-private String tileDeviceName() { "${app.label ?: 'Weather Tile'}" }
+private String tileDeviceName() { "${app.label ?: 'Weather Watcher'}" }
 
 private def ensureDevice() {
     def d = getChildDevice(tileDni())
@@ -629,7 +629,7 @@ private void lookupPlaceWorld() {
         asynchttpGet("handlePlace", [uri: "https://api.bigdatacloud.net", path: "/data/reverse-geocode-client",
             query: [latitude: lat(), longitude: lon(), localityLanguage: "en"], contentType: "application/json",
             headers: ["Accept": "application/json"], timeout: 20])
-    } catch (e) { log.debug "Weather Tile: place lookup not started: ${e}" }
+    } catch (e) { log.debug "Weather Watcher: place lookup not started: ${e}" }
 }
 
 def handlePlace(resp, data) {
@@ -638,7 +638,7 @@ def handlePlace(resp, data) {
         def j = respJson(resp)
         String p = (j?.city ?: j?.locality ?: j?.principalSubdivision ?: "").toString().trim()
         if (p) { rememberPlace(p); renderAndPublish() }
-    } catch (e) { log.debug "Weather Tile: place lookup failed: ${e}" }
+    } catch (e) { log.debug "Weather Watcher: place lookup failed: ${e}" }
 }
 
 private String buildSvg(List allDays) {
@@ -729,7 +729,7 @@ private void publishAttributes(List allDays) {
         if (tile.length() > 1024) log.warn "${app.label}: tile attribute is ${tile.length()} chars (limit 1024)"
         a.weatherTile = tile
     } else {
-        a.weatherTile = "Enable OAuth for Weather Tile Instance"
+        a.weatherTile = "Enable OAuth for Weather Watcher"
     }
     if (state.lastSuccess) {
         a.lastUpdated = new Date(state.lastSuccess as Long).format("yyyy-MM-dd'T'HH:mm:ssXXX", location.timeZone)
