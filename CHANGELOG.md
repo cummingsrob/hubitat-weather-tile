@@ -7,6 +7,9 @@
 - Animated icon variants with an on/off setting.
 - Night icons for today's slot only (before sunrise / after sunset; NWS "Tonight"); future days stay daytime.
 
+## 0.2.7 - 2026-10-29
+- Fix: just after midnight the tile still showed yesterday as the first day (e.g. "Wed, Today, Fri..."). Rendering, the SVG endpoint and `forecast.json` now skip forecast days earlier than today (hub time zone), so labels roll correctly ("Today, Fri, ..."). When the 00:01 re-render finds the forecast was fetched before midnight, it queues one fresh fetch about a minute later (once per day; error backoff still applies).
+
 ## 0.2.6 - 2026-10-29
 - Last-updated line is now location then time, e.g. "Grosse Pointe Woods, Oct 29, 12:07 AM" (no "Updated" word). Location = the tile's location label, else a place name reverse-geocoded once from latitude/longitude (NWS points `relativeLocation` in the US, BigDataCloud's free client endpoint elsewhere) and cached in state, else the hub name; long names are shortened. New setting to turn the location prefix off; the time-format default is `MMM d, h:mm a`, and tiles still on the old default switch to the new one automatically. The `locationLabel` attribute uses the same name.
 - `packageManifest.json` locations carry `?v=<version>` so hubs fetch the new files instead of GitHub raw's cached copies; `tools/build.py` writes these from the manifest version.

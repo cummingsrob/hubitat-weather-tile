@@ -193,7 +193,7 @@ def initialize() {
     else if (m == 30)  runEvery30Minutes("scheduledRefresh")
     else if (m == 60)  runEvery1Hour("scheduledRefresh")
     else               runEvery3Hours("scheduledRefresh")
-    schedule("0 1 0 * * ?", "renderAndPublish")   // roll day labels at midnight
+    schedule("0 1 0 * * ?", "renderAndPublish")   // roll days at midnight; refetches ~00:02 if data is from yesterday
     renderAndPublish()                             // settings changed -> re-render cached data
     runIn(2, "refreshForecast")
 }
@@ -508,8 +508,26 @@ private BigDecimal num(v, int scale) {
 
 // ---------------------------------------------------------------- rendering + publishing
 
+/** Forecast days from today on (hub time zone); drops days that ended since the last fetch. */
+private List currentDays() {
+    String today = new Date(now()).format("yyyy-MM-dd", location.timeZone)
+    return (state.forecast ?: []).findAll { it?.date && it.date >= today }
+}
+
+/** After local midnight the cached forecast starts with yesterday: fetch again (once per day, respects backoff). */
+private void refreshIfNewDay() {
+    if (!state.lastSuccess) return
+    String today = new Date(now()).format("yyyy-MM-dd", location.timeZone)
+    String fetched = new Date(state.lastSuccess as Long).format("yyyy-MM-dd", location.timeZone)
+    if (fetched < today && state.newDayRefresh != today) {
+        state.newDayRefresh = today
+        runIn(60, "scheduledRefresh")
+    }
+}
+
 def renderAndPublish() {
-    List days = (state.forecast ?: [])
+    refreshIfNewDay()
+    List days = currentDays()
     if (state.lastSuccess && (now() - (state.lastSuccess as Long)) > refreshMin() * 3L * 60000L && state.status == "ok") {
         state.status = "stale"
         state.statusMessage = "No successful update since ${fmtUpdated(state.lastSuccess as Long)}"
@@ -740,13 +758,13 @@ private String iconKey(List cond, Map icons) {
 
 def serveSvg() {
     String svg = SVG_CACHE[app.id.toString()]
-    if (!svg) { svg = buildSvg(state.forecast ?: []); SVG_CACHE[app.id.toString()] = svg }   // cached data only, never fetches
+    if (!svg) { svg = buildSvg(currentDays()); SVG_CACHE[app.id.toString()] = svg }   // cached data only, never fetches
     render contentType: "image/svg+xml", data: svg, status: 200
 }
 
 def serveJson() {
     Map out = [source: state.forecastSource, units: state.forecastUnits, status: state.status, statusMessage: state.statusMessage,
-               lastSuccess: state.lastSuccess, days: state.forecast]
+               lastSuccess: state.lastSuccess, days: currentDays()]
     render contentType: "application/json", data: groovy.json.JsonOutput.toJson(out), status: 200
 }
 
