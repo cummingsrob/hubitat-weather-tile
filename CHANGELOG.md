@@ -4,6 +4,10 @@
 - More optional pack libraries: Makin-Things (MIT), Tabler (MIT), Lucide (ISC), amCharts (CC BY 4.0).
 - Night variants for Rob's filled and Rob's outline packs.
 
+## 0.2.19 - 2026-10-29
+- Settings page: each group now opens with a light bordered title box (translucent grey, works on light and dark themes) instead of a bold section title and rule; the Status lines sit inside the Status box. Collapsed groups (Color overrides, Advanced · Logging) keep a plain clickable section title plus the box.
+- No setting names changed.
+
 ## 0.2.18 - 2026-10-29
 - Settings page: each of the nine sections now has a bold, slightly larger heading and a separator line under it (the common Hubitat app pattern), so groups no longer blend into body text. No colours, badges, swatches or page-wide CSS.
 - No setting names changed.
