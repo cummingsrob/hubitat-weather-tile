@@ -1,32 +1,23 @@
-/**
- *  Weather Tile Icons (Hubitat library) - default "filled" icon pack for Weather Tile Instance
- *
- *  Icon SVG path data is derived from erikflowers/weather-icons
- *  (https://github.com/erikflowers/weather-icons), SIL Open Font License 1.1 (see ICONS-LICENSE.txt).
- *  "filled" = Rob Cummings' color-modified set. The outline pack is in cummingsrob.WeatherTileIconsOutline.
- *  Paths were extracted from Rachio-Community (https://github.com/lnjustin/Rachio-Community).
- *  No Reserved Font Name is used. Library wrapper code: Apache-2.0, Copyright 2026 Rob Cummings.
- *
- *  Icon pack contract (for adding packs as separate libraries later):
- *   - A pack library defines a provider method returning  [packId: [label: String, icons: Map]].
- *   - icons maps an icon key (e.g. "sunny", "chancerain", "hazy") to an SVG fragment drawn in a
- *     64x64 box, using CSS classes cloud / light / precip / frozenPrecip for coloring.
- *   - Include the library in WeatherTileInstance.groovy and add the provider method name to
- *     WT_ICON_PACK_PROVIDERS there.
+/*
+ *  Weather Tile Icons - WeatherTileIcons
+ *  Icon SVG path data derived from erikflowers/weather-icons, SIL OFL 1.1 (see ICONS-LICENSE.txt),
+ *  extracted from Rachio-Community. Filled = Rob Cummings' color-modified set; outline pack is cummingsrob.WeatherTileIconsOutline.
+ *  No Reserved Font Name is used. Wrapper code: Apache-2.0, Copyright 2026 Rob Cummings.
+ *  Pack contract: see README (Adding an icon pack).
  */
 
-library(
-    name: "WeatherTileIcons",
-    namespace: "cummingsrob",
+library (
     author: "Rob Cummings",
-    description: "Default filled icon pack for Weather Tile",
     category: "Convenience",
-    documentationLink: "https://github.com/cummingsrob/hubitat-weather-tile#readme"
+    description: "Default filled icon pack for Weather Tile",
+    documentationLink: "https://github.com/cummingsrob/hubitat-weather-tile",
+    name: "WeatherTileIcons",
+    namespace: "cummingsrob"
 )
 
 import groovy.transform.Field
 
-/** Icon pack provider (see contract above). */
+/** Icon pack provider (see README). */
 Map wtIconPacks() {
     return [filled: [label: "Rob's colored set (default)", icons: WT_ICONS_FILLED]]
 }
