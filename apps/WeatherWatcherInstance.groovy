@@ -212,7 +212,7 @@ private void ensureToken() {
     catch (e) { log.warn "${app.label}: OAuth is not enabled for Weather Watcher in Apps Code" }
 }
 
-private String tileDni() { "WTILE-${app.id}" }
+private String tileDni() { "WWATCH-${app.id}" }
 private String tileDeviceName() { "${app.label ?: 'Weather Watcher'}" }
 
 private def ensureDevice() {

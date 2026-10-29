@@ -1,21 +1,21 @@
 {
   "packageName": "Weather Watcher",
   "author": "Rob Cummings",
-  "version": "0.2.14",
+  "version": "0.2.15",
   "minimumHEVersion": "2.3.0",
   "dateReleased": "2026-10-29",
   "documentationLink": "https://github.com/cummingsrob/hubitat-weather-watcher#readme",
   "communityLink": "",
   "licenseFile": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/LICENSE",
-  "releaseNotes": "0.2.14: BREAKING: attribute weatherTile renamed to weatherWatcher; after updating, change dashboard Attribute tiles and rules to weatherWatcher. Internal wt* names now ww*. 0.2.13: repo, files, bundle and icon libraries renamed to Weather Watcher (new libraries cummingsrob.WeatherWatcherIcons*; delete the old WeatherTileIcons libraries after updating). 0.2.12: renamed to Weather Watcher (apps Weather Watcher Manager and Weather Watcher, driver Weather Watcher Device); existing apps, devices and settings are kept. 0.2.11: Monochrome (erikflowers) icon pack (new library) and night icons for today before sunrise and after sunset. 0.2.10: icon packs renamed to Rob's filled and Rob's outline. 0.2.9: Meteocons static and animated icon packs (two new libraries) and an Animate icons setting. 0.2.8: tile image always matches the latest update (stale in-memory copy after code updates); location name kept across updates. 0.2.7: after midnight the tile drops yesterday and refetches at about 00:02. 0.2.6: last-updated line shows location and time. 0.2.5: remove java.io class references the hub sandbox rejects. 0.2.4: robust JSON parsing of weather responses (fixes NWS points parse error). 0.2.3: icons stored as one small method per icon (hub could not parse the large @Field map). 0.2.2: fix \"Cannot parse library definition\" (simplified library() header). 0.2.1: fix library bundle (library() metadata first; icons split into two libraries). 0.2.0: icons moved to libraries. 0.1.0: first release.",
+  "releaseNotes": "0.2.15: Weather Watcher. Multi-day forecast dashboard tile (attribute weatherWatcher) plus weather attributes for rules; NWS or Open-Meteo; five icon packs; night icons.",
   "bundles": [
     {
       "id": "f3a8c1d6-2e47-4b90-8c5d-61e0a9b7c404",
       "name": "WeatherWatcher",
       "namespace": "cummingsrob",
-      "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/bundle-library.zip?v=0.2.14",
+      "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/bundle-library.zip?v=0.2.15",
       "required": true,
-      "version": "0.2.14"
+      "version": "0.2.15"
     }
   ],
   "apps": [
@@ -23,7 +23,7 @@
       "id": "6a1d3c52-8f0e-4b6a-9a77-2f6c1b0d9e01",
       "name": "Weather Watcher Manager",
       "namespace": "cummingsrob",
-      "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/apps/WeatherWatcherManager.groovy?v=0.2.14",
+      "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/apps/WeatherWatcherManager.groovy?v=0.2.15",
       "required": true,
       "primary": true,
       "oauth": false
@@ -32,7 +32,7 @@
       "id": "b4e9f0a7-3c21-4d58-8e1f-7a90c6d2b302",
       "name": "Weather Watcher",
       "namespace": "cummingsrob",
-      "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/apps/WeatherWatcherInstance.groovy?v=0.2.14",
+      "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/apps/WeatherWatcherInstance.groovy?v=0.2.15",
       "required": true,
       "primary": false,
       "oauth": true
@@ -43,7 +43,7 @@
       "id": "d27c8e15-9b4f-4e03-a6c2-5f18e3b7a403",
       "name": "Weather Watcher Device",
       "namespace": "cummingsrob",
-      "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/drivers/WeatherWatcherDevice.groovy?v=0.2.14",
+      "location": "https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/drivers/WeatherWatcherDevice.groovy?v=0.2.15",
       "required": true
     }
   ]

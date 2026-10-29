@@ -1,4 +1,4 @@
-# Requirements (draft) — Weather Watcher (formerly Weather Tile)
+# Requirements (draft) — Weather Watcher
 
 Status: **approved; v0.1.0 implemented (2026-10-28)**. See README for what is and isn't built yet.
 
@@ -123,9 +123,7 @@ Candidates (licenses verified 2026-10-28):
 None at this time.
 
 ## Next up (Rob's to-dos)
-- Done in 0.2.14: attribute `weatherTile` renamed to `weatherWatcher`; internal `wt*`/`WT_*` names renamed to `ww*`/`WW_*`; device network id `WTILE-` kept so existing devices stay attached.
-- Done in 0.2.13: repo `hubitat-weather-watcher`, files `WeatherWatcher*.groovy`, icon libraries `cummingsrob.WeatherWatcherIcons*`, bundle `WeatherWatcher`; ids, namespace and attribute names kept.
-- Done in 0.2.12: renamed to **Weather Watcher** (Weather Watcher Manager, Weather Watcher, Weather Watcher Device). Ids, file names, library names and attributes kept for clean upgrades.
+- Done in 0.2.15: everything named Weather Watcher (files, libraries, bundle, attribute `weatherWatcher`, device ids `WWATCH-`).
 - Done in 0.2.10: icon packs renamed to credit Rob: **Rob's filled (default)** and **Rob's outline**, each modified from erikflowers/weather-icons. Library names and pack keys unchanged.
 - Done in 0.2.11: **Monochrome (erikflowers)** pack from the erikflowers font glyphs.
 - **More open-source packs as optional libraries:** Makin-Things weather-icons (MIT), Tabler Icons (MIT), Lucide (ISC), amCharts animated weather icons (CC BY 4.0, attribution required).

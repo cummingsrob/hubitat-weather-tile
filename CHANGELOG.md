@@ -4,6 +4,11 @@
 - More optional pack libraries: Makin-Things (MIT), Tabler (MIT), Lucide (ISC), amCharts (CC BY 4.0).
 - Night variants for Rob's filled and Rob's outline packs.
 
+## 0.2.15 - 2026-10-29
+- Child device network id prefix `WTILE-` is now `WWATCH-`.
+- Removed the upgrade/migration notes for the old name from the README and REQUIREMENTS; install fresh.
+- Unchanged: HPM package/app/driver/bundle ids and namespace `cummingsrob`.
+
 ## 0.2.14 - 2026-10-29
 - **Breaking:** device attribute `weatherTile` renamed to `weatherWatcher`. After updating, change dashboard Attribute tiles and rules from `weatherTile` to `weatherWatcher`.
 - Rename cleanup: internal `wt*` names (short for the old Weather Tile name) are now `ww*`:

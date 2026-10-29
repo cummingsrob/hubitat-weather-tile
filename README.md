@@ -1,6 +1,6 @@
 # Weather Watcher for Hubitat
 
-A multi-day weather forecast for Hubitat Elevation: a dashboard tile, plus a device whose weather attributes (conditions, highs and lows, rain chance and amount) you can use in rules. Formerly "Weather Tile". Pick Open-Meteo (worldwide, no key), the US National Weather Service (no key) or a keyed provider. The forecast is drawn as a crisp SVG with colored or outline icons, highs and lows, and rain chance and amount.
+A multi-day weather forecast for Hubitat Elevation: a dashboard tile, plus a device whose weather attributes (conditions, highs and lows, rain chance and amount) you can use in rules. Pick Open-Meteo (worldwide, no key), the US National Weather Service (no key) or a keyed provider. The forecast is drawn as a crisp SVG with colored or outline icons, highs and lows, and rain chance and amount.
 
 <p align="center"><img src="docs/preview.png" alt="Weather Watcher preview: 7-day forecast strip" width="896"></p>
 
@@ -9,7 +9,7 @@ A multi-day weather forecast for Hubitat Elevation: a dashboard tile, plus a dev
 - **Configurable:** 1-7 days, units, dark or light theme, transparent background, fonts and colors, icon pack, and which values show.
 - **No dependencies:** built-in Hubitat APIs only.
 
-**Version:** 0.2.14 ([changelog](CHANGELOG.md)). Requirements and roadmap: [REQUIREMENTS.md](REQUIREMENTS.md).
+**Version:** 0.2.15 ([changelog](CHANGELOG.md)). Requirements and roadmap: [REQUIREMENTS.md](REQUIREMENTS.md).
 
 ## Quick install
 1. **Hubitat Package Manager:** **Install** → **From a URL** → `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/packageManifest.json`. HPM installs everything and turns on OAuth.
@@ -19,8 +19,7 @@ A multi-day weather forecast for Hubitat Elevation: a dashboard tile, plus a dev
 Other ways to install (bundle zip, or file by file) are below.
 
 ## Recent changes
-- **0.2.14:** attribute `weatherTile` renamed to **`weatherWatcher`**: after updating, re-point dashboard Attribute tiles (and rules) to `weatherWatcher`. Internal `wt*` names are now `ww*`.
-- **0.2.13:** repo, files, bundle and icon libraries renamed to Weather Watcher; new manifest URL. After updating, delete the old WeatherTileIcons libraries (see Formerly "Weather Tile").
+- **0.2.15:** first official Weather Watcher release naming: device network ids are `WWATCH-<app id>`; the dashboard attribute is `weatherWatcher`. Install fresh.
 - **0.2.12:** renamed to **Weather Watcher**. Apps: Weather Watcher Manager (parent) and Weather Watcher (child); driver: Weather Watcher Device. File names, library names, attributes and HPM ids are unchanged, so an HPM update keeps your existing apps, devices and settings.
 - **0.2.11:** new **Monochrome (erikflowers)** icon pack that follows the theme text color, and night icons for today's slot (before sunrise and after sunset).
 - **0.2.10:** Rob's two icon packs are now labeled **Rob's filled (default)** and **Rob's outline** in the Icon pack menu.
@@ -52,20 +51,6 @@ No external libraries; only built-in Hubitat APIs. The library must be on the hu
 
 ## Install option A: Hubitat Package Manager (recommended)
 HPM → **Install** → **From a URL** → `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/packageManifest.json`. HPM installs the library bundle, the driver and both apps, and enables OAuth for the instance app. Then go to step 5 below.
-
-## Formerly "Weather Tile"
-This project was called **Weather Tile**. In 0.2.12-0.2.13 everything was renamed to **Weather Watcher**:
-- The GitHub repo is now `cummingsrob/hubitat-weather-watcher`. The old `hubitat-weather-tile` URLs redirect, but use the new manifest URL: `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/packageManifest.json`.
-- Apps, driver, files, the bundle and the icon libraries are renamed (`cummingsrob.WeatherWatcherIcons*`, formerly `cummingsrob.WeatherTileIcons*`).
-- Unchanged: the namespace `cummingsrob` and the HPM package/app/driver/bundle ids.
-- **0.2.14: the dashboard attribute `weatherTile` is now `weatherWatcher`.** After the HPM Update, edit each dashboard tile that used template **Attribute** / attribute **weatherTile** and change the attribute to **weatherWatcher** (same device). Update any rules that read `weatherTile` too. The old `weatherTile` value stays on the device's Current States frozen until the device is recreated; it is no longer updated.
-
-### Upgrading from 0.2.11 or earlier (HPM)
-1. HPM → **Update** → Weather Watcher. HPM updates both apps and the driver in place (matched by id), so your existing app instance, its device, settings, OAuth and the dashboard link stay. It installs the five new `cummingsrob.WeatherWatcherIcons*` libraries (bundle **WeatherWatcher**), which the app now `#include`s.
-2. Clean up: **Developer tools → Libraries Code**: delete the five old `cummingsrob.WeatherTileIcons*` libraries (WeatherTileIcons, WeatherTileIconsOutline, WeatherTileIconsMeteocons, WeatherTileIconsMeteoconsAnimated, WeatherTileIconsMono). Then **Developer tools → Bundles**: delete the old **WeatherTile** bundle if it is listed. Nothing uses them after the update. HPM does not remove them itself.
-3. Optional: open the Weather Watcher app and press **Done** once so it re-reads its code.
-
-Bundle or manual installs: update each existing app/driver code entry in place (**Import** the new file, parent first, then **Save**), install the five new libraries, then delete the old ones.
 
 ## Install option B: bundle
 1. **Developer tools → Bundles → Import ZIP** → URL `https://raw.githubusercontent.com/cummingsrob/hubitat-weather-watcher/main/bundle.zip` (or download and upload it). This installs the library, driver and both apps.
