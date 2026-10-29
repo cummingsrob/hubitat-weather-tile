@@ -96,7 +96,8 @@ mappings {
 def mainPage() {
     dynamicPage(name: "mainPage", title: "Weather Watcher", install: true, uninstall: true) {
         boolean hasToken = state.accessToken as boolean
-        section("Status") {
+        section(hdr("Status")) {
+            paragraph RULE
             paragraph statusText()
             if (hasToken && state.svgHash) {
                 paragraph "<img src='${svgUrl(settings.endpoint ?: 'local')}&v=${state.svgHash}' style='width:100%;max-width:520px;height:auto' alt='forecast preview'>"
@@ -104,7 +105,8 @@ def mainPage() {
             input "btnRefresh", "button", title: "Refresh forecast now", width: 4
             if (hasToken) href name: "openTile", title: "Open tile image", url: svgUrl(settings.endpoint ?: 'local'), style: "external", width: 4
         }
-        section("Name & source") {
+        section(hdr("Name &amp; source")) {
+            paragraph RULE
             label title: "Name", required: true, defaultValue: "Weather Watcher", width: 6
             input "refreshMinutes", "enum", title: "Refresh interval", options: REFRESH_OPTS, defaultValue: "30", required: true, width: 6
             input "source", "enum", title: "Weather source", options: SOURCES, defaultValue: "open-meteo", required: true, submitOnChange: true
@@ -115,7 +117,8 @@ def mainPage() {
                 input "customKey", "password", title: "API key", required: true, width: 4
             }
         }
-        section("Location") {
+        section(hdr("Location")) {
+            paragraph RULE
             paragraph "Default is the hub location (${location.latitude}, ${location.longitude})."
             input "useCustomLocation", "bool", title: "Use a custom location", defaultValue: false, submitOnChange: true, width: 6
             input "locationLabel", "text", title: "Location label (optional)", required: false, width: 6
@@ -124,7 +127,8 @@ def mainPage() {
                 input "longitude", "decimal", title: "Longitude (-180..180)", range: "-180..180", required: true, width: 6
             }
         }
-        section("Forecast content") {
+        section(hdr("Forecast content")) {
+            paragraph RULE
             input "numDays", "enum", title: "Days shown (including today)", options: ["1","2","3","4","5","6","7"], defaultValue: "7", required: true, width: 4
             input "units", "enum", title: "Units", options: ["hub": "Follow hub (${location.temperatureScale == 'C' ? 'metric' : 'imperial'})",
                   "imperial": "Imperial (°F, in)", "metric": "Metric (°C, mm)"], defaultValue: "hub", required: true, width: 4
@@ -135,7 +139,8 @@ def mainPage() {
             input "showPrecipAmount", "bool", title: "Show rain amount", defaultValue: true, width: 3
             input "hideZero", "bool", title: "Hide zero rain values", defaultValue: true, width: 3
         }
-        section("Look") {
+        section(hdr("Look")) {
+            paragraph RULE
             input "theme", "enum", title: "Theme", options: ["dark": "Dark background, light icons", "light": "Light background, dark text"],
                   defaultValue: "dark", required: true, width: 6
             input "iconPack", "enum", title: "Icon pack", options: iconPacks().collectEntries { k, v -> [(k): v.label] },
@@ -148,19 +153,22 @@ def mainPage() {
             input "fontScale", "number", title: "Font size (%)", range: "60..200", defaultValue: 100, width: 4
             input "fontFamily", "text", title: "Font family", defaultValue: "sans-serif", width: 4
         }
-        section("Last-updated line") {
+        section(hdr("Last-updated line")) {
+            paragraph RULE
             input "showUpdated", "bool", title: "Show last-updated line", defaultValue: true, width: 4
             input "updatedShowPlace", "bool", title: "Start with the location", defaultValue: true, width: 4
             input "updatedFormat", "text", title: "Time format (Java date pattern)", defaultValue: "MMM d, h:mm a", width: 4
             paragraph "Sample: ${esc(fmtUpdated(now()))}"
         }
-        section("Color overrides (optional, e.g. #ffcc00; blank = theme default)", hideable: true, hidden: true) {
+        section(hdr("Color overrides (optional, e.g. #ffcc00; blank = theme default)"), hideable: true, hidden: true) {
+            paragraph RULE
             ["bg": "Background", "text": "Day text", "cloud": "Clouds", "light": "Sun", "precip": "Rain", "frozen": "Snow / ice",
              "high": "High temp", "low": "Low temp", "rainText": "Rain text"].each { k, v ->
                 input "color_${k}", "text", title: v, required: false, width: 4
             }
         }
-        section("Dashboard") {
+        section(hdr("Dashboard")) {
+            paragraph RULE
             input "endpoint", "enum", title: "Tile URL", options: ["local": "Local (LAN only)", "cloud": "Cloud (works remotely)"],
                   defaultValue: "local", required: true
             if (hasToken) {
@@ -171,11 +179,17 @@ def mainPage() {
                 paragraph "<b>Enable OAuth</b> for this app in Apps Code, then click Done."
             }
         }
-        section("Advanced · Logging", hideable: true, hidden: true) {
+        section(hdr("Advanced · Logging"), hideable: true, hidden: true) {
+            paragraph RULE
             input "logLevel", "enum", title: "Logging", options: ["warn", "info", "debug"], defaultValue: "info", width: 4
         }
     }
 }
+
+// Section headings and rules: the usual Hubitat community pattern (bold heading in the section title, <hr> in a paragraph).
+// Theme-neutral: no colours, no page-wide CSS.
+@Field static final String RULE = "<hr style='margin:2px 0 6px 0'>"
+private String hdr(String t) { "<span style='font-size:1.15em;font-weight:bold'>${t}</span>" }
 
 private String statusText() {
     String st = (state.status ?: "waiting").toString().toUpperCase()

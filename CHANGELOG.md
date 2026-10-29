@@ -4,6 +4,10 @@
 - More optional pack libraries: Makin-Things (MIT), Tabler (MIT), Lucide (ISC), amCharts (CC BY 4.0).
 - Night variants for Rob's filled and Rob's outline packs.
 
+## 0.2.18 - 2026-10-29
+- Settings page: each of the nine sections now has a bold, slightly larger heading and a separator line under it (the common Hubitat app pattern), so groups no longer blend into body text. No colours, badges, swatches or page-wide CSS.
+- No setting names changed.
+
 ## 0.2.17 - 2026-10-29
 - Settings page redone with plain Hubitat sections: removed the emoji/HTML section headers, the styled status badge, the colour swatches and styled help text from 0.2.16, which rendered poorly on the hub.
 - Same nine groups (Status, Name & source, Location, Forecast content, Look, Last-updated line, Color overrides, Dashboard, Advanced · Logging) with side-by-side fields via `width:` on inputs. "Open tile image" is now a standard external link.
