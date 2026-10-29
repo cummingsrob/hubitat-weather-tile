@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.5 - 2026-10-28
+- Fix HPM upgrade failure "Expression [ClassExpression] is not allowed: java.io.Reader": `respJson()` no longer references java.io or java.util.zip classes. It handles Map/List and String bodies directly, anything with `getText()` by duck typing, and bytes via `new String(data, "UTF-8")`; gzip handling dropped (the hub decompresses).
+
 ## 0.2.4 - 2026-10-28
 - Fix "NWS points parse error: groovy.json.JsonException ... character read is 'e'": responses are no longer parsed with `getJson()`. A new `respJson()` reads the body whether the hub returns it as a Map/List, String, bytes, stream (including gzip) or reader, strips a BOM, and reports the start of any non-JSON body.
 - All requests (NWS points and forecast, Open-Meteo, custom) set `contentType: application/json`; NWS sends `Accept: application/geo+json, application/json` and a User-Agent.

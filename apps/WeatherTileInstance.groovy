@@ -305,7 +305,7 @@ private String wmoToCondition(Integer c) {
     return "unknown"
 }
 
-/** Parse a response body as JSON whatever form the hub hands it over in (Map/List, String, bytes, stream, reader). */
+/** Parse a response body as JSON whatever form the hub hands it over in (Map/List, String, bytes, or anything with getText()). */
 private Object respJson(resp) {
     def d = null
     try { d = resp.getData() } catch (ignored) { }
@@ -313,31 +313,23 @@ private Object respJson(resp) {
     String txt = bodyText(d)
     if (!txt) {
         try { return resp.getJson() } catch (ignored) { }
-        throw new IllegalStateException("empty response body")
+        throw new Exception("empty response body")
     }
     txt = txt.trim()
     if (txt.startsWith("\uFEFF")) txt = txt.substring(1).trim()
     if (!(txt.startsWith("{") || txt.startsWith("["))) {
         try { def j = resp.getJson(); if (j instanceof Map || j instanceof List) return j } catch (ignored) { }
-        throw new IllegalStateException("response is not JSON (starts: ${txt.take(60)})")
+        throw new Exception("response is not JSON (starts: ${txt.take(60)})")
     }
     return new groovy.json.JsonSlurper().parseText(txt)
 }
 
 private String bodyText(d) {
     if (d == null) return null
-    if (d instanceof String) return (String) d
-    if (d instanceof byte[]) return gunzipIfNeeded((byte[]) d)
-    if (d instanceof InputStream) return gunzipIfNeeded(((InputStream) d).bytes)
-    if (d instanceof Reader) return ((Reader) d).text
+    if (d instanceof String) return d
+    try { if (d.respondsTo("getText")) return d.getText() } catch (ignored) { }
+    try { return new String(d, "UTF-8") } catch (ignored) { }
     return d.toString()
-}
-
-private String gunzipIfNeeded(byte[] b) {
-    if (b.length > 2 && (b[0] & 0xff) == 0x1f && (b[1] & 0xff) == 0x8b) {
-        return new java.util.zip.GZIPInputStream(new ByteArrayInputStream(b)).getText("UTF-8")
-    }
-    return new String(b, "UTF-8")
 }
 
 private Map nwsHeaders() { ["User-Agent": "(hubitat-weather-tile, github.com/cummingsrob/hubitat-weather-tile)", "Accept": "application/geo+json, application/json"] }

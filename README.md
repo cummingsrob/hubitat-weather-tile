@@ -6,7 +6,7 @@ A standalone Hubitat Elevation app that shows a multi-day weather forecast strip
 
 The app serves the forecast as an SVG image from its own OAuth endpoint. The dashboard tile is a short `<img>` attribute (about 220 characters), well under Hubitat's 1,024-character limit. The forecast is fetched on a schedule and cached; viewing the dashboard never triggers a weather API call.
 
-**Status:** 0.2.4. Built without being installed on a hub yet; see [Known limitations](#known-limitations). Requirements: [REQUIREMENTS.md](REQUIREMENTS.md).
+**Status:** 0.2.5. Built without being installed on a hub yet; see [Known limitations](#known-limitations). Requirements: [REQUIREMENTS.md](REQUIREMENTS.md).
 
 ## Pieces
 | File | Type | Purpose |
